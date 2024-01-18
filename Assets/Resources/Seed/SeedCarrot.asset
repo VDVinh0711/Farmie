@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f8acac15fa8534428e35451c7704efc, type: 3}
+  m_Name: SeedCarrot
+  m_EditorClassIdentifier: 
+  _id: 5
+  _uiinGame: {fileID: -1546969056, guid: dc6e398651cbcaf41bd4831540179de3, type: 3}
+  _uiinInven: {fileID: -1546969056, guid: dc6e398651cbcaf41bd4831540179de3, type: 3}
+  _descriptionVN: "H\u1EA1t gi\u1ED1ng c\xE0 r\u1ED1t"
+  _descriptionEN: Carrot seeds
+  Type: 2
+  _daytoGrow: 2
+  _spriteGrow:
+  - {fileID: -1546969056, guid: dc6e398651cbcaf41bd4831540179de3, type: 3}
+  - {fileID: 1270673360, guid: dc6e398651cbcaf41bd4831540179de3, type: 3}
+  - {fileID: -680581261, guid: dc6e398651cbcaf41bd4831540179de3, type: 3}
+  - {fileID: -1582438217, guid: dc6e398651cbcaf41bd4831540179de3, type: 3}
+  _itemHarvset: {fileID: 11400000, guid: 4ab85bfba72e59d41bd410e7392ab48e, type: 2}

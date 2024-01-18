@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f8acac15fa8534428e35451c7704efc, type: 3}
+  m_Name: Seedpaddy
+  m_EditorClassIdentifier: 
+  _id: 7
+  _uiinGame: {fileID: 1099019973, guid: be2572caefd9a28478e8ccd439ea2730, type: 3}
+  _uiinInven: {fileID: 1099019973, guid: be2572caefd9a28478e8ccd439ea2730, type: 3}
+  _descriptionVN: "H\u1EA1t gi\u1ED1ng l\xFAa"
+  _descriptionEN: Rice eggplant seeds
+  Type: 2
+  _daytoGrow: 3
+  _spriteGrow:
+  - {fileID: 448896880, guid: 791c1457ea6b0e1418bb8944c7d56860, type: 3}
+  - {fileID: -992158503, guid: 791c1457ea6b0e1418bb8944c7d56860, type: 3}
+  - {fileID: -1767342850, guid: 791c1457ea6b0e1418bb8944c7d56860, type: 3}
+  _itemHarvset: {fileID: 11400000, guid: 534789524cb5f8646ba0d17f44840dbe, type: 2}

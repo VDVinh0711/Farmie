@@ -1,0 +1,169 @@
+{
+    "name": "FarmInputAction",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "819a4850-4e63-40cd-91d8-1ae4549cfd53",
+            "actions": [
+                {
+                    "name": "Movement",
+                    "type": "Value",
+                    "id": "117d993f-987e-4321-a663-0ff64ab8509c",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "2D Vector",
+                    "id": "6d5eeca9-40e3-444f-83eb-2f59d7e84fec",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "18f392cb-a56d-49a5-b4d1-bdacf3cfaf92",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "4c24ff4e-65e7-4fed-911d-c51255e7b497",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "80e5c2ef-af79-4031-9aae-5f5f2c971d0f",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "8ea49632-d61a-4d0d-8833-1e365bf2fd6d",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "InteracPlayer",
+            "id": "bf7ba001-38a8-42ee-a2ef-c4b6c4462244",
+            "actions": [
+                {
+                    "name": "ShiftHold",
+                    "type": "Button",
+                    "id": "dffe4792-8041-4cae-a2eb-8e014c9947c9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "e94d58da-434c-472b-b798-fe4c5df4f209",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Enterclick",
+                    "type": "Button",
+                    "id": "8f8625d3-f4d4-41fa-99b2-c6f97948ab33",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4c7d9903-9d6b-4d84-b9d8-ddd34c52b363",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "Hold(duration=1E-05,pressPoint=1E-05)",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "ShiftHold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9ed077f8-c6a4-4f3f-9af0-6f5dd639d064",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c9d7ecfd-5bca-4b61-b00d-04106ff42c85",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Enterclick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Keyboard",
+            "bindingGroup": "Keyboard",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Mouse",
+            "bindingGroup": "Mouse",
+            "devices": [
+                {
+                    "devicePath": "<VirtualMouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}

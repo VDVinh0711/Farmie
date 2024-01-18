@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bbe66549ee7ba947b5fb5272efc158d, type: 3}
+  m_Name: HarvestTomato
+  m_EditorClassIdentifier: 
+  Id: HarvestTomato
+  Name: HarvestTomato
+  description: Harvest 3 Tomatos
+  ExpReward: 100
+  GoldReward: 100
+  DimondReward: 100
+  CountRequest: 3
+  TypeMission: 1
+  ItemObject: {fileID: 11400000, guid: e7721b7061f35de4fa9971d27993f634, type: 2}

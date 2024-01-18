@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b308f1b5a253f2e478a8e9292d3287bd, type: 3}
+  m_Name: Carrot
+  m_EditorClassIdentifier: 
+  _id: 1
+  _uiinGame: {fileID: -1705499576, guid: 461874fb4e167224889a6ee63b31aa73, type: 3}
+  _uiinInven: {fileID: -1705499576, guid: 461874fb4e167224889a6ee63b31aa73, type: 3}
+  _descriptionVN: "C\u1EE7 c\xE0 r\u1ED1t c\xF3 th\u1EC3 mang b\xE1n \u1EDF c\u1EEDa
+    h\xE0ng"
+  _descriptionEN: Carrots can be sold at stores
+  _price: 10000

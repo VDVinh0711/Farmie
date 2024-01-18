@@ -1,0 +1,8 @@
+﻿HELLO=नमस्ते
+HELP=हाथ बटाना
+EXIT=बाहर जाएं
+BACK=वापस
+MUSIC=संगीत
+SOUNDS=ध्वनि
+GRAPHICS=ग्राफिक्स
+SETTINGS=समायोजन

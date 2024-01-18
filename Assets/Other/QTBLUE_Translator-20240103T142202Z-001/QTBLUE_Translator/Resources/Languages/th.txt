@@ -1,0 +1,8 @@
+﻿HELLO=สวัสดี
+HELP=ช่วยด้วย
+EXIT=ออก
+BACK=กลับ
+MUSIC=Music
+SOUNDS=เสียง
+GRAPHICS=กราฟิก
+SETTINGS=การตั้งค่า

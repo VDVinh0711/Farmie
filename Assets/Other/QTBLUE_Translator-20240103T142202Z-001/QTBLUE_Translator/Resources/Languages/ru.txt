@@ -1,0 +1,8 @@
+﻿HELLO=ПРИВЕТ
+HELP=ПОМОЩЬ
+EXIT=ВЫХОД
+BACK=ZURÜCK
+MUSIC=Music
+SOUNDS=звук
+GRAPHICS=ГРАФИКА
+SETTINGS=ПАРАМЕТР
