@@ -7,7 +7,7 @@ namespace InventorySystem
     [Serializable]
     public  class ItemSlot
     {
-        //public virtual event Action<ItemSlot>  StatechangeUI;
+        public virtual event Action<ItemSlot>  StatechangeUI;
         [SerializeField] private ItemObject _item;
         public  bool IsstackAble;
         [SerializeField] private bool _isactive = false;
@@ -24,7 +24,7 @@ namespace InventorySystem
                 _item= value;
                 if(value == null) return;
                 IsstackAble = value is IStackAble;
-                //NotifyAboutStateChange();
+                NotifyAboutStateChange();
             }
         }
 
@@ -34,15 +34,15 @@ namespace InventorySystem
             set
             {
                 _isactive = value;
-                //NotifyAboutStateChange();
+                NotifyAboutStateChange();
             }
         }
-        /*protected virtual void NotifyAboutStateChange()
+        protected virtual void NotifyAboutStateChange()
         {
             Debug.Log("Call Statechange");
             Debug.Log(StatechangeUI == null);
           StatechangeUI?.Invoke(this);
-        }*/
+        }
         public ItemSlot(ItemObject item)
         {
             Item = item;
@@ -61,7 +61,7 @@ namespace InventorySystem
        {
            _item = null;
            IsstackAble = false;
-           //NotifyAboutStateChange();
+           NotifyAboutStateChange();
        }
 
        public virtual void UseItem()

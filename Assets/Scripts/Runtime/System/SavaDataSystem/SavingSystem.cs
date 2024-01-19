@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,13 +22,14 @@ public class SavingSystem : MonoBehaviour
     }
     public void LoadSaveData()
     {
-        
         var SaveAbles = GetComponentsInChildren<ISaveSystem>().ToList();
         Dictionary<string, object> savePLayer = new Dictionary<string, object>();
         foreach (var saveable in SaveAbles)
         {
             savePLayer[saveable.GetType().ToString()] = saveable.SaveData();
         }
+
+        savePLayer["TimeOut"] = GameTime.GetRealTIme();
         var savePlayerString = JsonConvert.SerializeObject(savePLayer);
         File.WriteAllText(_pathFarm,savePlayerString);
        
@@ -45,6 +47,17 @@ public class SavingSystem : MonoBehaviour
                 saveable.LoadData(dataFarm[typeString]);
             }
         }
+        try
+        {
+            var timeout = JsonConvert.DeserializeObject<GameTime>(dataFarm["TimeOut"].ToString());
+            TimeManager.Instance.SetupTime(timeout,GameTime.GetRealTIme());
+        }
+        catch (JsonException ex)
+        {
+            Debug.LogError("Error deserializing GameTime from JSON: " + ex.Message);
+        }
+     
+        
     }
 
     private void DeleteSaveFile()
@@ -62,6 +75,9 @@ public class SavingSystem : MonoBehaviour
         UIManager.Destroy();
         
     }
+
+
+   
 }
     
 }

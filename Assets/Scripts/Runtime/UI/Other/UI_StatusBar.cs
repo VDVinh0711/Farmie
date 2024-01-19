@@ -30,7 +30,7 @@ public class UI_StatusBar : MonoBehaviour
 
     private void UpdateHandStatusbar(ItemSlot itemSlot)
     {
-       // itemSlot.StatechangeUI -= OnstateChangeHand;
+        itemSlot.StatechangeUI -= OnstateChangeHand;
         if(itemSlot == null) return;
         var isStack = itemSlot.IsstackAble;
         var hasItem = itemSlot.HasItem();
@@ -38,7 +38,7 @@ public class UI_StatusBar : MonoBehaviour
         _durability_UI.transform.gameObject.SetActive(isdurability);
         _thumail.enabled = hasItem; 
         _quantity.enabled = isStack;
-        //itemSlot.StatechangeUI += OnstateChangeHand;
+        itemSlot.StatechangeUI += OnstateChangeHand;
         if (!hasItem) return;
         _thumail.sprite = itemSlot.Item.UIinInven;
         setduraUI(itemSlot);

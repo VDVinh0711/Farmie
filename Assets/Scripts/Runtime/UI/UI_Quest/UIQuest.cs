@@ -16,11 +16,8 @@ namespace MissionSystem
         private void IntantiateMission()
         {
             if (_questSlots == null) _questSlots = new();
-            print(QuestManager.Instance.Quests.Count);
-           
             foreach (var quest in QuestManager.Instance.Quests.Values)
             {
-                print(quest == null);
                 if(_questSlots.ContainsKey(quest.MissionSo.Id) ) continue;
                 var QuestSpawn = Instantiate(_questPre, _root);
                 var questScript = QuestSpawn.transform.GetComponent<UI_QuestSlot>();

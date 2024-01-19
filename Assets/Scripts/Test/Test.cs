@@ -18,4 +18,11 @@ public class Test : MonoBehaviour
    {
       PlayerController.Instance.PlayerExperience.AddExperience(100);
    }
+
+   public void SkipTIme()
+   {
+     // TimeManager.Instance.SetupTime(300);
+ 
+     Debug.Log(GameTime.ShowTime(GameTime.GetRealTIme()));
+   }
 }

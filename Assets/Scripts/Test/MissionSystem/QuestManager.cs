@@ -43,6 +43,9 @@ namespace MissionSystem
                 case TypeMission.Breed:
                     return new QuestBreed(missionSO);
                     break;
+                case TypeMission.Process:
+                    return new QuestProcess(missionSO);
+                
             }
 
             return null;
@@ -58,6 +61,8 @@ namespace MissionSystem
                 case TypeMission.Breed:
                     return new QuestBreed(missionSO,current,isDone);
                     break;
+                case TypeMission.Process :
+                    return new QuestProcess(missionSO, current, isDone);
             }
 
             return null;
@@ -68,7 +73,6 @@ namespace MissionSystem
             foreach (var quest in _quests.Values)
             {
                 if(quest.Isdone) continue;
-                print(_quests.Count);
                 quest.CheckMission(obj);
             }
         }

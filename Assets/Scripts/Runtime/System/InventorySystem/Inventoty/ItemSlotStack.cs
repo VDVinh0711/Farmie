@@ -15,7 +15,7 @@ public class ItemSlotStack : ItemSlot
         {
           
             _numberItem = value > 0 ? value : 0;
-           // NotifyAboutStateChange();
+            NotifyAboutStateChange();
         }
     }
     public ItemSlotStack(ItemObject itemObject, int numberItem) : base(itemObject)
@@ -40,7 +40,7 @@ public class ItemSlotStack : ItemSlot
         if (IsstackAble)
         {
             NumberItem -= 1;
-           // NotifyAboutStateChange();
+           NotifyAboutStateChange();
             
             if(NumberItem <=0) SetEmty();
         }

@@ -444,6 +444,8 @@ MonoBehaviour:
   _txtDes: {fileID: 5870027217952730129}
   _txtGold: {fileID: 8978104085119031052}
   _txtExp: {fileID: 7510585182681672055}
+  _iconGold: {fileID: 4497216584773417757}
+  _iconExp: {fileID: 8659131185122965191}
 --- !u!1 &4395072755219124738
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,7 +21,6 @@ public class UI_Information : MonoBehaviour
     {
         _process.maxValue = playerExperience.LevelPlayer.Levels[playerExperience.CurrentLevel];
         _title.SetText("Nhà nông cấp  " + playerExperience.CurrentLevel);
-        print(playerExperience.CurrrentExp);
         _process.value = playerExperience.CurrrentExp;
     }
     private void OnDestroy()

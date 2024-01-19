@@ -7,17 +7,16 @@ public class TimeManager : Singleton<TimeManager>,ISaveSystem
 {
     [SerializeField] GameTime gameTime;
     public float timeScale = 1.0f;
-    //List of Object to inform of changes to the time
-    [SerializeField]
     List<ITimeTracker> listeners = new List<ITimeTracker>();
     private void Start()
     {
-        if(gameTime== null)  gameTime = new GameTime(0, GameTime.Season.spring, 1, 0, 0,0);
+       
+        if(gameTime== null)  gameTime = new GameTime(1, 1, 1, 0, 0,0);
         StartCoroutine(TimeUpDate());
+        Debug.Log(GameTime.ShowTime(gameTime));
     }
-
-
-    // ReSharper disable Unity.PerformanceAnalysis
+    
+  
     IEnumerator TimeUpDate()
     {
         while(true)
@@ -42,12 +41,12 @@ public class TimeManager : Singleton<TimeManager>,ISaveSystem
         return new GameTime(this.gameTime);
     }
 
-    //Handel listener
+   
     public void RegisterTracker(ITimeTracker listener)
     {
         this.listeners.Add(listener);
     }
-    //Remove the object from the list of listner
+   
     public void UregisterTracker(ITimeTracker listner)
     {
         listeners.Remove(listner);
@@ -61,7 +60,6 @@ public class TimeManager : Singleton<TimeManager>,ISaveSystem
 
     public void LoadData(object state)
     {
-        
         try
         {
             var time = JsonConvert.DeserializeObject<GameTime>(state.ToString());
@@ -72,4 +70,16 @@ public class TimeManager : Singleton<TimeManager>,ISaveSystem
             Debug.LogError("Error deserializing GameTime from JSON: " + ex.Message);
         }
     }
+
+    public void SetupTime( GameTime gametimeOut, GameTime gameTimeIn )
+    {
+        var timeSecondInt = GameTime.GamrTimetoSecond(gameTimeIn);
+        var timeSecondOut = GameTime.GamrTimetoSecond(gametimeOut);
+        for (int i = 0; i <timeSecondInt - timeSecondOut; i++)
+        {
+            Tick();
+        }
+
+    }
+    
 }

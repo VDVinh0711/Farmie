@@ -1,3 +1,4 @@
+using System;
 using InventorySystem;
 using UnityEngine;
 
@@ -37,13 +38,12 @@ public class Land : MonoBehaviour,ITimeTracker, IInterac
     {
         renderer = GetComponent<SpriteRenderer>();
         SwitchLand(LandState);
-        Select(false);
+       
         TimeManager.Instance.RegisterTracker(this);
-        EventManager.RemoveListener("Watering"+ _idLand,WateringPlant);
+       
+        
         EventManager.RegisterEvent("Watering" + _idLand,WateringPlant);
-        EventManger<SeedObject>.Removeevent("Planting seed" + _idLand,SeedingPlant);
         EventManger<SeedObject>.Registerevent("Planting seed" + _idLand,SeedingPlant);
-        EventManager.RemoveListener("Harvest" + _idLand,Harvest);
         EventManager.RegisterEvent("Harvest" + _idLand,Harvest);
     }
     
@@ -126,5 +126,12 @@ public class Land : MonoBehaviour,ITimeTracker, IInterac
         }
         if (cropPlanted == null) return;
         cropPlanted.Grow(LandState);
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.RemoveListener("Watering"+ _idLand,WateringPlant);
+        EventManger<SeedObject>.Removeevent("Planting seed" + _idLand,SeedingPlant);
+        EventManager.RemoveListener("Harvest" + _idLand,Harvest);
     }
 }

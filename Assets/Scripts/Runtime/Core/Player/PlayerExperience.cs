@@ -1,6 +1,7 @@
 
 using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 
 namespace Player
@@ -18,6 +19,7 @@ namespace Player
             set
             {
                 _currentLevel = value > 0 ? value : 0;
+                EventManger<Object>.RaiseEvent("CheckMission",this);
                 OnStateChange();
             }
         }

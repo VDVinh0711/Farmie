@@ -12,7 +12,7 @@ namespace InventorySystem
             set
             {
                 _durability = value > 0 ? value : 0;
-                //NotifyAboutStateChange();
+                NotifyAboutStateChange();
             }
         }
 
@@ -34,13 +34,13 @@ namespace InventorySystem
         {
             base.SetEmty();
             Durability = 0;
-           // NotifyAboutStateChange();
+            NotifyAboutStateChange();
         }
 
         public override  void UseItem()
         {
             Durability -= (Item as AgriculturalObject).ReduceDura;
-            //NotifyAboutStateChange();
+            NotifyAboutStateChange();
             if(_durability <=0) SetEmty();
         }
     }

@@ -5,7 +5,8 @@ namespace MissionSystem
     {
         None,
         Crop,
-        Breed
+        Breed,
+        Process
     }
 }
 
