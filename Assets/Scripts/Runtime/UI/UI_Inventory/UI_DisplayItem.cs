@@ -12,11 +12,9 @@ namespace InventorySystem
         [SerializeField] private TextMeshProUGUI _quantity;
         [SerializeField] private Slider _durability_UI;
         [SerializeField] private Image _active;
-
         private void Start()
         {
             Getcomponent();
-         
         }
 
         private void Getcomponent()
@@ -30,44 +28,49 @@ namespace InventorySystem
 
         public void UpdateView(ItemSlot  slot)
         {
-            
-           //slot.StatechangeUI -= OnStateChange;
+            slot.StateActionChange -= OnStateActionChange;
+            slot.StateActionChange += OnStateActionChange;
             var hasitem = slot.HasItem();
-            var isstack = slot.IsstackAble;
-            var isdurability = slot is ItemSlotDura && hasitem;
             var isactive = slot.IsActive;
-            _durability_UI.transform.gameObject.SetActive(isdurability);
             _icon.enabled = hasitem;
-            _quantity.enabled = isstack;
+            _quantity.enabled = false;
             _active.enabled = isactive;
-           // slot.StatechangeUI += OnStateChange;
+            _durability_UI.transform.gameObject.SetActive(false);
             if (!hasitem) return;
             _icon.sprite = slot.Item.UIinInven;
-            settext(slot);
-            setduraUI(slot);
+            switch (slot)
+            {
+                case ItemSlotStack:
+                    SetUpUiStack(slot as ItemSlotStack);
+                    break;
+                case ItemSlotDura:
+                    SetUiDuraable(slot as ItemSlotDura);
+                    break;
+            }
             
         }
-       /* private void OnStateChange(ItemSlot arg)
+      
+       
+        private void SetUiDuraable(ItemSlotDura itemSlotDura)
+        {
+            if (itemSlotDura == null) return;
+            _durability_UI.transform.gameObject.SetActive(true);
+            _durability_UI.maxValue = (itemSlotDura.Item as AgriculturalObject).Durability;
+            _durability_UI.value = itemSlotDura.Durability;
+        }
+
+        private void SetUpUiStack(ItemSlotStack itemSlotStack)
+        {
+            if ( itemSlotStack == null) return;
+            _quantity.enabled = true;   
+            _quantity.SetText(itemSlotStack.NumberItem.ToString());
+        }
+        
+        
+        private void OnStateActionChange(ItemSlot arg)
         {
             UpdateView(arg);
-        }*/
-
-        private void setduraUI(ItemSlot item)
-        {
-            var itemdura = item as ItemSlotDura;
-            var itemobj = item.Item as AgriculturalObject;
-            if (itemdura == null && itemobj == null) return;
-            _durability_UI.maxValue = itemobj.Durability;
-            _durability_UI.value = itemdura.Durability;
         }
-
-        private void settext(ItemSlot item)
-        {
-            var itemstack = item as ItemSlotStack;
-            if(itemstack == null) return;
-            _quantity.SetText(itemstack.NumberItem.ToString());
-        }
-
     }
 }
 

@@ -5,17 +5,16 @@ namespace InventorySystem
     public class ItemSlotDura : ItemSlot
     {
         private int _durability;
-
         public int Durability
         {
             get => _durability;
             set
             {
-                _durability = value > 0 ? value : 0;
-                NotifyAboutStateChange();
+                _durability = value;
+                OnStateChange();
+             
             }
         }
-
         public ItemSlotDura(ItemObject itemObject, int durability): base(itemObject)
         {
             Durability = durability;
@@ -34,13 +33,11 @@ namespace InventorySystem
         {
             base.SetEmty();
             Durability = 0;
-            NotifyAboutStateChange();
         }
 
         public override  void UseItem()
         {
             Durability -= (Item as AgriculturalObject).ReduceDura;
-            NotifyAboutStateChange();
             if(_durability <=0) SetEmty();
         }
     }

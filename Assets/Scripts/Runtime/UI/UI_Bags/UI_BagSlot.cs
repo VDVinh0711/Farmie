@@ -10,7 +10,10 @@ namespace InventorySystem
 {
     public class UI_BagSlots :UI_Slots
     {
-       /* #region Prop
+
+        #region BackUp Old Version
+
+        /* #region Prop
         [SerializeField] protected InventorySlot _slot;
         [SerializeField] public int _indexOfSlot;
         [SerializeField] private UI_DisplayItem _uiItem;
@@ -88,8 +91,10 @@ namespace InventorySystem
             print(obj);
             isPressShift = false;
         }*/
-         [SerializeField] private UI_Bags _uiBags;
 
+        #endregion
+       
+         [SerializeField] private UI_Bags _uiBags;
          protected override void Start()
          {
              base.Start();
@@ -102,7 +107,8 @@ namespace InventorySystem
              if(!_slot.HasItem()) return;
              if (isPressShift)
              {
-                 BagsManager.Instance.InventoHand(_indexOfSlot);
+                 //BagsManager.Instance.InventoHand(_indexOfSlot);
+                 Crafting.Instance.AddItemSlot(BagsManager.Instance.GetItemByIndex(_indexOfSlot));
                  return;
              }
              _slot.IsActive = true;

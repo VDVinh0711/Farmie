@@ -15,9 +15,7 @@ namespace InventorySystem
         public ItemSlot Slot => _slot;
         public event Action<string,string> showDesEvent;
         protected FarmInputAction _farmInputAction;
-        [SerializeField] protected bool isPressShift = false;
-
-        //private UI_Inventory _uiInventory;
+         protected bool isPressShift = false;
         #endregion
         
         
@@ -29,24 +27,23 @@ namespace InventorySystem
             _farmInputAction.InteracPlayer.ShiftHold.performed += ShiftPress;
             _farmInputAction.InteracPlayer.ShiftHold.canceled += ShiftOut;
         }
-        
         public void Display(ItemSlot item)
         {
             if (item == null) return;
             _slot = item;
             if(_uiItem == null) _uiItem = transform.GetComponentInChildren<UI_DisplayItem>();
-            _uiItem.UpdateView(_slot);
+            _uiItem.UpdateView(item);
         }
-        
-        
+        private void OnStateChange(ItemSlot arg)
+        {
+            Display(_slot);
+        }
         public void AssighIndex(int index)
         {
             _indexOfSlot = index;
         }
-     
         public virtual void OnPointerEnter(PointerEventData eventData)
         {
-            
             string name = _slot.HasItem() ? _slot.Item.name : " ";
             if(!_slot.HasItem()) return;
             var des = GameManager.Instance.GameMultiLang.currentlang.Equals("vn") ? _slot.Item.DescriptionVN : _slot.Item.DescriptionEN;
@@ -83,6 +80,7 @@ namespace InventorySystem
             isPressShift = false;
         }
 
+       
     }
 }
 

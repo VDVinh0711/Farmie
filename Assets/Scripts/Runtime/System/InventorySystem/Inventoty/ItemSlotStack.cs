@@ -13,14 +13,12 @@ public class ItemSlotStack : ItemSlot
         get => _numberItem;
         set
         {
-          
-            _numberItem = value > 0 ? value : 0;
-            NotifyAboutStateChange();
+            _numberItem = value;
+            OnStateChange();
         }
     }
     public ItemSlotStack(ItemObject itemObject, int numberItem) : base(itemObject)
     {
-        
         NumberItem = numberItem;
     }
     public ItemSlotStack(ItemSlotStack itemObject) : base(itemObject)
@@ -37,23 +35,14 @@ public class ItemSlotStack : ItemSlot
 
     public  override void UseItem()
     {
-        if (IsstackAble)
-        {
-            NumberItem -= 1;
-           NotifyAboutStateChange();
-            
-            if(NumberItem <=0) SetEmty();
-        }
+        NumberItem -= 1;
+        if(NumberItem <=0) SetEmty();
     }
-
-   
-
     public override void SetEmty()
     {
         base.SetEmty();
         NumberItem = 0;
     }
-
     public bool CanStackAble()
     {
         return  _numberItem != SizeStack;

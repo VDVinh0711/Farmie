@@ -391,6 +391,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carrot: {fileID: 11400000, guid: 4ab85bfba72e59d41bd410e7392ab48e, type: 2}
+  item1: {fileID: 11400000, guid: 534789524cb5f8646ba0d17f44840dbe, type: 2}
+  item2: {fileID: 11400000, guid: e7721b7061f35de4fa9971d27993f634, type: 2}
 --- !u!4 &971633774
 Transform:
   m_ObjectHideFlags: 0
@@ -489,9 +491,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2136161024}
-        m_TargetAssemblyTypeName: MissionSystem.QuestManager, Assembly-CSharp
-        m_MethodName: ShowDOne
+      - m_Target: {fileID: 971633773}
+        m_TargetAssemblyTypeName: Test, Assembly-CSharp
+        m_MethodName: TestCraf
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

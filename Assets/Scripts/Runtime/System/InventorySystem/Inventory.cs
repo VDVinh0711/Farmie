@@ -6,15 +6,14 @@ using UnityEngine;
 
 namespace InventorySystem
 {
-    public class Inventory : MonoBehaviour,ISaveSystem
+    public class Inventory : Singleton<Inventory>,ISaveSystem
 {
-        [SerializeField] protected ItemSlot[] _slots;
-        [SerializeField] protected List<ItemSlot> _slotItem;
-        [SerializeField] protected  int _size = 30;
+        private ItemSlot[] _slots;
+        private  int _size = 30;
         public static Inventory Instance;
         public  ItemSlot[] Slot=> _slots;
         public int Size => _size;   
-        public event Action StateChange;
+        public event Action StateChangeInventory;
         protected virtual void Awake()
         {
             Instance = this;
@@ -22,6 +21,7 @@ namespace InventorySystem
         private void AdjustInven()
         {
             _slots ??= new ItemSlot[_size];
+         
         }
         private void OnValidate()
         {
@@ -56,6 +56,7 @@ namespace InventorySystem
             var relevanSlot = FindSlot(item );
             return !ISFull() || relevanSlot!=null;
         }
+        
         public  bool AddItem(ItemObject item, int numberitem)
         {
            
@@ -65,35 +66,8 @@ namespace InventorySystem
                 return false;
             }
             var numberadd = numberitem;
-            while (numberadd > 0)
-            {
-                var relavant = FindSlot(item);
-                if (relavant != null)
-                {
-                    print(relavant.Item.name);
-                    if ((relavant as ItemSlotStack).CanAddItem(numberadd))
-                    {
-                        (relavant as ItemSlotStack).NumberItem += numberadd;
-                        numberadd = 0;
-                    }
-                    else
-                    {
-                        var maxStack = (item as IStackAble).MaxStack;
-                        var numberaddtofull =   maxStack -  (relavant as ItemSlotStack).NumberItem;
-                        (relavant as ItemSlotStack).NumberItem +=numberaddtofull;
-                        numberadd -= numberaddtofull;
-                        
-                    }
-                }
-                else
-                {
-                    var numberafteradd = AddFirstSlotEmty(item, numberadd);
-                    numberadd = numberafteradd;
-                }
-            }
-           OnUpdateInventory();
-           
-           
+            AddfollowReQuest(item, numberadd);
+            OnUpdateInventory();
             return true;
         }
         private int AddFirstSlotEmty(ItemObject item , int numberitem)
@@ -120,57 +94,72 @@ namespace InventorySystem
             }
             return -1;
         }
-
-        public void AddSlotEmtybyIndex(ItemSlot itemSlot, int index)
+        
+        public  bool AddItem2(ItemSlot itemSlot)
         {
-            if (itemSlot is ItemSlotStack)
+            if (!CanAcceptItem(itemSlot.Item, itemSlot is ItemSlotStack ? (itemSlot as ItemSlotStack).NumberItem : 1))
             {
-                _slots[index] = new ItemSlotStack(itemSlot as ItemSlotStack);
+                EventManger<string>.RaiseEvent("ShowNotifycation","Kho đồ đã đầy");
+                return false;
             }
-            else
+            switch (itemSlot)
             {
-                _slots[index] = new ItemSlotDura(itemSlot as ItemSlotDura);  
+                case ItemSlotStack:
+                    var itemStack = itemSlot as ItemSlotStack;
+                    var numberadd = itemStack.NumberItem;
+                    AddfollowReQuest(itemStack.Item, numberadd);
+                    break;
+                case ItemSlotDura :
+                    var index = FindIndexSlotEmTy();
+                    _slots[index] = new ItemSlotDura(itemSlot as ItemSlotDura);
+                    break;
+                
+                default:
+                    return false;
+                    break;
             }
             OnUpdateInventory();
+            return true;
+          
         }
-
-        public void RemoveItem(int index)
+     
+        private void AddfollowReQuest(ItemObject item, int number)
         {
-            _slots[index].SetEmty();
-        }
-
-        public void RemoveItem(ItemSlot itemSlot, int quantity)
-        {
-            foreach (var slot in _slots)
+            while (number > 0)
             {
-                if (slot == itemSlot)
+                var relavant = FindSlot(item);
+                if (relavant != null)
                 {
-                    if (slot is ItemSlotStack)
+                    if ((relavant as ItemSlotStack).CanAddItem(number))
                     {
-                        (slot as ItemSlotStack).PreviousItem(quantity);
+                        (relavant as ItemSlotStack).NumberItem += number;
+                        number = 0;
                     }
                     else
                     {
-                        slot.SetEmty();
+                        var maxStack = (item as IStackAble).MaxStack;
+                        var numberaddtofull =   maxStack -  (relavant as ItemSlotStack).NumberItem;
+                        (relavant as ItemSlotStack).NumberItem +=numberaddtofull;
+                        number -= numberaddtofull;
+                        
                     }
+                }
+                else
+                {
+                    var numberafteradd = AddFirstSlotEmty(item, number);
+                    number = numberafteradd;
                 }
             }
         }
-        public List<ItemSlot> GetListSLotItem()
-        {
-            _slotItem = new List<ItemSlot>();
-            foreach (var slot in _slots)
-            {
-                if(slot.Item is ItemInvenObject)
-                    _slotItem.Add(slot);
-            }
-            return _slotItem;
-        }
+        
+   
         private void OnUpdateInventory()
         {
-            StateChange?.Invoke();
+            StateChangeInventory?.Invoke();
         }
         
+      
+      
         
         
         
@@ -196,14 +185,14 @@ namespace InventorySystem
             {
                 if(!slot.HasItem()) continue;
                
-                if (slot.IsstackAble)
+                if (slot.Item is IStackAble)
                 {
-                    Itemdata newItem = new Itemdata(slot.ID, (slot as ItemSlotStack).NumberItem,0,slot.IsstackAble);
+                    Itemdata newItem = new Itemdata(slot.ID, (slot as ItemSlotStack).NumberItem,0);
                     listItemSave.Add(newItem);
                 }
                 else
                 {
-                    Itemdata newItem = new Itemdata(slot.ID, 0,(slot as ItemSlotDura).Durability,slot.IsstackAble);
+                    Itemdata newItem = new Itemdata(slot.ID, 0,(slot as ItemSlotDura).Durability);
                     listItemSave.Add(newItem);
                 }
             }
@@ -214,15 +203,15 @@ namespace InventorySystem
             var listItemsave = JsonConvert.DeserializeObject<List<Itemdata>>(state.ToString());
             for (int i = 0; i < listItemsave.Count; i++)
             {
-                if (listItemsave[i].IsStackABle)
+
+                var item = ItemObject.getItemByID(listItemsave[i].ID);
+                if (item is IStackAble)
                 {
-                    _slots[i] = new ItemSlotStack(ItemObject.getItemByID(listItemsave[i].ID),
-                        listItemsave[i].Quantity);
+                    _slots[i] = new ItemSlotStack(item, listItemsave[i].Quantity);
                 }
                 else
                 {
-                    _slots[i] = new ItemSlotDura(ItemObject.getItemByID(listItemsave[i].ID),
-                        listItemsave[i].Durability);
+                    _slots[i] = new ItemSlotDura(item,listItemsave[i].Durability);
                 }
             }
         }

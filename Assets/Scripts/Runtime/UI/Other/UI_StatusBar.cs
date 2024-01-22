@@ -30,15 +30,13 @@ public class UI_StatusBar : MonoBehaviour
 
     private void UpdateHandStatusbar(ItemSlot itemSlot)
     {
-        itemSlot.StatechangeUI -= OnstateChangeHand;
         if(itemSlot == null) return;
-        var isStack = itemSlot.IsstackAble;
+        var isStack = itemSlot  is ItemSlotStack;
         var hasItem = itemSlot.HasItem();
         var isdurability = itemSlot is ItemSlotDura && hasItem;
         _durability_UI.transform.gameObject.SetActive(isdurability);
         _thumail.enabled = hasItem; 
         _quantity.enabled = isStack;
-        itemSlot.StatechangeUI += OnstateChangeHand;
         if (!hasItem) return;
         _thumail.sprite = itemSlot.Item.UIinInven;
         setduraUI(itemSlot);
@@ -50,8 +48,8 @@ public class UI_StatusBar : MonoBehaviour
     }
     public void Display()
     {
-        BagsManager.Instance.StateChange -= OnstateChange;
-        BagsManager.Instance.StateChange += OnstateChange;
+        BagsManager.Instance.HandItem.StateActionChange -= UpdateHandStatusbar;
+        BagsManager.Instance.HandItem.StateActionChange += UpdateHandStatusbar;
         var money = PlayerController.Instance.PlayerStats.Money;
         UpdateHandStatusbar(BagsManager.Instance.HandItem);
         UpdateMoneyStatusBar();
@@ -72,10 +70,7 @@ public class UI_StatusBar : MonoBehaviour
         if(itemstack == null) return;
         _quantity.SetText(itemstack.NumberItem.ToString());
     }
-    private void OnstateChangeHand(ItemSlot arg)
-    {
-        UpdateHandStatusbar(arg);
-    }
+   
     private void OnstateChangeMoney()
     {
         UpdateMoneyStatusBar();

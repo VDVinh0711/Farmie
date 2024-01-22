@@ -33,13 +33,13 @@ public class UI_Bags : AbsCheckOutSide
             var UISLot = Instantiate(_inventorySLotPrefabs,root);
             var UIslotScript = UISLot.gameObject.GetComponent<UI_BagSlots>();
             UIslotScript.AssighIndex(i);
-            //UIslotScript.Display(BagsManager.Instance.Slot[i]);
+            UIslotScript.Display(BagsManager.Instance.Slot[i]);
             UIslotScript.showDesEvent += ShowUIDescription;
             _slots.Add(UIslotScript);
         }
         _uiHandplayer.Display(BagsManager.Instance.HandItem );
        RenderBags();
-      BagsManager.Instance.StateChange += RenderBags;
+      BagsManager.Instance.StateChangeBags += RenderBags;
     }
     private void RenderBags()
     {
@@ -66,9 +66,9 @@ public class UI_Bags : AbsCheckOutSide
             return;
         }
        
-       RenderBags(); 
+        RenderBags(); 
         UIManager.OpenUI(root.parent.transform);
-        regisclick();
+       regisclick();
     }
 
     protected  override void Click(InputAction.CallbackContext obj)

@@ -28,7 +28,7 @@ public class UI_Inventory : AbsCheckOutSide
             _slots.Add(UIslotScript);
         }
        RenderInventory();
-        Inventory.Instance.StateChange += RenderInventory;
+       Inventory.Instance.StateChangeInventory += RenderInventory;
     }
     private void RenderInventory()
     {

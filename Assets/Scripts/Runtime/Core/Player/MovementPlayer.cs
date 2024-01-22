@@ -12,12 +12,11 @@ namespace Player
         [SerializeField] private Animator animator;
         private FarmInputAction _farmInputAction;
         public float moveSpeed;
-        public CapsuleCollider2D CapsuleCollider;
         private void Awake()
         {
             _farmInputAction = new FarmInputAction();
             _farmInputAction.Enable();
-            CapsuleCollider = transform.GetComponent<CapsuleCollider2D>();
+            isMove = false;
         }
     
         void Update()
@@ -29,7 +28,8 @@ namespace Player
             Vector2 direction =  _farmInputAction.Player.Movement.ReadValue<Vector2>();
             isMove = (direction.x != 0 || direction.y != 0) ? true : false;
             Vector2 velocity = moveSpeed * Time.deltaTime * direction;
-            transform.parent.Translate(velocity);
+           // transform.parent.Translate(velocity);
+           transform.parent.Translate(velocity);
             setAnimator(direction.x, direction.y,velocity);
             FlipPlayer(direction.x);
     
@@ -40,6 +40,7 @@ namespace Player
             animator.SetFloat("vertical", vertical);
             animator.SetFloat("Speed", velocity.magnitude);  
         }
+
         void FlipPlayer(float horizontal)
         {
             SpriteRenderer renderer = transform.parent.gameObject.GetComponentInChildren<SpriteRenderer>();
@@ -52,6 +53,8 @@ namespace Player
                 renderer.flipX = false;
             }
         }
+
+     
     }
 }
 
