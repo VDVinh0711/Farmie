@@ -9,11 +9,11 @@ namespace Shop123
     {
         private ItemInvenObject _itemsell;
         private int _quantity;
-        private BagsManager _bagsManager;
+        private Bag _bag;
 
-        public SellItem( BagsManager bagsManager)
+        public SellItem( Bag bag)
         {
-            _bagsManager = bagsManager;
+            _bag = bag;
         }
         public void SellAll(ItemSlot itemSlot)
         {
@@ -24,7 +24,7 @@ namespace Shop123
            _quantity = item.NumberItem;
             float cost = _itemsell.Price * _quantity;
             PlayerController.Instance.PlayerStats.Earn(cost);
-            _bagsManager.RemoveItem(itemSlot,_quantity);
+            _bag.RemoveItem(itemSlot,_quantity);
         }
 
         public void SellEachItem(ItemSlot itemsell , int quantity)
@@ -33,7 +33,7 @@ namespace Shop123
             if(_itemsell== null) return;
             _quantity = quantity;
             float cost = _itemsell.Price * _quantity;
-           _bagsManager.RemoveItem(itemsell,_quantity);
+           _bag.RemoveItem(itemsell,_quantity);
         }
     }
 }

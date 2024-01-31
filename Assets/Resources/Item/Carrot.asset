@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b308f1b5a253f2e478a8e9292d3287bd, type: 3}
   m_Name: Carrot
   m_EditorClassIdentifier: 
-  _id: 1
+  _id: Carrot
   _uiinGame: {fileID: -1705499576, guid: 461874fb4e167224889a6ee63b31aa73, type: 3}
   _uiinInven: {fileID: -1705499576, guid: 461874fb4e167224889a6ee63b31aa73, type: 3}
-  _descriptionVN: "C\u1EE7 c\xE0 r\u1ED1t c\xF3 th\u1EC3 mang b\xE1n \u1EDF c\u1EEDa
-    h\xE0ng"
-  _descriptionEN: Carrots can be sold at stores
+  _keyDes: ICARROT
   _price: 10000

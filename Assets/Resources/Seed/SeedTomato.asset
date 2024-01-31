@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f8acac15fa8534428e35451c7704efc, type: 3}
   m_Name: SeedTomato
   m_EditorClassIdentifier: 
-  _id: 6
+  _id: SeedTomato
   _uiinGame: {fileID: 267381381, guid: 461874fb4e167224889a6ee63b31aa73, type: 3}
   _uiinInven: {fileID: 267381381, guid: 461874fb4e167224889a6ee63b31aa73, type: 3}
-  _descriptionVN: "H\u1EA1t gi\u1ED1ng khoai t\xE2y"
-  _descriptionEN: Seed tomato
+  _keyDes: ISPOTATO
   Type: 2
   _daytoGrow: 4
   _spriteGrow:

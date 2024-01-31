@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,17 +9,17 @@ public class PhysiologicalState : MonoBehaviour,ITimeTracker
     [SerializeField] private bool _ishurry;
     [SerializeField] private bool _issick;
     [SerializeField] private bool _isharvest;
-    
     private AnimalNormalState _animalNormalState;
     private AnimalHurryState _animalHurryState;
     private AnimalHarvestState _animalHarvestState;
     private AnimalSickState _animalSickState;
-    [SerializeField] public List<IState> listState = new();
+    public List<IState> listState = new();
 
     [SerializeField] private float timeEat ;
     [SerializeField] private float health ;
     public Animal Animal;
 
+    public event Action<PhysiologicalState> ChangeStateAnimal;
     public float TimeEat
     {
         get => timeEat;
@@ -53,6 +54,7 @@ public class PhysiologicalState : MonoBehaviour,ITimeTracker
             {
                 _animalNormalState.OnExit();
             }
+            NotifyChangeStateAnimal();
         }
     }
 
@@ -77,6 +79,7 @@ public class PhysiologicalState : MonoBehaviour,ITimeTracker
                     IsNormal = true;
                 }
             }
+            NotifyChangeStateAnimal();
         }
     }
 
@@ -100,6 +103,7 @@ public class PhysiologicalState : MonoBehaviour,ITimeTracker
                 }
             }
             
+            NotifyChangeStateAnimal();
         }
     }
 
@@ -237,4 +241,10 @@ public class PhysiologicalState : MonoBehaviour,ITimeTracker
         _isnormal = false;
         _animalHarvestState.OnEnter();
     }*/
+
+
+    private void NotifyChangeStateAnimal()
+    {
+        ChangeStateAnimal?.Invoke(this);
+    }
 }

@@ -7,7 +7,6 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component
 
     protected virtual  void Awake()
     {
-       
             Instance = this as  T;
     }
 }

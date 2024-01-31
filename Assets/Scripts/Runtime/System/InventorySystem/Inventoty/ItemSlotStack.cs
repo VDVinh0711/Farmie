@@ -17,6 +17,8 @@ public class ItemSlotStack : ItemSlot
             OnStateChange();
         }
     }
+    
+    public ItemSlotStack(){}
     public ItemSlotStack(ItemObject itemObject, int numberItem) : base(itemObject)
     {
         NumberItem = numberItem;
@@ -30,7 +32,7 @@ public class ItemSlotStack : ItemSlot
     {
         if(quantity > NumberItem) return;
         NumberItem -= quantity;
-        if(_numberItem == 0) SetEmty();
+        if(NumberItem == 0) SetEmty();
     }
 
     public  override void UseItem()
@@ -51,5 +53,13 @@ public class ItemSlotStack : ItemSlot
     public bool CanAddItem(int quantity)
     {
         return quantity + _numberItem <= SizeStack;
+    }
+
+    public ItemSlot GetItemSlotStack(int quantity)
+    {
+        if (quantity > _numberItem) return null;
+        ItemSlot temp = new ItemSlotStack(Item, quantity);
+        PreviousItem(quantity);
+        return temp;
     }
 }

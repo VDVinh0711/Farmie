@@ -1,4 +1,5 @@
 
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -11,7 +12,7 @@ namespace InventorySystem
         [SerializeField] private Button _btn_AddInven;
         [SerializeField] private Button _btn_Dispose;
         [SerializeField] private UI_BagSlots _uiBagsSlot;
-
+        [SerializeField] private BagOptionsController _bagOptionsController;
         public  void Start()
         {
             _btn_Use = transform.GetChild(0).GetComponent<Button>();
@@ -24,7 +25,6 @@ namespace InventorySystem
         
         public void ShowOption(UI_BagSlots uibagslot)
         {
-
             _uiBagsSlot = uibagslot;
             if (gameObject.activeSelf)
             {
@@ -35,30 +35,17 @@ namespace InventorySystem
             }
             gameObject.SetActive(true);
             regisclick();
-        
-
         }
         public void UseItemClick()
         {
-            _uiBagsSlot.Slot.IsActive = false;
-            BagsManager.Instance.InventoHand(_uiBagsSlot.getIndexItem());
-            gameObject.SetActive(false);
-          
+            _bagOptionsController.UseItem(_uiBagsSlot);
+            HideOption();
         }
-
         private void AddInvenClick()
         {
-            int quantity = 1;
-            if (_uiBagsSlot.Slot is ItemSlotStack)
-            {
-                quantity = (_uiBagsSlot.Slot as ItemSlotStack).NumberItem;
-            }
-            if( ! Inventory.Instance.AddItem(_uiBagsSlot.Slot.Item, quantity)) return;
-            BagsManager.Instance.Slot[_uiBagsSlot._indexOfSlot].SetEmty();
-            gameObject.SetActive(false);
-            _uiBagsSlot.Slot.IsActive = false;
+           _bagOptionsController.AddItemtoInventory(_uiBagsSlot);
+           HideOption();
         }
-
         private void DisposeClick()
         {
             ComfirmManager.Intance.Show("Bạn có muốn vứt vật phẩm này không ? Mất hết",this);
@@ -66,16 +53,21 @@ namespace InventorySystem
         
         public void ActionAccept()
         {
-            BagsManager.Instance.Slot[_uiBagsSlot._indexOfSlot].SetEmty();
-            gameObject.SetActive(false);
+           _bagOptionsController.DisposeItem(_uiBagsSlot);
             _uiBagsSlot.Slot.IsActive = false;
+            HideOption();
         }
 
         protected override void Click(InputAction.CallbackContext obj)
         {
             if(!_isOutSide) return;
-            gameObject.SetActive(false);
             _uiBagsSlot.Slot.IsActive = false;
+            HideOption();
+        }
+
+        private void HideOption()
+        {
+            gameObject.SetActive(false);
         }
     }
 }

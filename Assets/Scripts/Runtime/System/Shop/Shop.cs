@@ -31,7 +31,7 @@ public class Shop : MonoBehaviour,IInterac
         if(item is Itemshop)
         {
             Itemshop itemdata = item as Itemshop;
-            if (BagsManager.Instance.AddItem(itemdata.itemdata, quantity))
+            if (Bag.Instance.AddItem(itemdata.itemdata, quantity))
             {
                 PlayerController.Instance.PlayerStats.Spend(toltalcoast);
             }

@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b308f1b5a253f2e478a8e9292d3287bd, type: 3}
   m_Name: Paddy
   m_EditorClassIdentifier: 
-  _id: 10
+  _id: Paddy
   _uiinGame: {fileID: 1099019973, guid: be2572caefd9a28478e8ccd439ea2730, type: 3}
   _uiinInven: {fileID: 1099019973, guid: be2572caefd9a28478e8ccd439ea2730, type: 3}
-  _descriptionVN: "L\xFAa c\xF3 th\u1EC3 b\xE1n \u1EDF c\u1EEDa h\xE0ng"
-  _descriptionEN: Rice can be sold at stores
+  _keyDes: IPADDY
   _price: 1000

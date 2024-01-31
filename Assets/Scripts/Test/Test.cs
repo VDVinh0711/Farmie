@@ -1,19 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using InventorySystem;
 using Player;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class Test : MonoBehaviour
 {
    [SerializeField] private ItemObject carrot;
    [SerializeField] private ItemObject item1;
    [SerializeField] private ItemObject item2;
-   
    [SerializeField] private ItemSlot _product;
- 
-
+   [SerializeField] private ItemSlot _product2;
+   [SerializeField] private List<float> lais = new();
+   [SerializeField] private float rootMoney;
+   private void Start()
+   {
+      TestRef();
+      LaiSuat();
+   }
 
    public void AddTest()
    {
@@ -41,7 +48,7 @@ public class Test : MonoBehaviour
 
    public void Tesst()
    {
-      ItemSlot itemSlot = BagsManager.Instance.Slot[0];
+      ItemSlot itemSlot = Bag.Instance.Slot[0];
       switch (itemSlot)
       {
          case ItemSlotStack:
@@ -58,8 +65,30 @@ public class Test : MonoBehaviour
        _product = carrot  is IStackAble
          ? new ItemSlotStack(carrot, 1)
          : new ItemSlotDura(carrot);
-      BagsManager.Instance.AddItem2(_product);
+      //BagsManager.Instance.AddItem2(_product);
    }
+
+   public void TestRef()
+   {
+      _product = new ItemSlotStack();
+      _product2 = new ItemSlotStack(carrot,6);
+      _product = _product2;
+      
+      
+
+   }
+
+   private void LaiSuat()
+   {
+      rootMoney = rootMoney * 1000000;
+      foreach (var lai in lais)
+      {
+         rootMoney += rootMoney * lai / 100 * 13 / 12;
+      }
+      Debug.Log(rootMoney /1000000);
+   }
+   
+   
    
    
 }

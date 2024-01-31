@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 using InventorySystem;
 using Player;
@@ -6,6 +7,9 @@ using TMPro;
 using UnityEngine.UI;
 public class UI_StatusBar : MonoBehaviour
 {
+
+    [SerializeField] private Bag _bag;
+    [SerializeField] private PlayerController _playerController;
     [Header("Hand")]
     [SerializeField] private Image _thumail;
     [SerializeField] private TextMeshProUGUI _quantity;
@@ -30,55 +34,66 @@ public class UI_StatusBar : MonoBehaviour
 
     private void UpdateHandStatusbar(ItemSlot itemSlot)
     {
-        if(itemSlot == null) return;
-        var isStack = itemSlot  is ItemSlotStack;
-        var hasItem = itemSlot.HasItem();
-        var isdurability = itemSlot is ItemSlotDura && hasItem;
-        _durability_UI.transform.gameObject.SetActive(isdurability);
-        _thumail.enabled = hasItem; 
-        _quantity.enabled = isStack;
-        if (!hasItem) return;
+        _bag.HandItem.StateActionChange -= OnStateActionChange;
+        _bag.HandItem.StateActionChange += OnStateActionChange;
+        var hasitem = itemSlot.HasItem();
+        _thumail.enabled = hasitem;
+        _quantity.enabled = false;
+        _durability_UI.transform.gameObject.SetActive(false);
+        if (!hasitem) return;
         _thumail.sprite = itemSlot.Item.UIinInven;
-        setduraUI(itemSlot);
-        settext(itemSlot);
+        switch (itemSlot)
+        {
+            case ItemSlotStack:
+                SetUpUiStack(itemSlot as ItemSlotStack);
+                break;
+            case ItemSlotDura:
+                SetUiDuraable(itemSlot as ItemSlotDura);
+                break;
+        }
+
     }
-    private void OnstateChange()
+
+    private void SetUiDuraable(ItemSlotDura itemSlotDura)
     {
-        Display();
+        if (itemSlotDura == null) return;
+        _durability_UI.transform.gameObject.SetActive(true);
+        _durability_UI.maxValue = (itemSlotDura.Item as AgriculturalObject).Durability;
+        _durability_UI.value = itemSlotDura.Durability;
     }
+
+    private void SetUpUiStack(ItemSlotStack itemSlotStack)
+    {
+        if ( itemSlotStack == null) return;
+        _quantity.enabled = true;   
+        _quantity.SetText(itemSlotStack.NumberItem.ToString());
+    }
+
     public void Display()
     {
-        BagsManager.Instance.HandItem.StateActionChange -= UpdateHandStatusbar;
-        BagsManager.Instance.HandItem.StateActionChange += UpdateHandStatusbar;
-        var money = PlayerController.Instance.PlayerStats.Money;
-        UpdateHandStatusbar(BagsManager.Instance.HandItem);
+        _bag.StateChangeHand+= UpdateHandStatusbar;
+        UpdateHandStatusbar(_bag.HandItem);
         UpdateMoneyStatusBar();
     }
     
-    private void setduraUI(ItemSlot item)
-    {
-        var itemdura = item as ItemSlotDura;
-        var itemobj = item.Item as AgriculturalObject;
-        if (itemdura == null && itemobj == null) return;
-        _durability_UI.maxValue = itemobj.Durability;
-        _durability_UI.value = itemdura.Durability;
-    }
-
-    private void settext(ItemSlot item)
-    {
-        var itemstack = item as ItemSlotStack;
-        if(itemstack == null) return;
-        _quantity.SetText(itemstack.NumberItem.ToString());
-    }
-   
     private void OnstateChangeMoney()
     {
         UpdateMoneyStatusBar();
     }
     private void UpdateMoneyStatusBar()
     {
-        PlayerController.Instance.PlayerStats.StateChange -= OnstateChangeMoney;
-        _money.SetText( "<wave>"+PlayerController.Instance.PlayerStats.Money.ToString() + "$ </wave>");
-        PlayerController.Instance.PlayerStats.StateChange += OnstateChangeMoney;
+        _playerController.PlayerStats.StateChange += OnstateChangeMoney;
+        _money.SetText( PlayerController.Instance.PlayerStats.Money.ToString());
+        
+    }
+
+    private void OnDestroy()
+    {
+        _playerController.PlayerStats.StateChange -= OnstateChangeMoney;
+        _bag.StateChangeHand -= UpdateHandStatusbar;
+    }
+    private void OnStateActionChange(ItemSlot arg)
+    {
+        UpdateHandStatusbar(arg);
     }
 }

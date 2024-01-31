@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71dcd4f9a91859345916709840f3ec6b, type: 3}
   m_Name: Watercan
   m_EditorClassIdentifier: 
-  _id: 8
+  _id: Watercan
   _uiinGame: {fileID: 2135125072, guid: 4047770b04fe7a84d85638810216a788, type: 3}
   _uiinInven: {fileID: 2135125072, guid: 4047770b04fe7a84d85638810216a788, type: 3}
-  _description: Water to plan
+  _keyDes: IWATERCAN
   Type: 1
   _durability: 100
   _typeAricul: 2

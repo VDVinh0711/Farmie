@@ -11,7 +11,7 @@ public class UI_InvenyotyInShop : MonoBehaviour
     private GameObject invenShopPrefabs;
     [SerializeField]
     private List<UI_InventoryInShopSlot> _slots = new List<UI_InventoryInShopSlot>();
-    private BagsManager _bagsManager;
+    private Bag _bag;
     [SerializeField]
     private RectTransform _invenPanel;
 
@@ -35,8 +35,7 @@ public class UI_InvenyotyInShop : MonoBehaviour
     public void RenderInvenInShop()
     {
         RefeshPanel();
-        
-        foreach (var slotinven in BagsManager.Instance.GetListSLotItem())
+        foreach (var slotinven in Bag.Instance.GetListSLotItem())
         {
             var slot = Instantiate(invenShopPrefabs, _invenPanel);
             var UISlot = slot.transform.gameObject.GetComponent<UI_InventoryInShopSlot>();

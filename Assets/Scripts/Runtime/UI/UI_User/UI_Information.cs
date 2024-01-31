@@ -1,5 +1,4 @@
 
-using System;
 using Player;
 using TMPro;
 using UnityEngine;
@@ -7,24 +6,23 @@ using UnityEngine.UI;
 
 public class UI_Information : MonoBehaviour
 {
-    [SerializeField] private Image _imageAVT;
+    [SerializeField] private Image _exp;
     [SerializeField] private TextMeshProUGUI _title;
-    [SerializeField] private Slider _process;
+    [SerializeField] private PlayerController _playerController;
     private void Start()
     {
-        UpdateExperience(PlayerController.Instance.PlayerExperience);
-        PlayerController.Instance.PlayerExperience.StateChange += UpdateExperience;
+        UpdateExperience(_playerController.PlayerExperience);
+        _playerController.PlayerExperience.StateChange += UpdateExperience;
     }
-
-
     private void UpdateExperience(PlayerExperience playerExperience)
     {
-        _process.maxValue = playerExperience.LevelPlayer.Levels[playerExperience.CurrentLevel];
-        _title.SetText("Nhà nông cấp  " + playerExperience.CurrentLevel);
-        _process.value = playerExperience.CurrrentExp;
+        var valueAmount = (playerExperience.CurrrentExp) / (playerExperience.LevelPlayer.Levels[playerExperience.CurrentLevel]);
+        _title.SetText( playerExperience.CurrentLevel.ToString());
+        _exp.fillAmount = valueAmount;
+        
     }
     private void OnDestroy()
     {
-        PlayerController.Instance.PlayerExperience.StateChange += UpdateExperience;
+        _playerController.PlayerExperience.StateChange -= UpdateExperience;
     }
 }

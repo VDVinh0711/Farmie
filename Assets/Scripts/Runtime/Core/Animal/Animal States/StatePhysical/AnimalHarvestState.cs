@@ -16,7 +16,7 @@ public class AnimalHarvestState : IState
     public void OnEnter()
     {
         _physiologicalState.RegisterState(this);
-        _physiologicalState.Animal.UiAnimal.ShowUiHarvest();
+       // _physiologicalState.Animal.UiAnimal.ShowUiHarvest();
         _physiologicalState.Animal.UiAnimal.UiInfor.ShowButtonHarvest();
     }
 
@@ -24,7 +24,7 @@ public class AnimalHarvestState : IState
     {
      
         _physiologicalState.RemoveState(this);
-        _physiologicalState.Animal.UiAnimal.HideUiHarvest();
+       // _physiologicalState.Animal.UiAnimal.HideUiHarvest();
         _physiologicalState.Animal.UiAnimal.UiInfor.HideButtonHarvest();
     }
 }

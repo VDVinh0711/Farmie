@@ -12,6 +12,7 @@ namespace InventorySystem
 
         [SerializeField] private Button _btn_GetItem;
         [SerializeField] private UI_Inventoryslot _uiInventoryslot;
+        [SerializeField] private InventoryController _inventoryController;
         public  void Start()
         {
             _btn_GetItem = transform.GetComponentInChildren<Button>();
@@ -19,20 +20,10 @@ namespace InventorySystem
         }
         public void GetItemClick()
         {
-            _uiInventoryslot.Slot.IsActive = false;
-            int quantity = 1;
-            if (_uiInventoryslot.Slot is ItemSlotStack)
-            {
-                quantity = (_uiInventoryslot.Slot as ItemSlotStack).NumberItem;
-            }
-            if (!BagsManager.Instance.AddItem(_uiInventoryslot.Slot.Item, quantity)) return;
-            Inventory.Instance.Slot[_uiInventoryslot._indexOfSlot].SetEmty();
+            _inventoryController.ItemInventoryToBag(_uiInventoryslot);
             gameObject.SetActive(false);
         }
-
-      
-      
-
+        
         public void ShowOption(UI_Inventoryslot uiInventoryslot)
         {
             _uiInventoryslot = uiInventoryslot;
@@ -44,8 +35,6 @@ namespace InventorySystem
             }
             gameObject.SetActive(true);
             regisclick();
-         
-
         }
 
         protected override void Click(InputAction.CallbackContext obj)

@@ -1,14 +1,15 @@
 
 
 
+
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
+
 
 namespace InventorySystem
 {
-    public class UI_BagSlots :UI_Slots
+    public class UI_BagSlots :UI_Slots,IPointerEnterHandler, IPointerClickHandler,IPointerExitHandler
     {
 
         #region BackUp Old Version
@@ -95,24 +96,62 @@ namespace InventorySystem
         #endregion
        
          [SerializeField] private UI_Bags _uiBags;
+         public event Action<string, string> ShowItemDescriptionEvent;
+
          protected override void Start()
          {
              base.Start();
              _uiBags = FindObjectOfType<UI_Bags>();
          }
-
-         public override void OnPointerClick(PointerEventData eventData)
+         public virtual void OnPointerEnter(PointerEventData eventData)
          {
-             base.OnPointerClick(eventData);
-             if(!_slot.HasItem()) return;
-             if (isPressShift)
+             DisplayItemDescription();
+         }
+         public virtual void OnPointerExit(PointerEventData eventData)
+         {
+             ClearItemDescription();
+         }
+         public virtual void OnPointerClick(PointerEventData eventData)
+         {
+             HandlePointerClick(eventData.button);
+         }
+
+         private void DisplayItemDescription()
+         {
+             if (!_slot.HasItem()) return;
+             string name = _slot.Item.name;
+             string description = GameMultiLang.GetTraduction(_slot.Item.KeyDes);
+             ShowItemDescriptionEvent?.Invoke(name, description);
+         }
+
+         private void ClearItemDescription()
+         {
+             ShowItemDescriptionEvent?.Invoke("", "");
+         }
+
+         private void HandlePointerClick(PointerEventData.InputButton button)
+         {
+             if (!_slot.HasItem()) return;
+             if (button == PointerEventData.InputButton.Left)
              {
-                 //BagsManager.Instance.InventoHand(_indexOfSlot);
-                 Crafting.Instance.AddItemSlot(BagsManager.Instance.GetItemByIndex(_indexOfSlot));
-                 return;
+                 ActivateSlotAndShowOptions();
              }
+             else if (button == PointerEventData.InputButton.Right)
+             {
+                 DeactivateSlotAndTransferItemToHand();
+             }
+         }
+
+         private void ActivateSlotAndShowOptions()
+         {
              _slot.IsActive = true;
-             _uiBags.UIItemBagOption.ShowOption(this);
+             _uiBags.ItemBagOptions.ShowOption(this);
+         }
+
+         private void DeactivateSlotAndTransferItemToHand()
+         {
+             Slot.IsActive = false;
+             Bag.Instance.InventoHand(_indexOfSlot);
          }
     }
 }

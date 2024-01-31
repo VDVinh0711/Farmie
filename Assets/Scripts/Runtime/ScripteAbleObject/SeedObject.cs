@@ -25,5 +25,5 @@ public class SeedObject : EquidmentObject,IStackAble
     }
 
 
-     [SerializeField] public int MaxStack { get => 30; }
+     [SerializeField] public int MaxStack { get => 6; }
 }

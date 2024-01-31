@@ -28,7 +28,7 @@ namespace InventorySystem
 
         public void UpdateView(ItemSlot  slot)
         {
-            slot.StateActionChange -= OnStateActionChange;
+           slot.StateActionChange -= OnStateActionChange;
             slot.StateActionChange += OnStateActionChange;
             var hasitem = slot.HasItem();
             var isactive = slot.IsActive;
@@ -71,6 +71,8 @@ namespace InventorySystem
         {
             UpdateView(arg);
         }
+
+      
     }
 }
 

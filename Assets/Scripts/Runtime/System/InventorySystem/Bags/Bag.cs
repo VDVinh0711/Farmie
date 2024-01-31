@@ -9,12 +9,14 @@ using Unity.Services.Analytics;
 
 namespace InventorySystem
 {
-    public class BagsManager : Singleton<BagsManager> , ISaveSystem
+    public class Bag : Singleton<Bag> , ISaveSystem
     {
         [SerializeField] protected ItemSlot[] _slots;
         [SerializeField] protected List<ItemSlot> _slotItem;
         [SerializeField] protected  int _size = 8;
         [SerializeField] private ItemSlot _handItem;
+
+        public event Action<ItemSlot> StateChangeHand; 
         public ItemSlot HandItem=> _handItem;
         public  ItemSlot[] Slot=> _slots;
         public int Size => _size;   
@@ -32,19 +34,12 @@ namespace InventorySystem
         {
             return  _slots.Count(slot => slot.HasItem()) >= _size;
         }
-        private ItemSlot FindSlot(ItemObject itemObject)
+        private ItemSlot FindSlotStackToAdd(ItemObject itemObject)
         {
-            for (int i = 0; i < _size; i++)
-            {
-                if (_slots[i].Item != itemObject) continue;
-                var itemstack = _slots[i] as ItemSlotStack;
-                if(itemstack == null) continue;
-                if (!itemstack.CanStackAble()) continue;
-                return _slots[i];
-            }
-            return null;
+            var item = _slots.FirstOrDefault(x =>x.Item == itemObject && x is ItemSlotStack itemSlot && itemSlot.CanStackAble());
+            return item;
         }
-        protected int FindIndexSlotEmTy()
+        private int FindIndexSlotEmTy()
         {
             for (int i = 0; i < _size; i++)
             {
@@ -54,8 +49,46 @@ namespace InventorySystem
         }
         public bool CanAcceptItem(ItemObject item , int numberitem)
         {
-            var relevanSlot = FindSlot(item );
-            return !ISFull() || relevanSlot!=null;
+            int availableEmptySlots = 0;
+            foreach (var slot in _slots)
+            {
+                if (!slot.HasItem())
+                {
+                    availableEmptySlots++;
+                }
+            }
+
+            if (item is IStackAble itemStack)
+            {
+                var relevantSlot = FindSlotStackToAdd(item) as ItemSlotStack;
+
+                if (ISFull())
+                {
+                    if (relevantSlot != null && relevantSlot.CanAddItem(numberitem))
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    // Calculate required slots for additional items
+                    int numberAdded = relevantSlot?.NumberItem ?? 0;
+                    float requiredSlots = (numberitem - numberAdded) / itemStack.MaxStack;
+
+                    if (requiredSlots < availableEmptySlots)
+                    {
+                        return true;
+                    }
+                }
+            }
+            else
+            {
+                if (!ISFull() && numberitem <= availableEmptySlots)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         
         public  bool AddItem(ItemObject item, int numberitem)
@@ -95,7 +128,7 @@ namespace InventorySystem
             return -1;
         }
         
-        public  bool AddItem2(ItemSlot itemSlot)
+        public  bool AddItem(ItemSlot itemSlot)
         {
             if (!CanAcceptItem(itemSlot.Item, itemSlot is ItemSlotStack ? (itemSlot as ItemSlotStack).NumberItem : 1))
             {
@@ -116,7 +149,6 @@ namespace InventorySystem
                 
                 default:
                     return false;
-                    break;
             }
            OnUpdateBag();
             return true;
@@ -130,7 +162,7 @@ namespace InventorySystem
         {
             while (number > 0)
             {
-                var relavant = FindSlot(item);
+                var relavant = FindSlotStackToAdd(item);
                 if (relavant != null)
                 {
                     if ((relavant as ItemSlotStack).CanAddItem(number))
@@ -166,16 +198,6 @@ namespace InventorySystem
                 }
             }
         }
-        public void RemoveItem(ItemSlot itemSlot)
-        {
-            foreach (var slot in _slots)
-            {
-                if (slot == itemSlot)
-                { 
-                    slot.SetEmty();
-                }
-            }
-        }
         public List<ItemSlot> GetListSLotItem()
         {
             _slotItem = new List<ItemSlot>();
@@ -193,26 +215,13 @@ namespace InventorySystem
             item1 = item2;
             item2 = temp;
         }
-        
-        public ItemSlot GetItemByIndex(int index)
-        {
-            ItemSlot temp = new ItemSlot();
-            SwapItem(ref _slots[index],ref temp);
-            return temp;
-        }
-        public ItemSlot GetItemByIndex(int index, int quantity)
-        {
-            if (!( _slots[index] is ItemSlotStack)) return null;
-            ItemSlot temp = new ItemSlotStack(_slots[index].Item, quantity);
-            (_slots[index] as ItemSlotStack).NumberItem -= quantity;
-            return temp;
-        }
         public void InventoHand(int index)
         {
             if (!_slots[index].HasItem()) return;
             if(!(_slots[index].Item is EquidmentObject)) return;    
             SwapItem(ref _slots[index], ref _handItem);
             OnUpdateBag();
+            NotifyChangehand();
         }
         public void HandtoInventory()
         {
@@ -227,13 +236,24 @@ namespace InventorySystem
                 _slots[index] = new ItemSlotDura(_handItem as ItemSlotDura);
             }
             _handItem.SetEmty();
+            NotifyChangehand();
             OnUpdateBag();
         }
-        
+
+
+
+        public ItemSlot GetItemByItemOBJ(ItemObject itemSlot)
+        {
+            return _slots.FirstOrDefault(x => x.Item == itemSlot);
+        }
          private void OnUpdateBag()
         {
             StateChangeBags?.Invoke();
         }
+         private void NotifyChangehand()
+         {
+             StateChangeHand?.Invoke(_handItem);
+         }
          
         public object SaveData()
         {

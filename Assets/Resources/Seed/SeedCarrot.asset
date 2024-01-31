@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f8acac15fa8534428e35451c7704efc, type: 3}
   m_Name: SeedCarrot
   m_EditorClassIdentifier: 
-  _id: 5
+  _id: SeedCarrot
   _uiinGame: {fileID: -1546969056, guid: dc6e398651cbcaf41bd4831540179de3, type: 3}
   _uiinInven: {fileID: -1546969056, guid: dc6e398651cbcaf41bd4831540179de3, type: 3}
-  _descriptionVN: "H\u1EA1t gi\u1ED1ng c\xE0 r\u1ED1t"
-  _descriptionEN: Carrot seeds
+  _keyDes: ISCARROT
   Type: 2
   _daytoGrow: 2
   _spriteGrow:

@@ -8,12 +8,18 @@ public class TimeManager : Singleton<TimeManager>,ISaveSystem
     [SerializeField] GameTime gameTime;
     public float timeScale = 1.0f;
     List<ITimeTracker> listeners = new List<ITimeTracker>();
+
+
+    protected override void Awake()
+    {
+        base.Awake();
+        gameTime = new GameTime(1, 1, 1, 0, 0,0);
+    }
+
     private void Start()
     {
-       
-        if(gameTime== null)  gameTime = new GameTime(1, 1, 1, 0, 0,0);
+      
         StartCoroutine(TimeUpDate());
-        Debug.Log(GameTime.ShowTime(gameTime));
     }
     
   

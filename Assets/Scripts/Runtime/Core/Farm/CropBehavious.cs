@@ -49,10 +49,10 @@ public class CropBehavious : MonoBehaviour
             EventManger<string>.RaiseEvent("ShowNotifycation","Cây bạn chưa đủ lớn để thu hoạch");
             return false;
         }
-        if (!BagsManager.Instance.AddItem(_seedData.ItemHarvest, 1)) return false;
+        if (!Bag.Instance.AddItem(_seedData.ItemHarvest, 1)) return false;
         EventManger<Object>.RaiseEvent("CheckMission",_seedData.ItemHarvest);
         Destroy(gameObject);
-        BagsManager.Instance.HandItem.UseItem();
+        Bag.Instance.HandItem.UseItem();
         return true;
     }
     public void Grow(Land.LandStatus landStatus)

@@ -13,9 +13,7 @@ public class UI_InventoryInShopSlot : MonoBehaviour,IPointerClickHandler
     private TextMeshProUGUI _uiShowQUantity;
     [SerializeField]
     private ItemSlot _itemSlot;
-
     [SerializeField] private UIShop _uiShop;
-
     public ItemSlot Itemslot
     {
         get => _itemSlot;
@@ -44,7 +42,6 @@ public class UI_InventoryInShopSlot : MonoBehaviour,IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         if (_uiShop == null) _uiShop = GameObject.FindAnyObjectByType<UIShop>();
-        print("Run show");
-        _uiShop.ActiveComfirmSell.Show(_itemSlot);
+        _uiShop.ComfirmQuantity.Show(_itemSlot);
     }
 }

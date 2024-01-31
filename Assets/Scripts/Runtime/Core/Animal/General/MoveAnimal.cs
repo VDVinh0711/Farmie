@@ -22,7 +22,6 @@ public class MoveAnimal : MonoBehaviour
       
         animalRb = GetComponent<Rigidbody2D>();
         SetNewTargetPosion(GetRandomDir());
-       // Move = MoveFollowPos;
         Move = MoveRandomDir;
         _postoeat = transform.GetComponentInParent<Stable>().Trough.gameObject.transform;
     }

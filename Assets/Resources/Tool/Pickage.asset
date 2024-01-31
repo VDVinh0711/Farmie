@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71dcd4f9a91859345916709840f3ec6b, type: 3}
   m_Name: Pickage
   m_EditorClassIdentifier: 
-  _id: 7
-  _isStackAble: 0
+  _id: Pickage
   _uiinGame: {fileID: 1746907763, guid: b0d6a6e25eedb0748a18fedf8878c3d2, type: 3}
   _uiinInven: {fileID: 1746907763, guid: b0d6a6e25eedb0748a18fedf8878c3d2, type: 3}
-  _description: Harvest the plan
+  _keyDes: IPICKAGE
   Type: 1
   _durability: 100
   _typeAricul: 1
+  _reduceDura: 0

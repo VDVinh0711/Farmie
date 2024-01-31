@@ -40,6 +40,12 @@ namespace InventorySystem
             Durability -= (Item as AgriculturalObject).ReduceDura;
             if(_durability <=0) SetEmty();
         }
+        public ItemSlot GetItemSlotDure()
+        {
+            ItemSlot item = new ItemSlotDura(this.Item, this.Durability);
+            this.SetEmty();
+            return item;
+        }
     }
 }
 

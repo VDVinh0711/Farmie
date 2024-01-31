@@ -34,9 +34,10 @@ public class UI_ActiveComfirmSell : MonoBehaviour
     {
         _nameItem = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         _inputQuantity = transform.GetComponentInChildren<TMP_InputField>();
-        _btnOk = transform.GetChild(3).GetChild(1).GetComponent<Button>();
         _btnCancle = transform.GetChild(3).GetChild(0).GetComponent<Button>();
-        _btnSellAll = transform.GetChild(3).GetChild(2).GetComponent<Button>();
+        _btnSellAll = transform.GetChild(3).GetChild(1).GetComponent<Button>();
+        _btnOk = transform.GetChild(3).GetChild(2).GetComponent<Button>();
+        
     }
 
     private void RegisterEvent()
@@ -53,12 +54,11 @@ public class UI_ActiveComfirmSell : MonoBehaviour
 
     public void Show(ItemSlot item)
     {
-        print(item.Item == null);
         if(item.Item == null) return;
         _nameItem.SetText(item.Item.name);
         _inputQuantity.text = "";
         _itemsell = item;
-        _sellitem = new SellItem(BagsManager.Instance);
+        _sellitem = new SellItem(Bag.Instance);
         gameObject.SetActive(true);
         //Validate for input text field
        
@@ -74,8 +74,7 @@ public class UI_ActiveComfirmSell : MonoBehaviour
        _sellitem.SellAll(_itemsell);
        _uiShop.InventoryShop.RenderInvenInShop();
        Hide();
-       
-       
+
     }
     private void OKClick()
     {

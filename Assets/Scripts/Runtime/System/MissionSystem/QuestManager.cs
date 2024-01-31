@@ -39,10 +39,8 @@ namespace MissionSystem
             {
                 case TypeMission.Crop:
                     return new QuestHarvest(missionSO);
-                    break;
                 case TypeMission.Breed:
                     return new QuestBreed(missionSO);
-                    break;
                 case TypeMission.Process:
                     return new QuestProcess(missionSO);
                 
@@ -56,11 +54,9 @@ namespace MissionSystem
             switch (missionSO.TypeMission)
             {
                 case TypeMission.Crop:
-                    return new QuestHarvest(missionSO,current,isDone);
-                    break;
+                    return new QuestHarvest(missionSO,current,isDone); 
                 case TypeMission.Breed:
-                    return new QuestBreed(missionSO,current,isDone);
-                    break;
+                    return new QuestBreed(missionSO,current,isDone);  
                 case TypeMission.Process :
                     return new QuestProcess(missionSO, current, isDone);
             }

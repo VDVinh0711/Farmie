@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b308f1b5a253f2e478a8e9292d3287bd, type: 3}
   m_Name: Milk
   m_EditorClassIdentifier: 
-  _id: 23423524
+  _id: Milk
   _uiinGame: {fileID: -508438087, guid: 4047770b04fe7a84d85638810216a788, type: 3}
   _uiinInven: {fileID: -508438087, guid: 4047770b04fe7a84d85638810216a788, type: 3}
-  _descriptionVN: "S\u1EEFa b\xF2 c\xF3 th\u1EC3 mang b\xE1n \u1EDF c\u1EEDa h\xE0ng"
-  _descriptionEN: Milk is a product that can be sold in stores
+  _keyDes: IMILK
   _price: 450

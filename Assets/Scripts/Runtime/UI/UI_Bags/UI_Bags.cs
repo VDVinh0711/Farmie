@@ -4,83 +4,86 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 
 namespace InventorySystem
 {
-public class UI_Bags : AbsCheckOutSide
-{
-    [SerializeField] private GameObject _inventorySLotPrefabs;
-    [SerializeField] private UI_BagSlots _uiHandplayer;
-    [SerializeField] private TextMeshProUGUI _uiShowDescripton;
-    [SerializeField] private TextMeshProUGUI _uiShowNameItem;
-    [SerializeField] private List<UI_BagSlots> _slots;
-    [SerializeField] private Transform root;
-    [SerializeField] private UI_ItemBagOption _uiItemBagOption;
+    public class UI_Bags : AbsCheckOutSide
+    {
+     [SerializeField] private GameObject inventorySlotPrefab;
+    [SerializeField] private UI_BagSlots handSlotUI;
+    [SerializeField] private TextMeshProUGUI itemDescriptionText;
+    [SerializeField] private TextMeshProUGUI itemNameText;
+    [SerializeField] private List<UI_BagSlots> inventorySlots;
+    [SerializeField] private Transform inventoryRoot;
+    [SerializeField] private UI_ItemBagOption itemBagOptionsUI;
+    [SerializeField] private Bag bag;
+    public UI_ItemBagOption ItemBagOptions => itemBagOptionsUI;
 
-    public UI_ItemBagOption UIItemBagOption => _uiItemBagOption;
-    
     private void Start()
     {
-        root = transform.GetChild(0).GetChild(2);
-        InstanstializeBag();
+        inventoryRoot = transform.GetChild(0).GetChild(2);
+        InitializeBag();
     }
-    public void InstanstializeBag()
+
+    public void InitializeBag()
     {
-        if (_inventorySLotPrefabs == null) return;
-        for (int i=0;i< BagsManager.Instance.Size; i++)
+        if (inventorySlotPrefab == null) return;
+        for (int i = 0; i < bag.Size; i++)
         {
-            var UISLot = Instantiate(_inventorySLotPrefabs,root);
-            var UIslotScript = UISLot.gameObject.GetComponent<UI_BagSlots>();
-            UIslotScript.AssighIndex(i);
-            UIslotScript.Display(BagsManager.Instance.Slot[i]);
-            UIslotScript.showDesEvent += ShowUIDescription;
-            _slots.Add(UIslotScript);
+            var slotUI = Instantiate(inventorySlotPrefab, inventoryRoot);
+            var slotScript = slotUI.gameObject.GetComponent<UI_BagSlots>();
+            slotScript.AssighIndex(i);
+            slotScript.Display(bag.Slot[i]);
+            slotScript.ShowItemDescriptionEvent += ShowItemDescription;
+            inventorySlots.Add(slotScript);
         }
-        _uiHandplayer.Display(BagsManager.Instance.HandItem );
-       RenderBags();
-      BagsManager.Instance.StateChangeBags += RenderBags;
+        handSlotUI.Display(bag.HandItem);
+        RenderBagContents();
+        Bag.Instance.StateChangeBags += RenderBagContents;
     }
-    private void RenderBags()
+
+    private void RenderBagContents()
     {
-      
-        for(int i=0;i<_slots.Count;i++)
+        for (int i = 0; i < inventorySlots.Count; i++)
         {
-            _slots[i].Display(BagsManager.Instance.Slot[i]);
-        }   
-        _uiHandplayer.Display(BagsManager.Instance.HandItem );
+            inventorySlots[i].Display(Bag.Instance.Slot[i]);
+        }
+        handSlotUI.Display(Bag.Instance.HandItem);
     }
-    private void ShowUIDescription(string nameItem , string description)
+
+    private void ShowItemDescription(string itemName, string itemDescription)
     {
-        if(_uiShowDescripton == null || _uiShowNameItem == null) return;
-        _uiShowDescripton.SetText(description);
-        _uiShowNameItem.SetText(nameItem);
+        if (itemDescriptionText == null || itemNameText == null) return;
+        itemDescriptionText.SetText(itemDescription);
+        itemNameText.SetText(itemName);
     }
-    public void ShowBags()
+
+    public void ToggleBagVisibility()
     {
-        var uishow = root.parent.transform;
-        if (uishow.gameObject.activeSelf)
+        var uiTransform = inventoryRoot.parent.transform;
+        if (uiTransform.gameObject.activeSelf)
         {
-            UIManager.HideUI(root.parent.transform);
+            UIManager.HideUI(uiTransform);
             RemoveClick();
             return;
         }
-       
-        RenderBags(); 
-        UIManager.OpenUI(root.parent.transform);
-       regisclick();
+
+        RenderBagContents();
+        UIManager.OpenUI(uiTransform);
+        regisclick();
     }
 
-    protected  override void Click(InputAction.CallbackContext obj)
+
+    protected override void Click(InputAction.CallbackContext obj)
     {
-        
-        if (_isOutSide)
+         if (_isOutSide)
         {
-            UIManager.HideUI((root.parent.transform));
+            UIManager.HideUI((inventoryRoot.parent.transform));
             _isOutSide = false;
         }
     }
-
-}
+    }
 }
 

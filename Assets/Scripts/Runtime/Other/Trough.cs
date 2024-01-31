@@ -22,10 +22,10 @@ public class Trough : MonoBehaviour,IInterac
     [SerializeField]  private SpriteRenderer spriteTrough;
     public virtual void InterRac()
     {
-        EquidmentObject eqidItem = BagsManager.Instance.HandItem.Item as EquidmentObject;
+        EquidmentObject eqidItem = Bag.Instance.HandItem.Item as EquidmentObject;
         if(eqidItem == null) return;
         eqidItem.Used(this);
-        BagsManager.Instance.HandItem.UseItem();
+        Bag.Instance.HandItem.UseItem();
     }
 
    

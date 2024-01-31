@@ -7,7 +7,6 @@ namespace InventorySystem
     [Serializable]
     public  class ItemSlot
     {
-
         public event Action<ItemSlot> StateActionChange; 
         [SerializeField] private ItemObject _item;
         [SerializeField] private bool _isactive = false;
@@ -22,6 +21,7 @@ namespace InventorySystem
             set
             {
                 _item= value;
+                OnStateChange();
             }
         }
 
@@ -34,19 +34,17 @@ namespace InventorySystem
                 OnStateChange();
             }
         }
-      
         public ItemSlot(ItemObject item)
         {
-            Item = item;
+            _item = item;
         }
         public ItemSlot(ItemSlot item)
         {
-            Item = item.Item;
+            _item = item.Item;
           
         }
         public ItemSlot()
         {
-            
         }
        public virtual void SetEmty()
        {
@@ -70,9 +68,9 @@ namespace InventorySystem
 
        protected void OnStateChange()
        {
+           
            StateActionChange?.Invoke(this);
        }
-
     }
 
 }

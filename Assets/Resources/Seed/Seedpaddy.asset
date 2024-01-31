@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f8acac15fa8534428e35451c7704efc, type: 3}
   m_Name: Seedpaddy
   m_EditorClassIdentifier: 
-  _id: 7
+  _id: Seedpaddy
   _uiinGame: {fileID: 1099019973, guid: be2572caefd9a28478e8ccd439ea2730, type: 3}
   _uiinInven: {fileID: 1099019973, guid: be2572caefd9a28478e8ccd439ea2730, type: 3}
-  _descriptionVN: "H\u1EA1t gi\u1ED1ng l\xFAa"
-  _descriptionEN: Rice eggplant seeds
+  _keyDes: ISPADDY
   Type: 2
   _daytoGrow: 3
   _spriteGrow:

@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b308f1b5a253f2e478a8e9292d3287bd, type: 3}
   m_Name: Tomato
   m_EditorClassIdentifier: 
-  _id: 2
+  _id: Tomato
   _uiinGame: {fileID: 267381381, guid: 461874fb4e167224889a6ee63b31aa73, type: 3}
   _uiinInven: {fileID: 267381381, guid: 461874fb4e167224889a6ee63b31aa73, type: 3}
-  _descriptionVN: "Khoai t\xE2y c\xF3 th\u1EC3 mang b\xE1n \u1EDF c\u1EEDa h\xE0ng"
-  _descriptionEN: Potatoes can be sold at stores
+  _keyDes: IPOTATO
   _price: 10000

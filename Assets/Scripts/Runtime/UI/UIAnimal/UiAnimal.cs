@@ -11,10 +11,12 @@ public class UiAnimal : MonoBehaviour
     [SerializeField] private Slider slider;
     [SerializeField] private TextMeshProUGUI textshowTime;
     [SerializeField] private UiInfor _uiInfor;
-    [Header("Ui State")] 
-    [SerializeField] private Transform UiHarvest;
+    [SerializeField] private UIStateAnimal _uiStateAnimal;
+    
+    
 
     public UiInfor UiInfor => _uiInfor;
+    public UIStateAnimal UIStateAnimal => _uiStateAnimal;
     private void Start()
     {
         animator =transform.GetComponent<Animator>();
@@ -67,14 +69,7 @@ public class UiAnimal : MonoBehaviour
     }
 
    
-    public void ShowUiHarvest()
-    {
-        UiHarvest.gameObject.SetActive(true);
-    }
-    public void HideUiHarvest()
-    {
-        UiHarvest.gameObject.SetActive(false);
-    }
+  
  
     
 }

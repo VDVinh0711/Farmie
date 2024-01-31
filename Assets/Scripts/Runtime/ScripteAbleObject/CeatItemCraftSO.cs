@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+
+
 [CreateAssetMenu(menuName = "CreatNewScraft/ItemScraf")]
 public class CeatItemCraftSO : ScriptableObject
 {
@@ -7,9 +9,6 @@ public class CeatItemCraftSO : ScriptableObject
     public ItemObject itemCraf;
     public ItemObject item11;
     public ItemObject item22;
-    public float TimeCreat;
-
-
     private void OnValidate()
     {
         ID = this.name;

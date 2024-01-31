@@ -1,6 +1,7 @@
 using System;
 using InventorySystem;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 public class Land : MonoBehaviour,ITimeTracker, IInterac
@@ -13,7 +14,7 @@ public class Land : MonoBehaviour,ITimeTracker, IInterac
         soidWilted
     }
      public  bool planting;
-    [SerializeField] SpriteRenderer renderer;
+    [SerializeField] SpriteRenderer _rendererLand;
     [SerializeField] public LandStatus LandState;
     [SerializeField] private Material soildefaut, soilwater,soidwilted;
     [SerializeField] Transform select;
@@ -27,7 +28,7 @@ public class Land : MonoBehaviour,ITimeTracker, IInterac
     }
     //Cache the time the land was Watered
     public GameTime lastTimeWatered;
-    [SerializeField]  private BagsManager _inventorymanager;
+    [SerializeField]  private Bag _inventorymanager;
     
     [Header("Crop")]
     private CropBehavious cropPlanted;
@@ -36,7 +37,7 @@ public class Land : MonoBehaviour,ITimeTracker, IInterac
     
     private void Start()
     {
-        renderer = GetComponent<SpriteRenderer>();
+        _rendererLand = GetComponent<SpriteRenderer>();
         SwitchLand(LandState);
        
         TimeManager.Instance.RegisterTracker(this);
@@ -65,7 +66,7 @@ public class Land : MonoBehaviour,ITimeTracker, IInterac
 
         }
 
-        renderer.material = marterialtoSwitch;
+        _rendererLand.material = marterialtoSwitch;
 ;
     }
 
@@ -75,7 +76,7 @@ public class Land : MonoBehaviour,ITimeTracker, IInterac
     }
     public void InterRac()
     {
-        if(_inventorymanager  == null) _inventorymanager = FindAnyObjectByType<BagsManager>();
+        if(_inventorymanager  == null) _inventorymanager = FindAnyObjectByType<Bag>();
         EquidmentObject eqidItem = _inventorymanager.HandItem.Item as EquidmentObject;
         if(eqidItem == null) return;
         eqidItem.Used(this);
