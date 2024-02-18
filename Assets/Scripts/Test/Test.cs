@@ -62,10 +62,8 @@ public class Test : MonoBehaviour
 
    public void TestAdd()
    {
-       _product = carrot  is IStackAble
-         ? new ItemSlotStack(carrot, 1)
-         : new ItemSlotDura(carrot);
-      //BagsManager.Instance.AddItem2(_product);
+      Bag.Instance.AddItem(item1, 5);
+      Bag.Instance.AddItem(item2, 5);
    }
 
    public void TestRef()

@@ -1,18 +1,17 @@
 
-using System.Diagnostics;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace InventorySystem
 {
-    public class UI_ItemBagOption : AbsCheckOutSide,IActionAccept
+    public class UI_ItemBagOption :  MonoBehaviour ,IActionAccept
     {
         [SerializeField] private Button _btn_Use;
         [SerializeField] private Button _btn_AddInven;
         [SerializeField] private Button _btn_Dispose;
-        [SerializeField] private UI_BagSlots _uiBagsSlot;
+        [SerializeField] private ItemSlot _slotActive;
         [SerializeField] private BagOptionsController _bagOptionsController;
+        [SerializeField] private int _curIndexSlot;
         public  void Start()
         {
             _btn_Use = transform.GetChild(0).GetComponent<Button>();
@@ -22,52 +21,43 @@ namespace InventorySystem
             _btn_AddInven.onClick.AddListener(AddInvenClick);
             _btn_Dispose.onClick.AddListener(DisposeClick);
         }
-        
-        public void ShowOption(UI_BagSlots uibagslot)
+        public void ShowOption(ItemSlot itemSlot, int indexslot)
         {
-            _uiBagsSlot = uibagslot;
-            if (gameObject.activeSelf)
+            _slotActive = itemSlot;
+            _curIndexSlot = indexslot;
+            /*if (gameObject.activeSelf)
             {
                 gameObject.SetActive(false);
-                _uiBagsSlot.Slot.IsActive = false;
-                RemoveClick();
+                itemSlot.IsActive = false;
                 return;
-            }
+            }*/
             gameObject.SetActive(true);
-            regisclick();
         }
         public void UseItemClick()
         {
-            _bagOptionsController.UseItem(_uiBagsSlot);
-            HideOption();
+            _slotActive.IsActive = false;
+            _bagOptionsController.UseItem(_curIndexSlot);
+            gameObject.SetActive(false);
         }
         private void AddInvenClick()
         {
-           _bagOptionsController.AddItemtoInventory(_uiBagsSlot);
+           _bagOptionsController.AddItemtoInventory(_slotActive);
            HideOption();
         }
         private void DisposeClick()
         {
             ComfirmManager.Intance.Show("Bạn có muốn vứt vật phẩm này không ? Mất hết",this);
         }
-        
         public void ActionAccept()
         {
-           _bagOptionsController.DisposeItem(_uiBagsSlot);
-            _uiBagsSlot.Slot.IsActive = false;
+           _bagOptionsController.DisposeItem(_slotActive);
+           _slotActive.IsActive = false;
             HideOption();
         }
-
-        protected override void Click(InputAction.CallbackContext obj)
-        {
-            if(!_isOutSide) return;
-            _uiBagsSlot.Slot.IsActive = false;
-            HideOption();
-        }
-
-        private void HideOption()
+        public void HideOption()
         {
             gameObject.SetActive(false);
+            _slotActive.IsActive = false;
         }
     }
 }

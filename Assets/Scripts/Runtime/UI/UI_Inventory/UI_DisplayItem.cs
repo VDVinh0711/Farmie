@@ -30,6 +30,7 @@ namespace InventorySystem
         {
            slot.StateActionChange -= OnStateActionChange;
             slot.StateActionChange += OnStateActionChange;
+          
             var hasitem = slot.HasItem();
             var isactive = slot.IsActive;
             _icon.enabled = hasitem;

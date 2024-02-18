@@ -20,7 +20,6 @@ public class UI_ButtonChoseOption : MonoBehaviour
         SetActiveButton(_changeInven);
         _uiSHop.ShopPanel.gameObject.SetActive(false);
         _uiSHop.InvenPanel.gameObject.SetActive(true);
-        
        _uiSHop.InventoryShop.RenderInvenInShop();
     }
     private void  Shoplick()

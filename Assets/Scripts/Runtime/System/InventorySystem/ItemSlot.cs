@@ -21,7 +21,7 @@ namespace InventorySystem
             set
             {
                 _item= value;
-                OnStateChange();
+                //OnStateChange();
             }
         }
 

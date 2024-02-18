@@ -1,4 +1,5 @@
 
+using System;
 using InventorySystem;
 using TMPro;
 using UnityEngine;
@@ -14,6 +15,13 @@ public class UI_InventoryInShopSlot : MonoBehaviour,IPointerClickHandler
     [SerializeField]
     private ItemSlot _itemSlot;
     [SerializeField] private UIShop _uiShop;
+
+
+    private void Start()
+    {
+        if (_uiShop == null) _uiShop = GameObject.FindAnyObjectByType<UIShop>();
+    }
+
     public ItemSlot Itemslot
     {
         get => _itemSlot;
@@ -41,7 +49,6 @@ public class UI_InventoryInShopSlot : MonoBehaviour,IPointerClickHandler
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (_uiShop == null) _uiShop = GameObject.FindAnyObjectByType<UIShop>();
         _uiShop.ComfirmQuantity.Show(_itemSlot);
     }
 }

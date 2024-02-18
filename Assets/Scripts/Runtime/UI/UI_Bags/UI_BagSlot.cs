@@ -96,12 +96,15 @@ namespace InventorySystem
         #endregion
        
          [SerializeField] private UI_Bags _uiBags;
+
+         [SerializeField] private BagOptionsController _bagOptionsController;
          public event Action<string, string> ShowItemDescriptionEvent;
 
          protected override void Start()
          {
              base.Start();
              _uiBags = FindObjectOfType<UI_Bags>();
+             _bagOptionsController = FindObjectOfType<BagOptionsController>();
          }
          public virtual void OnPointerEnter(PointerEventData eventData)
          {
@@ -134,20 +137,19 @@ namespace InventorySystem
              if (!_slot.HasItem()) return;
              if (button == PointerEventData.InputButton.Left)
              {
-                 ActivateSlotAndShowOptions();
+                 _bagOptionsController.AcctiveItemInBag(this);
              }
              else if (button == PointerEventData.InputButton.Right)
              {
                  DeactivateSlotAndTransferItemToHand();
              }
+             
+             //đây là cách fix cho chạy được  về phần UI , backend vẫn hoạt động tốt
+             /*Chi tiết bug : khi click active các slot chức năng vẫn chạy bình thường, nhưng khi thực hiện chức năng swap giữa hand và item trong bag
+              . Khi click active vào item thì những ô slot đãtuwngfg lưu item này ều bị thay đổi theo giống như item đang được active , nhưng trong
+              phần hiển  thị backend thì giá trị vẫn đúng  (nghi ngờ bug do tham chiếu  địa chỉ bị lỗi) , nhưng khi render lại thì vẫn hoạt động bình thường*/
+             _uiBags.RenderBagContents();
          }
-
-         private void ActivateSlotAndShowOptions()
-         {
-             _slot.IsActive = true;
-             _uiBags.ItemBagOptions.ShowOption(this);
-         }
-
          private void DeactivateSlotAndTransferItemToHand()
          {
              Slot.IsActive = false;

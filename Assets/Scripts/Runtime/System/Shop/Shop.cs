@@ -41,9 +41,7 @@ public class Shop : MonoBehaviour,IInterac
     public void InterRac()
     {
        if(_uishop == null) _uishop = GameObject.FindAnyObjectByType<UIShop>();
-       _uishop.Shop.InstantiateShop(itemShop);
-       _uishop.OpenUiShop();
-
+       _uishop.OpenUiShop(itemShop);
     } 
     
 }

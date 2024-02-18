@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class UI_ActiveComfirmSell : MonoBehaviour
 {
-
+    [SerializeField] private RectTransform _panel;
     [SerializeField] private TextMeshProUGUI _nameItem;
     [SerializeField] private TMP_InputField _inputQuantity;
     [SerializeField] private Button _btnCancle;
@@ -32,11 +32,11 @@ public class UI_ActiveComfirmSell : MonoBehaviour
 
     private void Getcomponent()
     {
-        _nameItem = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        _inputQuantity = transform.GetComponentInChildren<TMP_InputField>();
-        _btnCancle = transform.GetChild(3).GetChild(0).GetComponent<Button>();
-        _btnSellAll = transform.GetChild(3).GetChild(1).GetComponent<Button>();
-        _btnOk = transform.GetChild(3).GetChild(2).GetComponent<Button>();
+        _nameItem = _panel.GetChild(0).GetComponentInChildren<TextMeshProUGUI>();
+        _inputQuantity = _panel.GetComponentInChildren<TMP_InputField>();
+        _btnCancle = _panel.GetChild(3).GetChild(0).GetComponent<Button>();
+        _btnSellAll = _panel.GetChild(3).GetChild(1).GetComponent<Button>();
+        _btnOk = _panel.GetChild(3).GetChild(2).GetComponent<Button>();
         
     }
 
@@ -55,18 +55,17 @@ public class UI_ActiveComfirmSell : MonoBehaviour
     public void Show(ItemSlot item)
     {
         if(item.Item == null) return;
-        _nameItem.SetText(item.Item.name);
+        _nameItem.SetText(item.Item.ID);
         _inputQuantity.text = "";
         _itemsell = item;
+        _panel.gameObject.SetActive(true);
         _sellitem = new SellItem(Bag.Instance);
-        gameObject.SetActive(true);
-        //Validate for input text field
-       
+     
     }
 
     public void Hide()
     {
-        gameObject.SetActive(false);
+        _panel.gameObject.SetActive(false);
     }
 
     private void SellAll()

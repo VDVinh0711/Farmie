@@ -9,7 +9,7 @@ using UnityEngine.Serialization;
 
 namespace InventorySystem
 {
-    public class UI_Bags : AbsCheckOutSide
+    public class UI_Bags : AbsCheckOutSide,IPointerClickHandler
     {
      [SerializeField] private GameObject inventorySlotPrefab;
     [SerializeField] private UI_BagSlots handSlotUI;
@@ -17,9 +17,9 @@ namespace InventorySystem
     [SerializeField] private TextMeshProUGUI itemNameText;
     [SerializeField] private List<UI_BagSlots> inventorySlots;
     [SerializeField] private Transform inventoryRoot;
-    [SerializeField] private UI_ItemBagOption itemBagOptionsUI;
+    [SerializeField] private UI_ItemBagOption _uibagoption;
     [SerializeField] private Bag bag;
-    public UI_ItemBagOption ItemBagOptions => itemBagOptionsUI;
+    public UI_ItemBagOption ItemBagOptions => _uibagoption;
 
     private void Start()
     {
@@ -44,7 +44,7 @@ namespace InventorySystem
         Bag.Instance.StateChangeBags += RenderBagContents;
     }
 
-    private void RenderBagContents()
+    public void RenderBagContents()
     {
         for (int i = 0; i < inventorySlots.Count; i++)
         {
@@ -65,14 +65,24 @@ namespace InventorySystem
         var uiTransform = inventoryRoot.parent.transform;
         if (uiTransform.gameObject.activeSelf)
         {
-            UIManager.HideUI(uiTransform);
-            RemoveClick();
+            CloseBag();
             return;
         }
+        OpenBag();
+    }
 
+    private void OpenBag()
+    { 
         RenderBagContents();
-        UIManager.OpenUI(uiTransform);
+        UIManager.OpenUI(inventoryRoot.parent.transform);
         regisclick();
+    }
+
+    private void CloseBag()
+    {
+        _uibagoption.HideOption();
+        UIManager.HideUI(inventoryRoot.parent.transform);
+        RemoveClick();
     }
 
 
@@ -83,6 +93,11 @@ namespace InventorySystem
             UIManager.HideUI((inventoryRoot.parent.transform));
             _isOutSide = false;
         }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        _uibagoption.HideOption();
     }
     }
 }

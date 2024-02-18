@@ -8,31 +8,46 @@ namespace InventorySystem
 {
     public class BagOptionsController : MonoBehaviour
     {
-        [FormerlySerializedAs("_bagsManager")] [SerializeField] private Bag bag;
+        [SerializeField] private Bag bag; 
         [SerializeField] private Inventory _inventory;
-
-
-        public void UseItem(UI_BagSlots uiBagSlots)
+        [SerializeField] private ItemSlot _curentslotAccive;
+        [SerializeField] private UI_Bags _uiBags;
+       
+        public void UseItem(int index)
         {
-            uiBagSlots.Slot.IsActive = false;
-            bag.InventoHand(uiBagSlots.getIndexItem());
+         
+            bag.InventoHand(index);
+            _uiBags.RenderBagContents();
+        }
+        public void AcctiveItemInBag(UI_BagSlots uiBagSlots)
+        {
+         
+            if (_curentslotAccive != null)
+            {
+                _curentslotAccive.IsActive = false;
+            }
+            _curentslotAccive = uiBagSlots.Slot;
+            _curentslotAccive.IsActive = true;
+            _uiBags.ItemBagOptions.ShowOption(_curentslotAccive,uiBagSlots.getIndexItem());
+            
         }
 
-        public void AddItemtoInventory(UI_BagSlots uiBagSlots)
+    public void AddItemtoInventory(ItemSlot itemSlot)
         {
             int quantity = 1;
-            if (uiBagSlots.Slot is ItemSlotStack)
+            if (itemSlot is ItemSlotStack)
             {
-                quantity = (uiBagSlots.Slot as ItemSlotStack).NumberItem;
+                quantity = (itemSlot as ItemSlotStack).NumberItem;
             }
-            if( !_inventory.AddItem(uiBagSlots.Slot.Item, quantity)) return;
-            uiBagSlots.Slot.SetEmty();
-            uiBagSlots.Slot.IsActive = false;
+            if( !_inventory.AddItem(itemSlot.Item, quantity)) return;
+            itemSlot.SetEmty();
+            itemSlot.IsActive = false;
+            _uiBags.RenderBagContents();
         }
 
-        public void DisposeItem(UI_BagSlots uiBagSlots)
+        public void DisposeItem(ItemSlot itemSlot)
         {
-            uiBagSlots.Slot.SetEmty();
+            itemSlot.SetEmty();
         }
     }
 }
