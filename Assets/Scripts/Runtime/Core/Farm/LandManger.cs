@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using UnityEngine;
 
 
-public class LandManager : MonoBehaviour,ISaveSystem
+public class LandManager : MonoBehaviour,ISaveData
 {
     [SerializeField] private int _height;
     [SerializeField] private int _width;

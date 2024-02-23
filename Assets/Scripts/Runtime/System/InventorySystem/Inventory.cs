@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace InventorySystem
 {
-    public class Inventory :  MonoBehaviour,ISaveSystem
+    public class Inventory :  MonoBehaviour,ISaveData
     {
         public event Action Changeinventory;
         [SerializeField] private ItemSlot[] _slots;

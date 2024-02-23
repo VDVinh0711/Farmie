@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using UnityEngine;
 
 
-public class Stable : MonoBehaviour,ISaveSystem
+public class Stable : MonoBehaviour,ISaveData
 {
 
     private  int maxAnimal = 3;

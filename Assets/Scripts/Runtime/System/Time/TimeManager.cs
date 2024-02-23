@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
 
-public class TimeManager : Singleton<TimeManager>,ISaveSystem
+public class TimeManager : Singleton<TimeManager>,ISaveData
 {
     [SerializeField] GameTime gameTime;
     public float timeScale = 1.0f;

@@ -16,7 +16,7 @@ namespace MissionSystem
         private void IntantiateMission()
         {
             if (_questSlots == null) _questSlots = new();
-            foreach (var quest in QuestManager.Instance.Quests.Values)
+            foreach (var quest in MissionOfPlayer.Instance.Quests.Values)
             {
                 if(_questSlots.ContainsKey(quest.MissionSo.Id) ) continue;
                 var QuestSpawn = Instantiate(_questPre, _root);

@@ -5,7 +5,7 @@ using Farm.Scene;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LoadSceneHelper :MonoBehaviour
+public class LoadSceneHelper : MonoBehaviour
 {
     [SerializeField] private Fade _loadScene;
     
@@ -15,7 +15,6 @@ public class LoadSceneHelper :MonoBehaviour
     }
     private IEnumerator LoadSceneSyc(string nameSceneLoad)
     {
-        
         DontDestroyOnLoad(gameObject);
         var _currentScene = SceneManager.GetActiveScene();
         print(_currentScene.name);
@@ -36,7 +35,6 @@ public class LoadSceneHelper :MonoBehaviour
         }
         SceneManager.UnloadSceneAsync(_currentScene);
         _loadScene.HideLoadingScene();
-        EventManager.RaisEvent("SetupGame");
         Destroy(gameObject);
        
     }

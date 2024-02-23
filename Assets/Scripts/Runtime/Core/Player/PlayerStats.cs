@@ -8,7 +8,7 @@ namespace Player
 {
     public class PlayerStats : MonoBehaviour 
     {
-        [SerializeField] private  float money =10000 ;
+         private  float money  = 10000;
 
         public float Money
         {

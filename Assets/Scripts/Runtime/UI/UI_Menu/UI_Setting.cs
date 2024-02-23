@@ -1,8 +1,11 @@
+using System;
+using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_Setting : MonoBehaviour,IPointerExitHandler,IPointerEnterHandler
+public class UI_Setting : MonoBehaviour,IAnimationUI
 {
     [SerializeField] private Slider musicvolume;
     [SerializeField] private Slider sfxvomume;
@@ -10,28 +13,23 @@ public class UI_Setting : MonoBehaviour,IPointerExitHandler,IPointerEnterHandler
     [SerializeField] private Button _btnMusic;
     [SerializeField] private Button _btnSFX;
     [SerializeField] private RectTransform _panelSetting;
-
- 
-
-
-    private bool checkoutSide = false;
+    [SerializeField] private UI_Menu_Manager _uiMenuManager;
+    private Vector3 _startPos;
     
+   
+
+    private void Awake()
+    {
+        _startPos = _panelSetting.transform.position;
+       
+    }
 
     private void Start()
     {
-        GetComponent();
-        RegisterEvent();
+        RegisterEvent(); 
     }
 
-    private void GetComponent()
-    {
-        _panelSetting = transform.GetChild(0).GetComponent<RectTransform>();
-        _btnExit = _panelSetting.GetChild(3).GetComponent<Button>();
-        musicvolume = _panelSetting.GetChild(1).GetComponentInChildren<Slider>();
-        _btnMusic = _panelSetting.GetChild(1).GetComponentInChildren<Button>();
-        sfxvomume = _panelSetting.GetChild(2).GetComponentInChildren<Slider>();
-        _btnSFX = _panelSetting.GetChild(2).GetComponentInChildren<Button>();
-    }
+  
 
     private void RegisterEvent()
     {
@@ -67,30 +65,19 @@ public class UI_Setting : MonoBehaviour,IPointerExitHandler,IPointerEnterHandler
 
     private void HidePanelSetting()
     {
-        UIManager.HideUI(_panelSetting);
-    }
-    
-    
-    private void LateUpdate()
-    {
-        if(!_panelSetting.gameObject.activeSelf) return;
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (checkoutSide)
-            {
-                HidePanelSetting();
-            }
-        }
+       _uiMenuManager.HideUiMenugame(this.transform);
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public void AnimationIn()
     {
-        checkoutSide = true;
+        _panelSetting.gameObject.SetActive(true);
+        _panelSetting.gameObject.transform.DOLocalMove(_startPos,1);
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public void AnimationOut()
     {
-        checkoutSide = false;
+        _panelSetting.transform.DOLocalMove(new Vector3(_startPos.x - 200, _startPos.y, 0), 1);
+        _panelSetting.gameObject.SetActive(false);
     }
     
 }

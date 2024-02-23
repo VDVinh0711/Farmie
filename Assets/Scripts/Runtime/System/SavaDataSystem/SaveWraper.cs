@@ -13,35 +13,23 @@ namespace  SavingSystem
         }
         private void Update()
         {
-            /*if (Input.GetKeyDown(KeyCode.Z))
+            if (Input.GetKeyDown(KeyCode.Z))
             {
                 Save();
             }
 
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                Load();
-                print("Load");
-            }*/
         }
 
         public void Save()
         {
-            var saveSystems = FindObjectsOfType<SavingSystem>();
-            foreach (var saveAble in saveSystems)
-            {
-                saveAble.LoadSaveData();
-            }
+            var saveSystems = FindObjectOfType<SavingDataFarm>();
+            saveSystems.LoadSaveData();
+            var saveSystem2 = FindObjectOfType<SavingDataPlayer>();
+            saveSystem2.LoadSaveData();
+            
         }
 
-        public void Load()
-        {
-           var saveSystems = FindObjectsOfType<SavingSystem>();
-            foreach (var saveAble in saveSystems)
-            {
-                saveAble.LoadData();
-            }
-        }
+       
         
     } 
 }

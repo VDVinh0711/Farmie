@@ -9,7 +9,7 @@ using Unity.Services.Analytics;
 
 namespace InventorySystem
 {
-    public class Bag : Singleton<Bag> , ISaveSystem
+    public class Bag : Singleton<Bag> , ISaveData
     {
         [SerializeField] protected ItemSlot[] _slots;
         [SerializeField] protected List<ItemSlot> _slotItem;
