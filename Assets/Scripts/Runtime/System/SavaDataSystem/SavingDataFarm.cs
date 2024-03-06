@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
@@ -10,6 +11,15 @@ namespace  SavingSystem
 public class SavingDataFarm : MonoBehaviour
 {
     private const string nameKeyData = "DataFarm";
+    private PlayFabDataManager _playFabDataManager;
+
+
+    private void Start()
+    {
+        _playFabDataManager = new PlayFabDataManager();
+       LoadData();
+    }
+
     public void LoadSaveData()
     {
         var SaveAbles = GetComponentsInChildren<ISaveData>().ToList();
@@ -21,7 +31,8 @@ public class SavingDataFarm : MonoBehaviour
 
         savePLayer["TimeOut"] = GameTime.GetRealTIme();
         var savePlayerString = JsonConvert.SerializeObject(savePLayer);
-        SendDatatoPlayFab(savePlayerString);
+      //  SendDatatoPlayFab(savePlayerString);
+      _playFabDataManager.PushDataIntoPlayFab(nameKeyData,savePlayerString);
     }
     private void SendDatatoPlayFab(string datas)
     {
@@ -36,11 +47,11 @@ public class SavingDataFarm : MonoBehaviour
     }
     public void LoadData()
     {
-        PlayFabClientAPI.GetUserData(new GetUserDataRequest(), OnLoadDataRecive , OnError);
+        //PlayFabClientAPI.GetUserData(new GetUserDataRequest(), OnLoadDataRecive , OnError);
+        _playFabDataManager.GetDataOnPlayFab(OnLoadDataRecive);
     }
     private void OnLoadDataRecive(GetUserDataResult result)
     {
-        print(!(result.Data != null && result.Data.ContainsKey("DataFarm")));
         if (!(result.Data != null && result.Data.ContainsKey("DataFarm"))) return;
         var dataFarm = JsonConvert.DeserializeObject<Dictionary<string, object>>(result.Data[nameKeyData].Value);
             foreach (var saveable in GetComponentsInChildren<ISaveData>())

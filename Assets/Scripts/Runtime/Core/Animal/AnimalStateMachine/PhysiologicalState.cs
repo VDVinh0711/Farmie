@@ -121,17 +121,19 @@ public class PhysiologicalState : MonoBehaviour,ITimeTracker
             }
             else
             {
-                _animalHarvestState.OnExit();
+                
                 if (!_ishurry || !_issick)
                 {
                     IsNormal = true;
                 }
+                _animalHarvestState.OnExit();
             }
         }
     }
-    private void Start()
+
+
+    private void Awake()
     {
-        TimeManager.Instance.RegisterTracker(this);
         Animal = transform.GetComponent<Animal>();
         _animalNormalState = new AnimalNormalState(this);
         _animalHurryState = new AnimalHurryState(this,timeEat);
@@ -143,6 +145,12 @@ public class PhysiologicalState : MonoBehaviour,ITimeTracker
         _isharvest = false;
         _animalNormalState.OnEnter();
         SetnormalState();
+    }
+
+    private void Start()
+    {
+        TimeManager.Instance.RegisterTracker(this);
+       
     }
     
     

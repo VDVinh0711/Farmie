@@ -21,12 +21,10 @@ public class LoginSystem
         };
         PlayFabClientAPI.LoginWithEmailAddress(request,OnSuccess,OnError);
     }
-
     private void OnSuccess(LoginResult result)
     {
         loginSuccess?.Invoke();
     }
-
     private void OnError(PlayFabError result)
     {
         loginFail?.Invoke(result.ToString());

@@ -1,10 +1,8 @@
 
 using System.Collections;
-
 using Farm.Scene;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 public class LoadSceneHelper : MonoBehaviour
 {
     [SerializeField] private Fade _loadScene;
@@ -17,7 +15,6 @@ public class LoadSceneHelper : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         var _currentScene = SceneManager.GetActiveScene();
-        print(_currentScene.name);
         _loadScene = FindObjectOfType<Fade>();
         _loadScene.ShowLoadingScene();
         var asyncLoad = SceneManager.LoadSceneAsync(nameSceneLoad, LoadSceneMode.Additive);
@@ -36,7 +33,6 @@ public class LoadSceneHelper : MonoBehaviour
         SceneManager.UnloadSceneAsync(_currentScene);
         _loadScene.HideLoadingScene();
         Destroy(gameObject);
-       
     }
       
 }

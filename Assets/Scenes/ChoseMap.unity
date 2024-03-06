@@ -385,7 +385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88a5bcabfadfe9940a26d4d4bc6c2812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameMap: Farm
+  _nameMap: FarmScene
   _choseMapManager: {fileID: 971633775}
 --- !u!1 &971633772
 GameObject:
@@ -578,7 +578,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88a5bcabfadfe9940a26d4d4bc6c2812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameMap: Farm
+  _nameMap: MallScene
   _choseMapManager: {fileID: 971633775}
 --- !u!1 &1110371345
 GameObject:
@@ -726,7 +726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88a5bcabfadfe9940a26d4d4bc6c2812, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nameMap: Farm
+  _nameMap: FarmScene
   _choseMapManager: {fileID: 971633775}
 --- !u!1001 &1455349493
 PrefabInstance:

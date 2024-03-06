@@ -31,17 +31,21 @@ namespace Player
            // transform.parent.Translate(velocity);
            transform.parent.Translate(velocity);
             setAnimator(direction.x, direction.y,velocity);
-            FlipPlayer(direction.x);
+           // FlipPlayer(direction.x);
     
         }  
         void setAnimator(float horizontal , float vertical,Vector2 velocity)
         {
-            animator.SetFloat("horizontal" , horizontal);
+            /*animator.SetFloat("horizontal" , horizontal);
             animator.SetFloat("vertical", vertical);
-            animator.SetFloat("Speed", velocity.magnitude);  
+            animator.SetFloat("Speed", velocity.magnitude);  */
+            
+            animator.SetFloat("moveX", horizontal);
+            animator.SetFloat("moveY", vertical);
+            animator.SetBool("moving", horizontal!=0 || vertical!=0);
         }
 
-        void FlipPlayer(float horizontal)
+        /*void FlipPlayer(float horizontal)
         {
             SpriteRenderer renderer = transform.parent.gameObject.GetComponentInChildren<SpriteRenderer>();
             if (horizontal >= 0)
@@ -52,7 +56,7 @@ namespace Player
             {
                 renderer.flipX = false;
             }
-        }
+        }*/
 
      
     }

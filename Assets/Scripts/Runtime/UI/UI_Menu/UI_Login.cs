@@ -10,7 +10,6 @@ using DG.Tweening;
 public class UI_Login : MonoBehaviour ,IAnimationUI
 {
     
-    
     [Header("Input")]
     [SerializeField] private TMP_InputField _inputUser;
     [SerializeField] private TMP_InputField _inputPasswork;
@@ -23,9 +22,7 @@ public class UI_Login : MonoBehaviour ,IAnimationUI
     [SerializeField] private TextMeshProUGUI _notifycation;
     [Header("Ui_Menu_Manager")] 
     [SerializeField] private UI_Menu_Manager _uiMenuManager;
-
     [SerializeField] private LoadSceneHelper _loadSceneHelper;
-
     private Dictionary<string, Vector3> posRootOBj;
 
     private void Awake()
@@ -72,12 +69,10 @@ public class UI_Login : MonoBehaviour ,IAnimationUI
         if(text == null) return;
         _notifycation.SetText(text);
     }
-    
     private void LoginSucess()
     {
-        _loadSceneHelper.StarLoadSceneCouroutine("ChoseMap");
+        _loadSceneHelper.StarLoadSceneCouroutine("CharacterCreator");
     }
-
     public void OnButtonLoginClick()
     {
         string userEmail = _inputUser.text;
@@ -85,7 +80,6 @@ public class UI_Login : MonoBehaviour ,IAnimationUI
         LoginSystem loginSystem = new LoginSystem(LoginSucess,NotifycationLogin);
         loginSystem.Login(userEmail, passwork);
     }
-
     public void OnButtonRegster()
     {
         _uiMenuManager.OpenUiMenuGame(_uiMenuManager.UI_Register.transform);
@@ -94,7 +88,6 @@ public class UI_Login : MonoBehaviour ,IAnimationUI
     {
         _uiMenuManager.OpenUiMenuGame(_uiMenuManager.UI_Mainmenu.transform);
     }
-
     public void OnButtonGetPasswork()
     {
        

@@ -10,6 +10,6 @@ public class Map : MonoBehaviour,IPointerClickHandler
     [SerializeField] private ChoseMapManager _choseMapManager;
     public void OnPointerClick(PointerEventData eventData)
     {
-        _choseMapManager.loadMapChosing("FarmScene");
+        _choseMapManager.loadMapChosing(_nameMap);
     }
 }

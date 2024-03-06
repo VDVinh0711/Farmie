@@ -16,6 +16,7 @@ public class Test : MonoBehaviour
    [SerializeField] private ItemSlot _product2;
    [SerializeField] private List<float> lais = new();
    [SerializeField] private float rootMoney;
+   /*
    private void Start()
    {
       TestRef();
@@ -42,7 +43,7 @@ public class Test : MonoBehaviour
    public void TestCraf()
    {
         /* var carrotct = CeatItemCraftSO.GetItemScraft(item1, item2);
-         BagsManager.Instance.AddItem(carrotct, 3);*/
+         BagsManager.Instance.AddItem(carrotct, 3);#1#
 
    }
 
@@ -85,6 +86,7 @@ public class Test : MonoBehaviour
       }
       Debug.Log(rootMoney /1000000);
    }
+   */
    
    
    

@@ -100,7 +100,6 @@ namespace MissionSystem
             }
         }
         
-      
 
         public object SaveData()
         {
@@ -117,11 +116,9 @@ namespace MissionSystem
         public void LoadData(object state)
         {
             var questDatas = JsonConvert.DeserializeObject<Dictionary<string, QuestData>>(state.ToString());
-          
             _quests = new();
             foreach (var questData in questDatas.Values)
             {
-                print(MissionSO.GetMissionSObyID(questData.IdMission).TypeMission.ToString());
                 _quests.Add(questData.IdMission,LoadQuest(MissionSO.GetMissionSObyID(questData.IdMission),questData.CurrentCount,questData.IsDone));
             }
         }
