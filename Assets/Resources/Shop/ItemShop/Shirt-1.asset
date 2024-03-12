@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ed96f28bcd9ab54fb0e57c6c17714f3, type: 3}
+  m_Name: Shirt-1
+  m_EditorClassIdentifier: 
+  Price: 1000
+  Descri: asdasdasdasdsa
+  Thumail: {fileID: -2052966331, guid: 0091549160eca2b428c75f5425b308a2, type: 3}
+  itemdata: {fileID: 11400000, guid: 15cafeac3993c1147997c021fa6c37c1, type: 2}

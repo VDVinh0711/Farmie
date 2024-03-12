@@ -1,7 +1,6 @@
 
 using UnityEngine;
 using UnityEngine.UI;
-
 namespace InventorySystem
 {
     public class UI_ItemBagOption :  MonoBehaviour ,IActionAccept
@@ -14,9 +13,9 @@ namespace InventorySystem
         [SerializeField] private int _curIndexSlot;
         public  void Start()
         {
-            _btn_Use = transform.GetChild(0).GetComponent<Button>();
+            /*_btn_Use = transform.GetChild(0).GetComponent<Button>();
             _btn_AddInven = transform.GetChild(1).GetComponent<Button>();
-            _btn_Dispose = transform.GetChild(2).GetComponent<Button>();
+            _btn_Dispose = transform.GetChild(2).GetComponent<Button>();*/
             _btn_Use.onClick.AddListener(UseItemClick);
             _btn_AddInven.onClick.AddListener(AddInvenClick);
             _btn_Dispose.onClick.AddListener(DisposeClick);
@@ -25,12 +24,7 @@ namespace InventorySystem
         {
             _slotActive = itemSlot;
             _curIndexSlot = indexslot;
-            /*if (gameObject.activeSelf)
-            {
-                gameObject.SetActive(false);
-                itemSlot.IsActive = false;
-                return;
-            }*/
+            _btn_Use.gameObject.SetActive(itemSlot.Item is EquidmentObject);
             gameObject.SetActive(true);
         }
         public void UseItemClick()

@@ -68,7 +68,6 @@ namespace InventorySystem
 
        protected void OnStateChange()
        {
-           
            StateActionChange?.Invoke(this);
        }
     }

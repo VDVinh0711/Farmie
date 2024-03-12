@@ -18,7 +18,6 @@ namespace InventorySystem
         protected virtual void Start()
         {
             _uiItem = transform.GetComponentInChildren<UI_DisplayItem>();
-          
         }
         public void Display(ItemSlot item)
         {

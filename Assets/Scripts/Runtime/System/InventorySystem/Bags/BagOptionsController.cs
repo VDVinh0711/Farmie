@@ -15,13 +15,11 @@ namespace InventorySystem
        
         public void UseItem(int index)
         {
-         
             bag.InventoHand(index);
             _uiBags.RenderBagContents();
         }
         public void AcctiveItemInBag(UI_BagSlots uiBagSlots)
         {
-         
             if (_curentslotAccive != null)
             {
                 _curentslotAccive.IsActive = false;

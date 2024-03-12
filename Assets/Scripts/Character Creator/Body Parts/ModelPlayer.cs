@@ -5,24 +5,27 @@ using Newtonsoft.Json;
 using PlayFab.ClientModels;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 
 public class ModelPlayer : MonoBehaviour
 {
    [SerializeField] public List<BodayPartPlayer> _listpartPlayer = new();
    private PlayFabDataManager _playFabDataManager;
+   [SerializeField] private BodypartController _bodypartController;
    private void Awake()
    {
-      _playFabDataManager = new PlayFabDataManager();
-      _playFabDataManager.GetDataOnPlayFab(LoadData);
+    //  _playFabDataManager = new PlayFabDataManager();
+      //_playFabDataManager.GetDataOnPlayFab(LoadData);
    }
-   public void Set(string name, SO_body_part soBodyPart)
+   public void Set(PartPlayerType type, SO_body_part soBodyPart)
    {
       foreach (var partPlayer in _listpartPlayer)
       {
-         if(partPlayer.name != name) continue;
+         if(partPlayer.typePartPlayer!= type) continue;
          partPlayer.SoBodyPart = soBodyPart;
       }
+      _bodypartController.UpdateBodyPart();
    }
    public string SaveData()
    {
@@ -30,7 +33,7 @@ public class ModelPlayer : MonoBehaviour
      
       for (int i = 0; i < _listpartPlayer.Count; i++)
       {
-         listsave.Add(new SaveModelPlayer(_listpartPlayer[i].name, _listpartPlayer[i].SoBodyPart.bodypartAnimationID)) ;
+         listsave.Add(new SaveModelPlayer(_listpartPlayer[i].typePartPlayer.ToString(), _listpartPlayer[i].SoBodyPart.bodypartAnimationID)) ;
       }
       return JsonConvert.SerializeObject(listsave);
    }
@@ -41,7 +44,7 @@ public class ModelPlayer : MonoBehaviour
       var dataFarm = JsonConvert.DeserializeObject<List<SaveModelPlayer>>(result.Data["Bodypart"].Value);
       for (int i = 0; i < dataFarm.Count; i++)
       {
-         if (dataFarm[i].namePart == _listpartPlayer[i].name)
+         if (dataFarm[i].namePart == _listpartPlayer[i].typePartPlayer.ToString())
          {
             _listpartPlayer[i].SoBodyPart = SO_body_part.Get_body_Part_ByID(dataFarm[i].namePart,dataFarm[i].idPart);
          }
@@ -49,6 +52,8 @@ public class ModelPlayer : MonoBehaviour
 
       ReloadSkin();
    }
+   
+   //Test
    public void LoadSave()
    {
       _playFabDataManager.PushDataIntoPlayFab("Bodypart",SaveData());
@@ -62,13 +67,14 @@ public class ModelPlayer : MonoBehaviour
    private void OnDestroy()
    {
       _playFabDataManager.PushDataIntoPlayFab("Bodypart",SaveData());
+      
    }
 }
 
 [Serializable]
 public class BodayPartPlayer
 {
-   public string name;
+  public PartPlayerType typePartPlayer;
    public SO_body_part SoBodyPart;
 }
 public struct SaveModelPlayer

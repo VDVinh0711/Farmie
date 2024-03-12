@@ -29,7 +29,6 @@ namespace InventorySystem
         {
             AdjustInven();
         }
-
         public bool ISFull()
         {
             return  _slots.Count(slot => slot.HasItem()) >= _size;
@@ -122,14 +121,25 @@ namespace InventorySystem
             }
             else
             {
-                _slots[index] = new ItemSlotDura(item);
-                return numberitem - 1;
+                if (item is IDurability)
+                {
+                    _slots[index] = new ItemSlotDura(item);
+                    return numberitem - 1;
+                }
+                else
+                {
+                    _slots[index] = new ItemSlot(item);
+                    return numberitem - 1;
+                }
+
             }
             return -1;
         }
         
         public  bool AddItem(ItemSlot itemSlot)
         {
+           
+            if (itemSlot == null) return false;
             if (!CanAcceptItem(itemSlot.Item, itemSlot is ItemSlotStack ? (itemSlot as ItemSlotStack).NumberItem : 1))
             {
                 EventManger<string>.RaiseEvent("ShowNotifycation","Kho đồ đã đầy");
@@ -146,6 +156,10 @@ namespace InventorySystem
                     var index = FindIndexSlotEmTy();
                     _slots[index] = new ItemSlotDura(itemSlot as ItemSlotDura);
                     break;
+                case ItemSlot :
+                    var index2 = FindIndexSlotEmTy();
+                    _slots[index2] = new ItemSlot(itemSlot);
+                    break;
                 
                 default:
                     return false;
@@ -154,9 +168,6 @@ namespace InventorySystem
             return true;
           
         }
-
-
-
 
         private void AddfollowReQuest(ItemObject item, int number)
         {
@@ -195,6 +206,10 @@ namespace InventorySystem
                     {
                         (slot as ItemSlotStack).PreviousItem(quantity);
                     }
+                    else
+                    {
+                        slot.SetEmty();
+                    }
                 }
             }
         }
@@ -203,11 +218,27 @@ namespace InventorySystem
             _slotItem = new List<ItemSlot>();
             foreach (var slot in _slots)
             {
-                if(slot.Item is ItemInvenObject)
+                if(slot is ItemClothesController)
                     _slotItem.Add(slot);
             }
             return _slotItem;
         }
+        
+        
+        public List<ItemSlot> GetItemClothesInBag()
+        {
+            var listItem = new List<ItemSlot>();
+            for (int i = 0; i < _slots.Length; i++)
+            {
+                if (_slots[i].Item is ClothesItemSO)
+                {
+                    listItem.Add(_slots[i]);
+                }
+            }
+
+            return listItem;
+        }
+        
         public void SwapItem(  ref ItemSlot item1,  ref ItemSlot item2)
         {
             ItemSlot temp = new ItemSlot();
@@ -239,9 +270,6 @@ namespace InventorySystem
             NotifyChangehand();
             OnUpdateBag();
         }
-
-
-
         public ItemSlot GetItemByItemOBJ(ItemObject itemSlot)
         {
             return _slots.FirstOrDefault(x => x.Item == itemSlot);
@@ -254,7 +282,7 @@ namespace InventorySystem
          {
              StateChangeHand?.Invoke(_handItem);
          }
-         
+        
         public object SaveData()
         {
             HandtoInventory();

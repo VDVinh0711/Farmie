@@ -126,7 +126,6 @@ namespace InventorySystem
              string description = GameMultiLang.GetTraduction(_slot.Item.KeyDes);
              ShowItemDescriptionEvent?.Invoke(name, description);
          }
-
          private void ClearItemDescription()
          {
              ShowItemDescriptionEvent?.Invoke("", "");

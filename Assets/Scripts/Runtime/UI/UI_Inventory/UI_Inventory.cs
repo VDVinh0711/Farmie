@@ -18,7 +18,6 @@ public class UI_Inventory : AbsCheckOutSide
     {
         InstanstializeInventoryUI();
     }
-    
     public void InstanstializeInventoryUI()
     {
         if (_inventorySLotPrefabs == null) return;
@@ -35,7 +34,6 @@ public class UI_Inventory : AbsCheckOutSide
     }
     private void RenderInventory()
     {
-        
         for(int i=0;i<_inventory.Slot.Length;i++)
         {
             _slots[i].Display(_inventory.Slot[i]);
@@ -59,12 +57,10 @@ public class UI_Inventory : AbsCheckOutSide
         }
        
     }
-
     private void OnDestroy()
     {
         _inventory.Changeinventory -= RenderInventory;
     }
-
     protected override void Click(InputAction.CallbackContext obj)
     {
         if(!_isOutSide) return;

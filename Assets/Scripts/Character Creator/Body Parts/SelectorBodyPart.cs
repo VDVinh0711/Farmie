@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SelectorBodyPart : MonoBehaviour
 {
@@ -30,14 +31,14 @@ public class SelectorBodyPart : MonoBehaviour
     }
     public void UpdateCurrentPart(int index)
     {
-        _modelPlayer.Set(BodyPartSelectors[index].name , BodyPartSelectors[index].GetBodyparCurrenIndex() );
+        _modelPlayer.Set(BodyPartSelectors[index].Type , BodyPartSelectors[index].GetBodyparCurrenIndex() );
     }
 }
 
 [Serializable]
 public class BodyPartSelector
 {
-    public string name;
+    public PartPlayerType Type;
     public int currentIndex;
     public List<SO_body_part> SoBodyParts;
 

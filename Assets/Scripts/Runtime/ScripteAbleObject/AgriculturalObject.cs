@@ -5,14 +5,17 @@ using Object = UnityEngine.Object;
 
 [CreateAssetMenu(menuName = "New ItemData/Aricultural")]
 [Serializable]
-public class AgriculturalObject : EquidmentObject
+public class AgriculturalObject : EquidmentObject,IDurability
 {
-    [SerializeField] private int _durability;
+    //[SerializeField] private int _durability;
     [SerializeField]private AriculturalType _typeAricul;
-    [SerializeField] private int _reduceDura;
-    public int Durability => _durability;
+    //[SerializeField] private int _reduceDura;
+    //public int Durability => _durability;
+    
+    [SerializeField] public int durability { get=>100;  }
+    [SerializeField] public int reducedurability { get=>10;  }
     public AriculturalType TypeAricul => _typeAricul;
-    public int ReduceDura => _reduceDura;
+    //public int ReduceDura => _reduceDura;
 
     public override void Used(Object land)
     {
@@ -30,6 +33,8 @@ public class AgriculturalObject : EquidmentObject
                 break;
         }
     }
+
+    
 }
 public enum AriculturalType
 {

@@ -9,7 +9,6 @@ namespace InventorySystem
 {
     public class UI_OptionItem : AbsCheckOutSide
     {
-
         [SerializeField] private Button _btn_GetItem;
         [SerializeField] private UI_Inventoryslot _uiInventoryslot;
         [SerializeField] private InventoryController _inventoryController;

@@ -133,8 +133,17 @@ namespace InventorySystem
             }
             else
             {
-                _slots[index] = new ItemSlotDura(item);
-                return numberitem - 1;
+
+                if (item is IDurability)
+                {
+                    _slots[index] = new ItemSlotDura(item);
+                    return numberitem - 1;
+                }
+                else
+                {
+                    _slots[index] = new ItemSlot(item);
+                    return numberitem - 1;
+                }
             }
             return -1;
         }
@@ -158,7 +167,10 @@ namespace InventorySystem
                     break;
                 
                 default:
-                    return false;
+                    var index2 = FindIndexSlotEmTy();
+                    _slots[index2] = new ItemSlot(itemSlot);
+                    break;
+                    
             }
             return true;
           

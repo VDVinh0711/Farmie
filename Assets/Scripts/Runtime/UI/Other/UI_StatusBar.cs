@@ -58,7 +58,8 @@ public class UI_StatusBar : MonoBehaviour
     {
         if (itemSlotDura == null) return;
         _durability_UI.transform.gameObject.SetActive(true);
-        _durability_UI.maxValue = (itemSlotDura.Item as AgriculturalObject).Durability;
+        //_durability_UI.maxValue = (itemSlotDura.Item as AgriculturalObject).Durability;
+        _durability_UI.maxValue = (itemSlotDura.Item as IDurability).durability;
         _durability_UI.value = itemSlotDura.Durability;
     }
 

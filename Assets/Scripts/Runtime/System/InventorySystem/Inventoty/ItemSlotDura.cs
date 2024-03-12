@@ -22,7 +22,7 @@ namespace InventorySystem
 
         public ItemSlotDura(ItemObject itemObject) : base(itemObject)
         {
-            Durability = (itemObject as AgriculturalObject).Durability;
+            Durability = (itemObject as IDurability).durability;
         }
         public ItemSlotDura(ItemSlotDura itemObject) : base(itemObject)
         {
@@ -37,7 +37,7 @@ namespace InventorySystem
 
         public override  void UseItem()
         {
-            Durability -= (Item as AgriculturalObject).ReduceDura;
+            Durability -= (Item as IDurability).reducedurability;
             if(_durability <=0) SetEmty();
         }
         public ItemSlot GetItemSlotDure()
