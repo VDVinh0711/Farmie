@@ -1,4 +1,5 @@
 
+using Player;
 using UnityEngine;
 
 namespace  InventorySystem
@@ -7,9 +8,9 @@ namespace  InventorySystem
     {
 
         [SerializeField] private UI_Inventory _uiInventory;
-    
+        
 
-        public void InterRac()
+        public void InterRac(PlayerManager playerManager)
         {
             _uiInventory.ShowInventory();
         }

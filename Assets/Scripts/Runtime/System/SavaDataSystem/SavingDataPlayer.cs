@@ -12,13 +12,10 @@ namespace  SavingSystem
     public class SavingDataPlayer : MonoBehaviour
     {
         private const string nameKeyData = "DataPlayer";
-        private PlayFabDataManager _playFabDataManager;
-        private void Start()
+        private void Awake()
         {
-            _playFabDataManager = new PlayFabDataManager();
            LoadData();
         }
-
         public void LoadSaveData()
         {
             var SaveAbles = GetComponentsInChildren<ISaveData>().ToList();
@@ -27,26 +24,14 @@ namespace  SavingSystem
             {
                 savePLayer[saveable.GetType().ToString()] = saveable.SaveData();
             }
-
             var savePlayerString = JsonConvert.SerializeObject(savePLayer);
-            _playFabDataManager.PushDataIntoPlayFab(nameKeyData,savePlayerString);
-           //SendDatatoPlayFab(savePlayerString);
-        }
-        private void SendDatatoPlayFab(string datas)
-        {
-            var request = new UpdateUserDataRequest
-            {
-                Data = new Dictionary<string, string>
-                {
-                    { nameKeyData, datas }
-                }
-            };
-           PlayFabClientAPI.UpdateUserData(request,OnSendSucess,OnError);
+            print(savePlayerString);
+            PlayFabData.PushDataIntoPlayFab(nameKeyData,savePlayerString);
         }
         public void LoadData()
         {
             //PlayFabClientAPI.GetUserData(new GetUserDataRequest(), OnLoadDataRecive , OnError);
-           _playFabDataManager.GetDataOnPlayFab(OnLoadDataRecive);
+           PlayFabData.GetDataOnPlayFab(OnLoadDataRecive);
         }
         private void OnLoadDataRecive(GetUserDataResult result)
         {
@@ -61,15 +46,7 @@ namespace  SavingSystem
                     }
                 }
         }
-        private void OnSendSucess(UpdateUserDataResult obj)
-        {
-            print("Send data player sucess");
-        }
-        private void OnError(PlayFabError obj)
-        {
-            print("Senddata player error" + obj.ToString());
-        }
-        private void OnDestroy()
+        private void OnDisable()
         {
             LoadSaveData();
         }

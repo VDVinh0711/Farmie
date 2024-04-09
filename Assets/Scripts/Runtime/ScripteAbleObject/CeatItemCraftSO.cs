@@ -6,15 +6,15 @@ using UnityEngine;
 public class CeatItemCraftSO : ScriptableObject
 {
     public string ID;
-    public ItemObject itemCraf;
-    public ItemObject item11;
-    public ItemObject item22;
+    public Item_SO itemCraf;
+    public Item_SO item11;
+    public Item_SO item22;
     private void OnValidate()
     {
         ID = this.name;
     }
 
-    public  static CeatItemCraftSO GetItemScraft(ItemObject item1, ItemObject item2)
+    public  static CeatItemCraftSO GetItemScraft(Item_SO item1, Item_SO item2)
     {
         if (item1 == null || item2 == null) return null;
         var ItenCraf = Resources.LoadAll<CeatItemCraftSO>("Craft");

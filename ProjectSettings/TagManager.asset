@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Land
+  - Barie
   layers:
   - Default
   - TransparentFX
@@ -40,4 +42,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI_InforPlayer
+    uniqueID: 3425498579
+    locked: 0
+  - name: UI_Game
+    uniqueID: 2603358735
     locked: 0

@@ -7,7 +7,9 @@ namespace InventorySystem
     {
         public override void OnPointerClick(PointerEventData eventData)
         {
-          Bag.Instance.HandtoInventory();
+          //Bag.Instance.ItemInHandToBag();
+          var bag = FindObjectOfType<Bag>();
+          bag.BagController.IteminHandtoBag();
         }
     }  
     

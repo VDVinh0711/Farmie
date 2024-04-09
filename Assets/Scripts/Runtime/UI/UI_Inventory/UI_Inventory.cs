@@ -13,7 +13,6 @@ public class UI_Inventory : AbsCheckOutSide
     [SerializeField] private UI_OptionItem _uiOptionItem;
     [SerializeField] private Inventory _inventory;
     public UI_OptionItem UIOptionItem => _uiOptionItem;
-    
     private void Start()
     {
         InstanstializeInventoryUI();

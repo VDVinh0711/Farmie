@@ -24,7 +24,6 @@ namespace InventorySystem
         {
             _slotActive = itemSlot;
             _curIndexSlot = indexslot;
-            _btn_Use.gameObject.SetActive(itemSlot.Item is EquidmentObject);
             gameObject.SetActive(true);
         }
         public void UseItemClick()

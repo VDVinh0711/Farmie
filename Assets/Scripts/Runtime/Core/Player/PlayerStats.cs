@@ -34,19 +34,9 @@ namespace Player
             money+= moneyadd;
             OnstateChange();
         }
-
         private void OnstateChange()
         {
             StateChange?.Invoke();
-        }
-        public object SaveData()
-        {
-            return money;
-        }
-        public void LoadData(object state)
-        {
-            var money = JsonConvert.DeserializeObject<float>(state.ToString());
-            this.money = money;
         }
     }
 

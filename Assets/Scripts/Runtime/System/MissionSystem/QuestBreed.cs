@@ -27,8 +27,8 @@ namespace MissionSystem
         }
         public override void FinishMission()
         {
-            PlayerController.Instance.PlayerStats.Earn(missionSO.GoldReward);
-            PlayerController.Instance.PlayerExperience.AddExperience(missionSO.ExpReward);
+            PlayerManager.Instance.PlayerStats.Earn(missionSO.GoldReward);
+            PlayerManager.Instance.PlayerExperience.AddExperience(missionSO.ExpReward);
         }
 
         public override void CheckMission(Object obj)

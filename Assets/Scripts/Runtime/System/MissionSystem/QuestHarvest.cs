@@ -27,15 +27,15 @@ namespace MissionSystem
         }
         public override void FinishMission()
         {
-            PlayerController.Instance.PlayerStats.Earn(missionSO.GoldReward);
-            PlayerController.Instance.PlayerExperience.AddExperience(missionSO.ExpReward);
+            PlayerManager.Instance.PlayerStats.Earn(missionSO.GoldReward);
+            PlayerManager.Instance.PlayerExperience.AddExperience(missionSO.ExpReward);
         }
 
         public override void CheckMission(Object obj)
         { 
-            var item = obj as ItemObject;
+            var item = obj as Item_SO;
             if(item == null) return;
-            if(! item.ID.Equals((missionSO as MissionSOHarvest).ItemObject.ID)) return;
+            if(! item.ID.Equals((missionSO as MissionSOHarvest).itemSo.ID)) return;
             CurrentCount++;
             if(_currentcount < missionSO.CountRequest) return;
             _isDone = true;

@@ -8,40 +8,32 @@ using Player;
 public class Shop : MonoBehaviour,IInterac
 {
     public List<ItemShopObject> itemShop = new List<ItemShopObject>();
-    [SerializeField]
-    private UIShop _uishop;
-    private Transform farm;
-    public static void Purchare(ItemShopObject item , int quantity)
+    [SerializeField]  private UIShop _uishop;
+    private PlayerManager _playerManager;
+    public PlayerManager PlayerManager => _playerManager;
+    
+    public  void Purchare(ItemShopObject item , int quantity)
     {
         float toltalcoast = item.Price * quantity;
-        if (toltalcoast >  PlayerController.Instance.PlayerStats.Money)
+        if (toltalcoast >  PlayerManager.Instance.PlayerStats.Money) EventManger<string>.RaiseEvent("ShowNotifycation","Bạn không có đủ tiền");
+        switch (item)
         {
-            EventManger<string>.RaiseEvent("ShowNotifycation","Bạn không có đủ tiền");
-        }
-        if (item is AnimalShopObject)
-        {
-            var animalshopobj = item as AnimalShopObject;
-            var stable = GameObject.Find(animalshopobj.animalObject.nameLocationSpawn).GetComponent<Stable>();
-           if (stable.AddAnimal(quantity, animalshopobj.animalObject))
-            {
-                PlayerController.Instance.PlayerStats.Spend(toltalcoast);
-            }
-           
-        }
-        if(item is Itemshop)
-        {
-            Itemshop itemdata = item as Itemshop;
-            if (Bag.Instance.AddItem(itemdata.itemdata, quantity))
-            {
-                PlayerController.Instance.PlayerStats.Spend(toltalcoast);
-            }
-          
+            case AnimalShopObject  animalshopobj:
+                var stable = GameObject.Find(animalshopobj.animalObject.nameLocationSpawn).GetComponent<Stable>();
+                if (stable.AddAnimal(quantity, animalshopobj.animalObject))  _playerManager.PlayerStats.Spend(toltalcoast);
+                break;
+            case Itemshop itemdata:
+                var bag = _playerManager.Bag;
+                if ( !bag.AddItem(itemdata.itemdata, quantity)) return;
+                _playerManager.PlayerStats.Spend(toltalcoast);
+                break;
         }
     }
-    public void InterRac()
+
+    public void InterRac(PlayerManager playerManager)
     {
-       if(_uishop == null) _uishop = GameObject.FindAnyObjectByType<UIShop>();
-       _uishop.OpenUiShop(itemShop);
-    } 
-    
+        _playerManager = playerManager;
+        if (_uishop == null) _uishop = FindObjectOfType<UIShop>();
+        _uishop.OpenUiShop(itemShop);
+    }
 }

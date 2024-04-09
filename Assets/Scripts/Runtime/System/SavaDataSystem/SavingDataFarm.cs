@@ -11,12 +11,8 @@ namespace  SavingSystem
 public class SavingDataFarm : MonoBehaviour
 {
     private const string nameKeyData = "DataFarm";
-    private PlayFabDataManager _playFabDataManager;
-
-
     private void Start()
     {
-        _playFabDataManager = new PlayFabDataManager();
        LoadData();
     }
 
@@ -32,7 +28,7 @@ public class SavingDataFarm : MonoBehaviour
         savePLayer["TimeOut"] = GameTime.GetRealTIme();
         var savePlayerString = JsonConvert.SerializeObject(savePLayer);
       //  SendDatatoPlayFab(savePlayerString);
-      _playFabDataManager.PushDataIntoPlayFab(nameKeyData,savePlayerString);
+      PlayFabData.PushDataIntoPlayFab(nameKeyData,savePlayerString);
     }
     private void SendDatatoPlayFab(string datas)
     {
@@ -48,7 +44,7 @@ public class SavingDataFarm : MonoBehaviour
     public void LoadData()
     {
         //PlayFabClientAPI.GetUserData(new GetUserDataRequest(), OnLoadDataRecive , OnError);
-        _playFabDataManager.GetDataOnPlayFab(OnLoadDataRecive);
+        PlayFabData.GetDataOnPlayFab(OnLoadDataRecive);
     }
     private void OnLoadDataRecive(GetUserDataResult result)
     {

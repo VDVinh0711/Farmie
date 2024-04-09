@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UI_Menu_Ingame : AbsCheckOutSide
@@ -34,7 +35,7 @@ public class UI_Menu_Ingame : AbsCheckOutSide
     private void RegisterEvent()
     {
         _btn_Resume.onClick.AddListener(Resume);
-        _btn_Save.onClick.AddListener(Save);
+        _btn_Save.onClick.AddListener(ChoseMap);
         _btn_ShowMenu.onClick.AddListener(TurnMenu);
         _btn_Exit.onClick.AddListener(Exit);
         _btn_Setting.onClick.AddListener(Setting);
@@ -45,14 +46,14 @@ public class UI_Menu_Ingame : AbsCheckOutSide
         HideMenu();
     }
 
-    private void Save()
+    private void ChoseMap()
     {
-        EventManager.RaisEvent("Savedata");
+        SceneManager.LoadScene("ChoseMap");
     }
 
     private void Exit()
     {
-        Save();
+        ChoseMap();
         HideMenu();
         LoadSceneHelper loadSceneHelper = FindObjectOfType<LoadSceneHelper>();
         loadSceneHelper.StarLoadSceneCouroutine("Menu");

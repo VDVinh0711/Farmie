@@ -6,15 +6,12 @@ public class AnimalEatState :IState
 
     private AnimalBehavor _animalBehavor;
     private float currentimeEat = 0;
-
     public AnimalEatState(AnimalBehavor animalBehavor)
     {
         _animalBehavor = animalBehavor;
     }
-
     public void OnUpdate()
     {
-        Debug.Log(_animalBehavor.MoveAnimal.checkIncome());
         if (_animalBehavor.MoveAnimal.checkIncome())
         {
             _animalBehavor.AnimationAnimal.OnAnimationIdle();
@@ -26,7 +23,6 @@ public class AnimalEatState :IState
         _animalBehavor.MoveAnimal.Move();
        
     }
-
     public void OnEnter()
     {
         Debug.Log("run");
@@ -35,14 +31,12 @@ public class AnimalEatState :IState
        _animalBehavor.MoveAnimal.RegisterMovetarget();
        
     }
-
     public void OnExit()
     {
         _animalBehavor.IsEat = false;
         currentimeEat = 0;
 
     }
-
     private void Eatting()
     {
         

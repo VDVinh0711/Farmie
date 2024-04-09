@@ -1,6 +1,9 @@
 
 
+using Player;
+using UnityEngine;
+
 public interface IInterac 
 {
-    void InterRac();
+    void InterRac(PlayerManager playerManager);
 }

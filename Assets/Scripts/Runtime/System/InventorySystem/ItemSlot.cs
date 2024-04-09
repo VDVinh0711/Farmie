@@ -8,14 +8,14 @@ namespace InventorySystem
     public  class ItemSlot
     {
         public event Action<ItemSlot> StateActionChange; 
-        [SerializeField] private ItemObject _item;
+        [SerializeField] protected Item_SO _item;
         [SerializeField] private bool _isactive = false;
         public string ID => _item.ID;
         public bool HasItem()
         {
             return _item != null;
         }
-        public ItemObject Item
+        public Item_SO Item
         {
             get => _item;
             set
@@ -34,7 +34,7 @@ namespace InventorySystem
                 OnStateChange();
             }
         }
-        public ItemSlot(ItemObject item)
+        public ItemSlot(Item_SO item)
         {
             _item = item;
         }

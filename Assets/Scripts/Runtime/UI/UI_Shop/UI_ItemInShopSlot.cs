@@ -9,7 +9,7 @@ public class UI_ItemInShopSlot :MonoBehaviour,IPointerClickHandler
     [SerializeField] private TextMeshProUGUI _name;
     [SerializeField] private TextMeshProUGUI cost;
     [SerializeField] private Image thumnail;
-    [SerializeField] private ItemShopObject _itemShopObject;
+    [SerializeField] protected ItemShopObject _itemShopObject;
     [SerializeField] private UIShop _uishop;
     public void DisPlay(ItemShopObject itemdata)
     {

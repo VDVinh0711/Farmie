@@ -4,12 +4,13 @@ using UnityEngine;
 using InventorySystem;
 using Player;
 using TMPro;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 public class UI_StatusBar : MonoBehaviour
 {
 
     [SerializeField] private Bag _bag;
-    [SerializeField] private PlayerController _playerController;
+    [FormerlySerializedAs("_playerController")] [SerializeField] private PlayerManager playerManager;
     [Header("Hand")]
     [SerializeField] private Image _thumail;
     [SerializeField] private TextMeshProUGUI _quantity;
@@ -58,9 +59,8 @@ public class UI_StatusBar : MonoBehaviour
     {
         if (itemSlotDura == null) return;
         _durability_UI.transform.gameObject.SetActive(true);
-        //_durability_UI.maxValue = (itemSlotDura.Item as AgriculturalObject).Durability;
-        _durability_UI.maxValue = (itemSlotDura.Item as IDurability).durability;
-        _durability_UI.value = itemSlotDura.Durability;
+        _durability_UI.maxValue = (itemSlotDura.Item as AgriculturalSo).MaxDurability;
+        _durability_UI.value = itemSlotDura.CurDurability;
     }
 
     private void SetUpUiStack(ItemSlotStack itemSlotStack)
@@ -83,14 +83,14 @@ public class UI_StatusBar : MonoBehaviour
     }
     private void UpdateMoneyStatusBar()
     {
-        _playerController.PlayerStats.StateChange += OnstateChangeMoney;
-        _money.SetText( PlayerController.Instance.PlayerStats.Money.ToString());
+        playerManager.PlayerStats.StateChange += OnstateChangeMoney;
+        _money.SetText( PlayerManager.Instance.PlayerStats.Money.ToString());
         
     }
 
     private void OnDestroy()
     {
-        _playerController.PlayerStats.StateChange -= OnstateChangeMoney;
+        playerManager.PlayerStats.StateChange -= OnstateChangeMoney;
         _bag.StateChangeHand -= UpdateHandStatusbar;
     }
     private void OnStateActionChange(ItemSlot arg)

@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class UI_ActiveComfirmSell : MonoBehaviour
 {
+   
     [SerializeField] private RectTransform _panel;
     [SerializeField] private TextMeshProUGUI _nameItem;
     [SerializeField] private TMP_InputField _inputQuantity;
@@ -17,6 +18,8 @@ public class UI_ActiveComfirmSell : MonoBehaviour
     private SellItem _sellitem;
     private UIShop _uiShop;
     private ItemSlot _itemsell;
+    private Bag _bag;
+    
 
     private void Awake()
     {
@@ -28,6 +31,7 @@ public class UI_ActiveComfirmSell : MonoBehaviour
     {
         Getcomponent();
         RegisterEvent();
+        _bag = FindObjectOfType<Bag>();
     }
 
     private void Getcomponent()
@@ -59,7 +63,7 @@ public class UI_ActiveComfirmSell : MonoBehaviour
         _inputQuantity.text = "";
         _itemsell = item;
         _panel.gameObject.SetActive(true);
-        _sellitem = new SellItem(Bag.Instance);
+        _sellitem = new SellItem(_bag);
      
     }
 

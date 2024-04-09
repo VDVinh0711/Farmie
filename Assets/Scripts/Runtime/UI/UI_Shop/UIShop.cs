@@ -26,7 +26,6 @@ public class UIShop : MonoBehaviour,IPointerExitHandler,IPointerEnterHandler
         _shopPanel.InstantiateShop(itemShopObjects);
         _invenpanel.RenderInvenInShop();
     }
-
     private void LateUpdate()
     {
         if(!panle.gameObject.activeSelf) return;
@@ -42,12 +41,10 @@ public class UIShop : MonoBehaviour,IPointerExitHandler,IPointerEnterHandler
     {
        checkoutSide = true;
     }
-
     public void OnPointerEnter(PointerEventData eventData)
     {
         checkoutSide = false;
     }
-
     private void HideShop()
     {
         UIManager.HideUI(panle);

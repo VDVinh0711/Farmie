@@ -17,9 +17,8 @@ public class ItemSlotStack : ItemSlot
             OnStateChange();
         }
     }
-    
     public ItemSlotStack(){}
-    public ItemSlotStack(ItemObject itemObject, int numberItem) : base(itemObject)
+    public ItemSlotStack(Item_SO itemSo, int numberItem) : base(itemSo)
     {
         NumberItem = numberItem;
     }

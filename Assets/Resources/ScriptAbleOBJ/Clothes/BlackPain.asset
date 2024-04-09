@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07da7b50098003e4ea84ae9f8713cb05, type: 3}
+  m_Name: BlackPain
+  m_EditorClassIdentifier: 
+  _id: BlackPain
+  _uiinGame: {fileID: 2603238811775612124, guid: 384fa3c507b45004c8619408d97f70b2, type: 3}
+  _uiinInven: {fileID: 2603238811775612124, guid: 384fa3c507b45004c8619408d97f70b2, type: 3}
+  _keyDes: 'Black Pain '
+  Type: 0
+  SpriteLibraryAsset: {fileID: 7108339969198208228, guid: c8d1a3a1d6a697749874041db3e7e033, type: 3}

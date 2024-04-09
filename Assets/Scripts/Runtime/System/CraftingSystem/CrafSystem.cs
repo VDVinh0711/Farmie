@@ -1,25 +1,27 @@
 using System;
-using System.Collections;
-using System.Linq;
 using InventorySystem;
+using Photon.Pun.Demo.PunBasics;
 using UnityEngine;
+using PlayerManager = Player.PlayerManager;
 
 //Dùng Singletone đề Lười , Dùng để get Crafting khi cần thiết
-public class CrafSystem : Singleton<CrafSystem>
+public class CrafSystem : Singleton<CrafSystem>,IInterac
 {
-  
+    [SerializeField] private UI_Craft _uiCraft;
+    [SerializeField] private PlayerManager _playerManager;
     private ItemSlot _craftedProduct;
     private int _craftQuantity;
     private ItemSlot[] _craftingIngredients;
     public ItemSlot[] CraftingIngredients => _craftingIngredients;
     public ItemSlot CraftedProduct => _craftedProduct;
     public event Action CraftingStateChange;
+    public PlayerManager PlayerManager => _playerManager;
     private void OnEnable()
     {
         InitializeIngredientSlots();
     }
     private void InitializeIngredientSlots()
-    {//khởi tạo slot cho các Ingridient và OBJ
+    {
         _craftingIngredients = new ItemSlot[2];
         for (int i = 0; i < _craftingIngredients.Length; i++)
         {
@@ -27,7 +29,6 @@ public class CrafSystem : Singleton<CrafSystem>
         }
         _craftedProduct = new ItemSlot();
     }
-    //Press  Crafting Item
     public void Craft()
     {
         if(!_craftingIngredients[0].HasItem() || !_craftingIngredients[1].HasItem()) return;
@@ -49,7 +50,7 @@ public class CrafSystem : Singleton<CrafSystem>
         }
         return Mathf.Min(ingredient1.NumberItem, ingredient2.NumberItem);
     }
-    private ItemSlot CreateProductSlot(ItemObject productItem, int quantity)
+    private ItemSlot CreateProductSlot(Item_SO productItem, int quantity)
     {
         return productItem is IStackAble ? new ItemSlotStack(productItem, quantity) : new ItemSlotDura(productItem);
     }
@@ -121,11 +122,14 @@ public class CrafSystem : Singleton<CrafSystem>
         }
         NotifyCraftingStateChange();
     }
-
     private void NotifyCraftingStateChange()
     {
         CraftingStateChange?.Invoke();
     }
 
-  
+    public void InterRac(PlayerManager playerManager)
+    {
+        _playerManager = playerManager;
+        _uiCraft.ToggleCraftingUI();
+    }
 }

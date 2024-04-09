@@ -31,7 +31,7 @@ public class UI_ChatPanel : MonoBehaviour
     public void SendText()
     {
         if(_txtInput.text.ToString().Trim().Length == 0) return;
-        var player = PlayerController.Instance.gameObject.transform;
+        var player = PlayerManager.Instance.gameObject.transform;
         _showPanel.position = new Vector3(player.position.x+0.5f,player.position.y + 1f,player.position.z);
         HidePanle();
         _showPanel.gameObject.SetActive(true);
@@ -63,7 +63,7 @@ public class UI_ChatPanel : MonoBehaviour
     private void LateUpdate()
     {
         if(!_showPanel.gameObject.activeSelf) return;
-        var player = PlayerController.Instance.gameObject.transform;
+        var player = PlayerManager.Instance.gameObject.transform;
         _showPanel.position = new Vector3(player.position.x+0.5f,player.position.y + 1f,player.position.z);
     }
 

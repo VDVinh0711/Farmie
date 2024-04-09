@@ -7,10 +7,7 @@ namespace  SavingSystem
 {
     public class SaveWraper : MonoBehaviour
     {
-        private void Awake()
-        {
-          
-        }
+      
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Z))

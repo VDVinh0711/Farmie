@@ -16,7 +16,6 @@ namespace InventorySystem
         {
             Getcomponent();
         }
-
         private void Getcomponent()
         {
             _active =transform.GetChild(0).GetComponent<Image>();
@@ -25,12 +24,10 @@ namespace InventorySystem
             _durability_UI.transform.GetComponent<Slider>();
             _durability_UI.interactable = false;
         }
-
         public void UpdateView(ItemSlot  slot)
         {
            slot.StateActionChange -= OnStateActionChange;
             slot.StateActionChange += OnStateActionChange;
-          
             var hasitem = slot.HasItem();
             var isactive = slot.IsActive;
             _icon.enabled = hasitem;
@@ -50,31 +47,24 @@ namespace InventorySystem
             }
             
         }
-      
-       
         private void SetUiDuraable(ItemSlotDura itemSlotDura)
         {
             if (itemSlotDura == null) return;
             _durability_UI.transform.gameObject.SetActive(true);
-          //  _durability_UI.maxValue = (itemSlotDura.Item as AgriculturalObject).Durability;
-            _durability_UI.maxValue = (itemSlotDura.Item as IDurability).durability;
-            _durability_UI.value = itemSlotDura.Durability;
+            _durability_UI.maxValue = (itemSlotDura.Item as AgriculturalSo)!.MaxDurability;
+            _durability_UI.value = (itemSlotDura.Item as AgriculturalSo)!.CurrentDura;
         }
-
         private void SetUpUiStack(ItemSlotStack itemSlotStack)
         {
             if ( itemSlotStack == null) return;
             _quantity.enabled = true;   
             _quantity.SetText(itemSlotStack.NumberItem.ToString());
         }
-        
-        
         private void OnStateActionChange(ItemSlot arg)
         {
             UpdateView(arg);
         }
-
-      
+        
     }
 }
 

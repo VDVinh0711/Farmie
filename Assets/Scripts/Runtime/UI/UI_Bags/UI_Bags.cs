@@ -11,14 +11,14 @@ namespace InventorySystem
 {
     public class UI_Bags : AbsCheckOutSide,IPointerClickHandler
     {
-     [SerializeField] private GameObject inventorySlotPrefab;
-    [SerializeField] private UI_BagSlots handSlotUI;
-    [SerializeField] private TextMeshProUGUI itemDescriptionText;
-    [SerializeField] private TextMeshProUGUI itemNameText;
-    [SerializeField] private List<UI_BagSlots> inventorySlots;
-    [SerializeField] private Transform inventoryRoot;
-    [SerializeField] private UI_ItemBagOption _uibagoption;
-    [SerializeField] private Bag bag;
+        [SerializeField] private GameObject inventorySlotPrefab;
+        [SerializeField] private UI_BagSlots handSlotUI;
+        [SerializeField] private TextMeshProUGUI itemDescriptionText;
+        [SerializeField] private TextMeshProUGUI itemNameText;
+        [SerializeField] private List<UI_BagSlots> inventorySlots;
+        [SerializeField] private Transform inventoryRoot;
+        [SerializeField] private UI_ItemBagOption _uibagoption;
+        [SerializeField] private Bag bag;
     public UI_ItemBagOption ItemBagOptions => _uibagoption;
 
     private void Start()
@@ -41,16 +41,16 @@ namespace InventorySystem
         }
         handSlotUI.Display(bag.HandItem);
         RenderBagContents();
-        Bag.Instance.StateChangeBags += RenderBagContents;
+        bag.StateChangeBags += RenderBagContents;
     }
 
     public void RenderBagContents()
     {
         for (int i = 0; i < inventorySlots.Count; i++)
         {
-            inventorySlots[i].Display(Bag.Instance.Slot[i]);
+            inventorySlots[i].Display(bag.Slot[i]);
         }
-        handSlotUI.Display(Bag.Instance.HandItem);
+        handSlotUI.Display(bag.HandItem);
     }
 
     private void ShowItemDescription(string itemName, string itemDescription)

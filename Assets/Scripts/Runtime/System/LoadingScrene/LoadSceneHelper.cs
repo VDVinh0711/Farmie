@@ -9,7 +9,8 @@ public class LoadSceneHelper : MonoBehaviour
     
     public void StarLoadSceneCouroutine(string sceneLoad)
     { 
-        StartCoroutine(LoadSceneSyc(sceneLoad));
+        //StartCoroutine(LoadSceneSyc(sceneLoad));
+        SceneManager.LoadScene(sceneLoad);
     }
     private IEnumerator LoadSceneSyc(string nameSceneLoad)
     {

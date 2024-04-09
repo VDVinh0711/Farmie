@@ -21,7 +21,7 @@ public class SellAnimal : MonoBehaviour
     }
     public void sellAnimal()
     {
-        PlayerController.Instance.PlayerStats.Earn(price);
+        PlayerManager.Instance.PlayerStats.Earn(price);
         EventManger<Object>.RaiseEvent("CheckMission",_animal.AnimalObject);
         Destroy(_animal.gameObject);
     }

@@ -2,290 +2,56 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
-
 using Newtonsoft.Json;
-using Unity.Services.Analytics;
+
+
 
 namespace InventorySystem
 {
-    public class Bag : Singleton<Bag> , ISaveData
+    public class Bag : StorageManager , ISaveData
     {
-        [SerializeField] protected ItemSlot[] _slots;
-        [SerializeField] protected List<ItemSlot> _slotItem;
-        [SerializeField] protected  int _size = 8;
-        [SerializeField] private ItemSlot _handItem;
+        
+        
 
+        [SerializeField] private BagController _bagController;
+        public BagController BagController => _bagController;
         public event Action<ItemSlot> StateChangeHand; 
-        public ItemSlot HandItem=> _handItem;
-        public  ItemSlot[] Slot=> _slots;
-        public int Size => _size;   
+        public ItemSlot HandItem=> _bagController.HandItem;
         public event Action StateChangeBags;
-        private void AdjustInven()
-        {
-            _slots ??= new ItemSlot[_size];
-        }
-        private void OnValidate()
-        {
-            AdjustInven();
-        }
-        public bool ISFull()
-        {
-            return  _slots.Count(slot => slot.HasItem()) >= _size;
-        }
-        private ItemSlot FindSlotStackToAdd(ItemObject itemObject)
-        {
-            var item = _slots.FirstOrDefault(x =>x.Item == itemObject && x is ItemSlotStack itemSlot && itemSlot.CanStackAble());
-            return item;
-        }
-        private int FindIndexSlotEmTy()
-        {
-            for (int i = 0; i < _size; i++)
-            {
-                if (!_slots[i].HasItem()) return i;
-            }
-            return -1;
-        }
-        public bool CanAcceptItem(ItemObject item , int numberitem)
-        {
-            int availableEmptySlots = 0;
-            foreach (var slot in _slots)
-            {
-                if (!slot.HasItem())
-                {
-                    availableEmptySlots++;
-                }
-            }
-
-            if (item is IStackAble itemStack)
-            {
-                var relevantSlot = FindSlotStackToAdd(item) as ItemSlotStack;
-
-                if (ISFull())
-                {
-                    if (relevantSlot != null && relevantSlot.CanAddItem(numberitem))
-                    {
-                        return true;
-                    }
-                }
-                else
-                {
-                    // Calculate required slots for additional items
-                    int numberAdded = relevantSlot?.NumberItem ?? 0;
-                    float requiredSlots = (numberitem - numberAdded) / itemStack.MaxStack;
-
-                    if (requiredSlots < availableEmptySlots)
-                    {
-                        return true;
-                    }
-                }
-            }
-            else
-            {
-                if (!ISFull() && numberitem <= availableEmptySlots)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
         
-        public  bool AddItem(ItemObject item, int numberitem)
-        {
-            if (!CanAcceptItem(item, numberitem))
-            {
-                EventManger<string>.RaiseEvent("ShowNotifycation","Kho đồ đã đầy");
-                return false;
-            }
-            var numberadd = numberitem;
-            AddfollowReQuest(item, numberitem);
-            OnUpdateBag();
-            return true;
-        }
-        private int AddFirstSlotEmty(ItemObject item , int numberitem)
-        {
-            var index = FindIndexSlotEmTy();
-            if(index==-1) return -1;
-            if (item is IStackAble)
-            {
-                var maxStack = (item as IStackAble).MaxStack;
-                if (maxStack > numberitem)
-                {
-                    _slots[index] = new ItemSlotStack(item, numberitem);
-                }
-                else
-                {
-                    _slots[index] = new ItemSlotStack(item, maxStack);
-                    return numberitem - maxStack;
-                }
-            }
-            else
-            {
-                if (item is IDurability)
-                {
-                    _slots[index] = new ItemSlotDura(item);
-                    return numberitem - 1;
-                }
-                else
-                {
-                    _slots[index] = new ItemSlot(item);
-                    return numberitem - 1;
-                }
-
-            }
-            return -1;
-        }
         
-        public  bool AddItem(ItemSlot itemSlot)
-        {
-           
-            if (itemSlot == null) return false;
-            if (!CanAcceptItem(itemSlot.Item, itemSlot is ItemSlotStack ? (itemSlot as ItemSlotStack).NumberItem : 1))
-            {
-                EventManger<string>.RaiseEvent("ShowNotifycation","Kho đồ đã đầy");
-                return false;
-            }
-            switch (itemSlot)
-            {
-                case ItemSlotStack:
-                    var itemStack = itemSlot as ItemSlotStack;
-                    var numberadd = itemStack.NumberItem;
-                    AddfollowReQuest(itemStack.Item,numberadd);
-                    break;
-                case ItemSlotDura :
-                    var index = FindIndexSlotEmTy();
-                    _slots[index] = new ItemSlotDura(itemSlot as ItemSlotDura);
-                    break;
-                case ItemSlot :
-                    var index2 = FindIndexSlotEmTy();
-                    _slots[index2] = new ItemSlot(itemSlot);
-                    break;
-                
-                default:
-                    return false;
-            }
-           OnUpdateBag();
-            return true;
-          
-        }
-
-        private void AddfollowReQuest(ItemObject item, int number)
-        {
-            while (number > 0)
-            {
-                var relavant = FindSlotStackToAdd(item);
-                if (relavant != null)
-                {
-                    if ((relavant as ItemSlotStack).CanAddItem(number))
-                    {
-                        (relavant as ItemSlotStack).NumberItem += number;
-                        number = 0;
-                    }
-                    else
-                    {
-                        var maxStack = (item as IStackAble).MaxStack;
-                        var numberaddtofull =   maxStack -  (relavant as ItemSlotStack).NumberItem;
-                        (relavant as ItemSlotStack).NumberItem +=numberaddtofull;
-                        number -= numberaddtofull;
-                    }
-                }
-                else
-                {
-                    var numberafteradd = AddFirstSlotEmty(item, number);
-                    number = numberafteradd;
-                }
-            }
-        }
-        public void RemoveItem(ItemSlot itemSlot, int quantity)
-        {
-            foreach (var slot in _slots)
-            {
-                if (slot == itemSlot)
-                {
-                    if (slot is ItemSlotStack)
-                    {
-                        (slot as ItemSlotStack).PreviousItem(quantity);
-                    }
-                    else
-                    {
-                        slot.SetEmty();
-                    }
-                }
-            }
-        }
+         
+      
         public List<ItemSlot> GetListSLotItem()
         {
-            _slotItem = new List<ItemSlot>();
-            foreach (var slot in _slots)
-            {
-                if(slot is ItemClothesController)
-                    _slotItem.Add(slot);
-            }
-            return _slotItem;
+            return _slots.Where(slot => slot.Item is ItemInvenSo) .ToList();;
         }
-        
-        
         public List<ItemSlot> GetItemClothesInBag()
         {
-            var listItem = new List<ItemSlot>();
-            for (int i = 0; i < _slots.Length; i++)
-            {
-                if (_slots[i].Item is ClothesItemSO)
-                {
-                    listItem.Add(_slots[i]);
-                }
-            }
-
-            return listItem;
+            return _slots.Where(slot => slot.Item is ClothesItem_SO) .ToList();
         }
-        
-        public void SwapItem(  ref ItemSlot item1,  ref ItemSlot item2)
-        {
-            ItemSlot temp = new ItemSlot();
-            temp = item1;
-            item1 = item2;
-            item2 = temp;
-        }
-        public void InventoHand(int index)
-        {
-            if (!_slots[index].HasItem()) return;
-            if(!(_slots[index].Item is EquidmentObject)) return;    
-            SwapItem(ref _slots[index], ref _handItem);
-            OnUpdateBag();
-            NotifyChangehand();
-        }
-        public void HandtoInventory()
-        {
-            if(!_handItem.HasItem()) return;
-            var index = FindIndexSlotEmTy();
-            if (_handItem is ItemSlotStack)
-            {
-                _slots[index] = new ItemSlotStack(_handItem.Item, (_handItem as ItemSlotStack).NumberItem);
-            }
-            else
-            {
-                _slots[index] = new ItemSlotDura(_handItem as ItemSlotDura);
-            }
-            _handItem.SetEmty();
-            NotifyChangehand();
-            OnUpdateBag();
-        }
-        public ItemSlot GetItemByItemOBJ(ItemObject itemSlot)
+        public ItemSlot GetItemByItemOBJ(Item_SO itemSlot)
         {
             return _slots.FirstOrDefault(x => x.Item == itemSlot);
         }
-         private void OnUpdateBag()
+        public void OnChangeBag()
         {
             StateChangeBags?.Invoke();
         }
-         private void NotifyChangehand()
-         {
-             StateChangeHand?.Invoke(_handItem);
-         }
+        public void OnChangeHand()
+        {
+             StateChangeHand?.Invoke(HandItem);
+        }
+        protected override void AcitoneChangeSomething()
+        {
+            OnChangeBag();
+        }
+
         
+
         public object SaveData()
         {
-            HandtoInventory();
+            _bagController.IteminHandtoBag();
             List<Itemdata> listItemSave = new List<Itemdata>();
             foreach (var slot in _slots)
             {
@@ -298,7 +64,7 @@ namespace InventorySystem
                 }
                 else
                 {
-                    Itemdata newItem = new Itemdata(slot.ID, 0,(slot as ItemSlotDura).Durability);
+                    Itemdata newItem = new Itemdata(slot.ID, 0,(slot as ItemSlotDura).CurDurability);
                     listItemSave.Add(newItem);
                 }
             }
@@ -309,7 +75,7 @@ namespace InventorySystem
             var listItemsave = JsonConvert.DeserializeObject<List<Itemdata>>(state.ToString());
             for (int i = 0; i < listItemsave.Count; i++)
             {
-                var item =  ItemObject.getItemByID(listItemsave[i].ID);
+                var item =  Item_SO.getItemByID(listItemsave[i].ID);
                 if (item is IStackAble)
                 {
                     _slots[i] = new ItemSlotStack(item,listItemsave[i].Quantity);

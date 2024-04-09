@@ -2,17 +2,18 @@
 using Player;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UI_Information : MonoBehaviour
 {
     [SerializeField] private Image _exp;
     [SerializeField] private TextMeshProUGUI _title;
-    [SerializeField] private PlayerController _playerController;
+    [FormerlySerializedAs("_playerController")] [SerializeField] private PlayerManager playerManager;
     private void Start()
     {
-        UpdateExperience(_playerController.PlayerExperience);
-        _playerController.PlayerExperience.StateChange += UpdateExperience;
+        UpdateExperience(playerManager.PlayerExperience);
+        playerManager.PlayerExperience.StateChange += UpdateExperience;
     }
     private void UpdateExperience(PlayerExperience playerExperience)
     {
@@ -23,6 +24,6 @@ public class UI_Information : MonoBehaviour
     }
     private void OnDestroy()
     {
-        _playerController.PlayerExperience.StateChange -= UpdateExperience;
+        playerManager.PlayerExperience.StateChange -= UpdateExperience;
     }
 }

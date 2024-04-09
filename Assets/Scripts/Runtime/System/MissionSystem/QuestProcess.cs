@@ -28,7 +28,7 @@ namespace MissionSystem
         }
         public override void FinishMission()
         {
-            PlayerController.Instance.PlayerStats.Earn(missionSO.GoldReward);
+            PlayerManager.Instance.PlayerStats.Earn(missionSO.GoldReward);
         }
 
         public override void CheckMission(Object obj)

@@ -14,7 +14,7 @@ public class AnimalObject : ScriptableObject
     public string nameLocationSpawn;
     public float cost;
     public float TimeHarvest;
-    public ItemObject Itemharvest;
+    public Item_SO Itemharvest;
     public AudioClip Sound;
 
 

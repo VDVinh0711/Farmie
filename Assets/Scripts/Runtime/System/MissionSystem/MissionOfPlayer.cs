@@ -10,7 +10,7 @@ namespace MissionSystem
 {
     public class MissionOfPlayer : Singleton<MissionOfPlayer>,ISaveData
     {
-       [SerializeField] private Dictionary<string, Quest> _quests;
+        private Dictionary<string, Quest> _quests;
        public Dictionary<string, Quest> Quests => _quests;
       
         private void Start()
@@ -22,7 +22,7 @@ namespace MissionSystem
         private void  LoadMission()
         {
             if (_quests == null) _quests = new();
-            MissionSO[] missionSOs = Resources.LoadAll<MissionSO>("Quest");
+            MissionSO[] missionSOs = Resources.LoadAll<MissionSO>("ScriptAbleOBJ/Quest");
             foreach(MissionSO mission in missionSOs) 
             {
                 if(_quests.ContainsKey(mission.Id)) continue;
@@ -100,7 +100,6 @@ namespace MissionSystem
             }
         }
         
-
         public object SaveData()
         {
             Dictionary<string, QuestData> questDatas = new();
@@ -112,7 +111,6 @@ namespace MissionSystem
 
             return questDatas;
         }
-
         public void LoadData(object state)
         {
             var questDatas = JsonConvert.DeserializeObject<Dictionary<string, QuestData>>(state.ToString());
