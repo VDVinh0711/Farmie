@@ -1,16 +1,16 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 
 public class LoginCotroller : MonoBehaviour
 {
-    [SerializeField] private UI_Login _uiLogin;
+    [SerializeField] private LoadSceneHelper _loadScene;
     public Action ActionloginSuccess;
     public Action<string> AcionloginFail;
+    
     
     public void Login(string emailUser , string passwork)
     {
@@ -24,7 +24,7 @@ public class LoginCotroller : MonoBehaviour
     private void OnSuccess(LoginResult result)
     {
         ActionloginSuccess?.Invoke();
-       // SceneManager.LoadScene("CharacterCreator");
+        _loadScene.StarLoadSceneCouroutine("ChoseMap");
     }
     private void OnError(PlayFabError result)
     {

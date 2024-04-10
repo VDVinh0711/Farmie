@@ -54,10 +54,10 @@ public class ItemSlotStack : ItemSlot
         return quantity + _numberItem <= SizeStack;
     }
 
-    public ItemSlot GetItemSlotStack(int quantity)
+    public ItemSlotStack GetItemSlotStack(int quantity)
     {
         if (quantity > _numberItem) return null;
-        ItemSlot temp = new ItemSlotStack(Item, quantity);
+        ItemSlotStack temp = new ItemSlotStack(Item, quantity);
         PreviousItem(quantity);
         return temp;
     }

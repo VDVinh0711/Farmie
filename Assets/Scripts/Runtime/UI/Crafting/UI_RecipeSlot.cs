@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class UI_RecipeSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,IPointerClickHandler
 {
-    [SerializeField] private CeatItemCraftSO _craftItem;
+    [SerializeField] private ItemCraft_SO _craftItem;
     [SerializeField] private Image _icon;
     [SerializeField] private DesCripteRecipe _desCripteRecipe;
 
@@ -16,11 +16,11 @@ public class UI_RecipeSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitHand
         _desCripteRecipe = FindObjectOfType<DesCripteRecipe>();
     }
 
-    public void Display(CeatItemCraftSO ceatItemCraftSo)
+    public void Display(ItemCraft_SO itemCraftSo)
     {
-        if(ceatItemCraftSo == null) return;
-        _craftItem = ceatItemCraftSo;
-        _icon.sprite = _craftItem.itemCraf.UIinInven;
+        if(itemCraftSo == null) return;
+        _craftItem = itemCraftSo;
+        //_icon.sprite = _craftItem.itemCraf.UIinInven;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

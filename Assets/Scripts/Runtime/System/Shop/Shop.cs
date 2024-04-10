@@ -9,7 +9,7 @@ public class Shop : MonoBehaviour,IInterac
 {
     public List<ItemShopObject> itemShop = new List<ItemShopObject>();
     [SerializeField]  private UIShop _uishop;
-    private PlayerManager _playerManager;
+    [SerializeField] private PlayerManager _playerManager;
     public PlayerManager PlayerManager => _playerManager;
     
     public  void Purchare(ItemShopObject item , int quantity)

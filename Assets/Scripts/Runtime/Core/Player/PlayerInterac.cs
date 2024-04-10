@@ -7,7 +7,6 @@ namespace Player
     public class PlayerInterac : MonoBehaviour
     {
 
-
         [SerializeField] private PlayerManager _playerManager;
         private void Update()
         {
@@ -24,7 +23,6 @@ namespace Player
             RaycastHit2D hitclick;
             hitclick = Physics2D.Raycast(worldPosCame, Vector2.zero, Mathf.Infinity);
             if (hitclick.collider == null) return;
-            print(hitclick.transform.gameObject.name);
             if (Vector3.Distance(transform.parent.position, hitclick.transform.position) > 5.0f) return;
             IInterac interac = hitclick.transform.gameObject.GetComponent<IInterac>();
             if (interac == null)

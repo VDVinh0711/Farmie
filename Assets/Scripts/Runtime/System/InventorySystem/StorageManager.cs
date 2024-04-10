@@ -206,6 +206,34 @@ namespace InventorySystem
         {
             
         }
+
+        public int CountItem(string ID)
+        {
+            var itemresult = _slots.FirstOrDefault(x => x.ID.Equals(ID));
+
+            var result = 0;
+            foreach (var slot in _slots)
+            {   
+                if(!slot.HasItem()) continue;
+                if(slot.ID != ID) continue;
+                switch (itemresult)
+                {
+                    case ItemSlotStack itemSlotStack:
+                        result += itemSlotStack.NumberItem;
+                        break;
+                    default:
+                        result += 1;
+                        break;
+                }
+            }
+            return result;
+        }
+        public bool IsItemExits(string idItem)
+        {
+            var itemExits =    _slots.FirstOrDefault(x => x.ID.Equals(idItem));
+            if (itemExits == null) return false;
+            return true;
+        }
 }
 
 }

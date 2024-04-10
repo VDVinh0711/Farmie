@@ -39,9 +39,9 @@ namespace InventorySystem
             CurDurability -= (Item as AgriculturalSo).ReduceDura;
             if(CurDurability <=0) SetEmty();
         }
-        public ItemSlot GetItemSlotDure()
+        public ItemSlotDura GetItemSlotDure()
         {
-            ItemSlot item = new ItemSlotDura(this.Item, this.CurDurability);
+            ItemSlotDura item = new ItemSlotDura(this.Item, this.CurDurability);
             this.SetEmty();
             return item;
         }

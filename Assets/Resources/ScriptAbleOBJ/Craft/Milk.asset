@@ -13,7 +13,13 @@ MonoBehaviour:
   m_Name: Milk
   m_EditorClassIdentifier: 
   ID: Milk
-  itemCraf: {fileID: 11400000, guid: e7721b7061f35de4fa9971d27993f634, type: 2}
-  item11: {fileID: 11400000, guid: 4ab85bfba72e59d41bd410e7392ab48e, type: 2}
-  item22: {fileID: 11400000, guid: 534789524cb5f8646ba0d17f44840dbe, type: 2}
-  icon: {fileID: 1162587624, guid: 461874fb4e167224889a6ee63b31aa73, type: 3}
+  itemCrafted: {fileID: 11400000, guid: 12b2812830ca52b49b0e50bc02f47959, type: 2}
+  Materials:
+  - ItemSo: {fileID: 11400000, guid: 4ab85bfba72e59d41bd410e7392ab48e, type: 2}
+    quantity: 2
+    IsEnough: 1
+  - ItemSo: {fileID: 11400000, guid: e7721b7061f35de4fa9971d27993f634, type: 2}
+    quantity: 2
+    IsEnough: 1
+  Description: 'cai con cac gi do '
+  timeCraf: 10

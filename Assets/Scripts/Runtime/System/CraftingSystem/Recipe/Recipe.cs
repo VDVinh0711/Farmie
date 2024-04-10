@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Recipe 
 {
-    private List<CeatItemCraftSO> _listRecipe = new();
-    public List<CeatItemCraftSO> ListRecipe => _listRecipe;
+    private List<ItemCraft_SO> _listRecipe = new();
+    public List<ItemCraft_SO> ListRecipe => _listRecipe;
 
     public Recipe()
     {
@@ -14,7 +14,7 @@ public class Recipe
 
     private void LoadRecipe()
     {
-        var recipes = Resources.LoadAll<CeatItemCraftSO>("Craft");
+        var recipes = Resources.LoadAll<ItemCraft_SO>("Craft");
         foreach (var recipe in recipes)
         {
             _listRecipe.Add(recipe);

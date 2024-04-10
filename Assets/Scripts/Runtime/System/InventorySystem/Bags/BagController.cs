@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using InventorySystem;
 using UnityEngine;
 
@@ -67,7 +68,21 @@ public class BagController : MonoBehaviour
       _bag.AddItem(temp, quantity);
 
    }
-   
+
+
+   public ItemSlot GetItemInBagById(string id , int quantity)
+   {
+      var itemGet = _bag.Slot.FirstOrDefault(x => x.ID.Equals(id));
+      if (itemGet == null) return null;
+      var result = new ItemSlot();
+      switch (itemGet)
+      {
+         case ItemSlotStack itemSlotStack:
+            result = new ItemSlotStack(itemSlotStack.GetItemSlotStack(quantity) );
+            break;
+      }
+      return result;
+   }
    
    
    

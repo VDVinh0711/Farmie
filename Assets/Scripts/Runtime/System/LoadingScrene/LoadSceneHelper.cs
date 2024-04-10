@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections;
 using Farm.Scene;
 using UnityEngine;
@@ -6,34 +7,25 @@ using UnityEngine.SceneManagement;
 public class LoadSceneHelper : MonoBehaviour
 {
     [SerializeField] private Fade _loadScene;
-    
+    private void Start()
+    {
+       _loadScene.LoadEnd();
+    }
     public void StarLoadSceneCouroutine(string sceneLoad)
     { 
-        //StartCoroutine(LoadSceneSyc(sceneLoad));
-        SceneManager.LoadScene(sceneLoad);
+        _loadScene.begin();
+        StartCoroutine(LoadScene(sceneLoad));
     }
-    private IEnumerator LoadSceneSyc(string nameSceneLoad)
+    private IEnumerator LoadScene(string nameSceneLoad)
     {
-        DontDestroyOnLoad(gameObject);
-        var _currentScene = SceneManager.GetActiveScene();
-        _loadScene = FindObjectOfType<Fade>();
-        _loadScene.ShowLoadingScene();
-        var asyncLoad = SceneManager.LoadSceneAsync(nameSceneLoad, LoadSceneMode.Additive);
-        _loadScene.SetValueBar(asyncLoad.progress); 
-        asyncLoad.allowSceneActivation = false;
-        while (!asyncLoad.isDone)
+        AsyncOperation operation = SceneManager.LoadSceneAsync(nameSceneLoad);
+        _loadScene.SetActiveLoad();
+        while (!operation.isDone)
         {
-            var progress = Mathf.Clamp01(asyncLoad.progress / .9f);
-            _loadScene.SetValueBar(asyncLoad.progress);
-            if (Mathf.Approximately(asyncLoad.progress, 0.9f))
-            {
-                asyncLoad.allowSceneActivation = true;
-            }
+            float progress = Mathf.Clamp01(operation.progress / 0.9f);
+            _loadScene.SetValueSlider(progress);
             yield return null;
         }
-        SceneManager.UnloadSceneAsync(_currentScene);
-        _loadScene.HideLoadingScene();
-        Destroy(gameObject);
     }
       
 }

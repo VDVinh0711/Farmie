@@ -19,7 +19,7 @@ namespace Farm.Scene
         [SerializeField] public Location _scenetoLoad;
         [SerializeField] public Transform _startPoint;
         private AsyncOperation sceneAsync;
-        private void OnTriggerEnter2D(Collider2D other)
+        /*private void OnTriggerEnter2D(Collider2D other)
         {
             StartCoroutine(OnLoadSceneasyc(_scenetoLoad.ToString()));
         }
@@ -29,8 +29,6 @@ namespace Farm.Scene
             savingWraper.Save();
             var currentscene = SceneManager.GetActiveScene();
             Fade fade = FindObjectOfType<Fade>();
-            fade.ShowLoadingScene();
-            fade.TestLoadScene();   
             DontDestroyOnLoad(gameObject);
             yield return new WaitForSeconds(fade.timetoLoad);
             var aycScene = SceneManager.LoadSceneAsync(nameScene, LoadSceneMode.Additive);
@@ -43,7 +41,7 @@ namespace Farm.Scene
             // savingWraper.Load();
             Destroy(gameObject);
         
-        }
+        }*/
         public void UpdatePlayer()
         {
             var player = getPlayer();

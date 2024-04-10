@@ -1,135 +1,198 @@
 using System;
+using System.Collections.Generic;
 using InventorySystem;
-using Photon.Pun.Demo.PunBasics;
 using UnityEngine;
+
 using PlayerManager = Player.PlayerManager;
 
-//Dùng Singletone đề Lười , Dùng để get Crafting khi cần thiết
-public class CrafSystem : Singleton<CrafSystem>,IInterac
+public class CrafSystem : MonoBehaviour,IInterac,ITimeTracker
 {
+
+    #region Variable
+    [SerializeField] private List<ItemCraf> _listItemCrafs = new ();
+    [SerializeField] private Item_SO _itemCrafted;
+    [SerializeField] private int currentIndex;
+    [SerializeField] private PlayerManager _player;
+    [SerializeField] private bool _canGet = false;
+    [SerializeField] private bool isCraft = false;
+    [SerializeField] private int timeCraft = 0;
+    [SerializeField] private int _maxQuantityCreate ;
+    [SerializeField] private int _quantityCreat;
     [SerializeField] private UI_Craft _uiCraft;
-    [SerializeField] private PlayerManager _playerManager;
-    private ItemSlot _craftedProduct;
-    private int _craftQuantity;
-    private ItemSlot[] _craftingIngredients;
-    public ItemSlot[] CraftingIngredients => _craftingIngredients;
-    public ItemSlot CraftedProduct => _craftedProduct;
-    public event Action CraftingStateChange;
-    public PlayerManager PlayerManager => _playerManager;
-    private void OnEnable()
+    public PlayerManager PlayerManager => _player;
+    public List<ItemCraf> ListItemCraf => _listItemCrafs;
+    public Item_SO ItemCrafted => _itemCrafted;
+    public int QuantityCreate => _quantityCreat;
+    public ItemCraf ItemCrafCurrent => _listItemCrafs[currentIndex];
+    public bool IsCraf => isCraft;
+    public   Bag _bag => _player.Bag;
+    public bool Canget => _canGet;
+    public Action<int> ActionChangeTImeUI;
+    public Action ActionChangeUIDes;
+    public Action ActionChangeQuantityCreate;
+    public Action ActionChaneButtonGet_Craft;
+    
+
+    #endregion
+   
+
+    private void Start()
     {
-        InitializeIngredientSlots();
-    }
-    private void InitializeIngredientSlots()
-    {
-        _craftingIngredients = new ItemSlot[2];
-        for (int i = 0; i < _craftingIngredients.Length; i++)
-        {
-            _craftingIngredients[i] = new ItemSlot();
-        }
-        _craftedProduct = new ItemSlot();
-    }
-    public void Craft()
-    {
-        if(!_craftingIngredients[0].HasItem() || !_craftingIngredients[1].HasItem()) return;
-        var ingredient1 = _craftingIngredients[0] as ItemSlotStack;
-        var ingredient2 = _craftingIngredients[1] as ItemSlotStack;
-        _craftQuantity = DetermineCraftQuantity(ingredient1, ingredient2);
-        var craftResult = CeatItemCraftSO.GetItemScraft(ingredient1.Item, ingredient2.Item);//Lấy Ra item được craft từ các SO ở Resouce
-        _craftedProduct = CreateProductSlot(craftResult.itemCraf, _craftQuantity);
-        ApplyIngredientChangesAfterCrafting(_craftQuantity);
-        NotifyCraftingStateChange();
-    }
-    private int DetermineCraftQuantity(ItemSlotStack ingredient1, ItemSlotStack ingredient2)
-    {
+        TimeManager.Instance.RegisterTracker(this);
+        ChangeActive(0);
         
-        //lấy ra số Item nhỏ nhất trong 2 Igridient để craft
-        if (ingredient1 == null || ingredient2 == null)
-        {
-            return -1;
-        }
-        return Mathf.Min(ingredient1.NumberItem, ingredient2.NumberItem);
     }
-    private ItemSlot CreateProductSlot(Item_SO productItem, int quantity)
+
+    #region Craf
+
+    public void Craf()
     {
-        return productItem is IStackAble ? new ItemSlotStack(productItem, quantity) : new ItemSlotDura(productItem);
+        if(!ItemCrafCurrent.enoughItem) return;
+       
+        foreach (var item in ItemCrafCurrent.ItemCraftSo.Materials)
+        {
+            _bag.BagController.GetItemInBagById(item.ItemSo.ID, item.quantity * _quantityCreat);
+        }
+        timeCraft = (ItemCrafCurrent.ItemCraftSo.timeCraf) * _quantityCreat;
+        isCraft = true;
+        _itemCrafted =  ItemCrafCurrent.ItemCraftSo.itemCrafted;
+
     }
-    public bool CanAddItemAsIngredient(ItemSlot itemSlot)
+    private void CrafrEnd()
     {
-        foreach (var ingredient in CraftingIngredients)
-        {
-            if (!ingredient.HasItem())
-            {
-                return true;  // Empty slot found
-            }
-
-            if (ingredient is ItemSlotStack ingredientStack && ingredientStack.Item == itemSlot.Item)
-            {
-                return true;  // Same item type already exists in a stack
-            }
-        }
-
-        return false;  // No empty slots or matching stacks found
+        isCraft = false;
+        _canGet = true;
+        OnStateChangeButton_Craft_Get();
+        TimeManager.Instance.UregisterTracker(this);
     }
-    public void AddItemAsIngredient(ItemSlot itemSlot)
+    public void CheckItemCraft( int index)
     {
-        if (itemSlot == null)
+        ItemCraf itemCraf = _listItemCrafs[index];
+        foreach (var meterial in itemCraf.ItemCraftSo.Materials)
         {
-            return;
-        }
-
-        if (!CanAddItemAsIngredient(itemSlot))
-        {
-            return;
-        }
-
-        for (int i = 0; i < CraftingIngredients.Length; i++)
-        {
-            if (CraftingIngredients[i].HasItem())
+            string idmete = meterial.ItemSo.ID;
+            print("Count item of bag" + _bag.CountItem(idmete));
+            print("Item of Meterial " +   meterial.quantity);
+            if (_bag.CountItem(idmete) < meterial.quantity)
             {
-                if (CraftingIngredients[i] is ItemSlotStack ingredientStack && itemSlot is ItemSlotStack itemStack && itemSlot.Item == CraftingIngredients[i].Item)
-                {
-                    ingredientStack.NumberItem += itemStack.NumberItem;  // Combine stacks
-                    NotifyCraftingStateChange();
-                    break;
-                }
+                itemCraf.enoughItem = false;
+                break;
             }
             else
             {
-                CraftingIngredients[i] = itemSlot;  // Place item in empty slot
-                NotifyCraftingStateChange();
-                break;
+                itemCraf.enoughItem = true;
             }
+               
         }
-    
-      
     }
-    private void ApplyIngredientChangesAfterCrafting(int quantity)
+    public void CheckAllItem()
     {
-        
-        //Các Ingridiet sau khi craft
-        foreach (var ingredient in _craftingIngredients)
+        for (int i = 0; i < _listItemCrafs.Count; i++)
         {
-            switch (ingredient)
-            {
-                case ItemSlotStack stackableIngredient:
-                    stackableIngredient.PreviousItem(quantity);
-                    break;
-                case ItemSlotDura durableIngredient:
-                    durableIngredient.SetEmty();
-                    break;
-            }
+            CheckItemCraft(i);
         }
-        NotifyCraftingStateChange();
-    }
-    private void NotifyCraftingStateChange()
-    {
-        CraftingStateChange?.Invoke();
     }
 
+    #endregion
+    #region Controller
+
+    
+    private void GetMaxquantityCreate()
+    {
+        var ListRq = new List<int>();
+        foreach (var item in ItemCrafCurrent.ItemCraftSo.Materials)
+        {
+            var iteminBag = _bag.CountItem(item.ItemSo.ID);
+            ListRq.Add((iteminBag/item.quantity));
+        }
+        ListRq.Sort();
+        _maxQuantityCreate = ListRq[0];
+    }
+    public void GetItemCrafIntoBag()
+    {
+        _player.Bag.AddItem(_itemCrafted, _maxQuantityCreate);
+        _canGet = false;
+    }
+    public void ChangeActive(int index)
+    {
+        ItemCrafCurrent.IsActive = false;
+        currentIndex = index;
+        ItemCrafCurrent.IsActive = true;
+        _quantityCreat = 0;
+        GetMaxquantityCreate();
+        OnStateChangeDes();
+        OnStateChangeUIQuantity();
+        OnStateChangeButton_Craft_Get();
+    }
+    public void AddQuantityCreate()
+    {
+        var quantityadd = _quantityCreat + 1;
+        _quantityCreat = _quantityCreat >= _maxQuantityCreate ? _maxQuantityCreate : quantityadd;
+        OnStateChangeUIQuantity();
+    }
+    public void PreviousQuantityCreate()
+    {
+        var quantitypre = _quantityCreat  -1;
+        _quantityCreat = _quantityCreat  <= 0 ? 0 : quantitypre;
+        OnStateChangeUIQuantity();
+    }
+    private void OnStateChangeUITIme()
+    {
+        ActionChangeTImeUI?.Invoke(timeCraft);
+    }
+    private void OnStateChangeDes()
+    {
+        ActionChangeUIDes?.Invoke();
+    }
+    private void OnStateChangeUIQuantity()
+    {
+        ActionChangeQuantityCreate?.Invoke();
+    }
+
+    private void OnStateChangeButton_Craft_Get()
+    {
+        ActionChaneButtonGet_Craft?.Invoke();
+    }
+    #endregion
     public void InterRac(PlayerManager playerManager)
     {
-        _playerManager = playerManager;
-        _uiCraft.ToggleCraftingUI();
+        _player = playerManager;
+        CheckAllItem();
+        _uiCraft.ToggleUICraf();
+    }
+    public void CLockUpdate(GameTime gameTime)
+    {
+        if(!isCraft) return;
+        if (timeCraft < 0)
+        {
+            CrafrEnd();
+        }
+        timeCraft -= 1;
+        OnStateChangeUITIme();
+    }
+}
+
+[Serializable]
+public class ItemCraf
+{
+
+    private bool isActive =false    ;
+    public ItemCraft_SO ItemCraftSo;
+    public bool enoughItem;
+   
+    public bool IsActive
+    {
+        set
+        {
+            isActive = value;
+            OnStateChangeUI();
+        }
+        get => isActive;
+    }
+    public Action<ItemCraf> OnActionChange;
+
+    private void OnStateChangeUI()
+    {
+        OnActionChange?.Invoke(this);
     }
 }

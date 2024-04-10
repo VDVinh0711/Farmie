@@ -9,42 +9,70 @@ namespace Farm.Scene
     {
         [SerializeField] private Transform _loadingSCreen;
         [SerializeField] private Slider _barloadingScreen;
-        [Header("Fake LoadingScene")] 
-        [SerializeField]  public  float timetoLoad = 4.0f;
-        private void Awake()
+        [SerializeField] private Image _panelImage;
+        [SerializeField] CanvasGroup _canvasGroup;
+
+        
+        
+        
+
+        public void SetActiveLoad()
         {
-            _loadingSCreen = transform.GetChild(0);
-            _barloadingScreen = _loadingSCreen.gameObject.GetComponentInChildren<Slider>(); 
+         //   _loadingSCreen.gameObject.SetActive(true);
+            _barloadingScreen.gameObject.SetActive(true);
+            _panelImage.gameObject.SetActive(true);
         }
 
-        public void SetValueBar(float value)
+        public void DeActiveLoad()
         {
-            _barloadingScreen.value = value;
+            _barloadingScreen.gameObject.SetActive(false);
+            _panelImage.gameObject.SetActive(false);
         }
-        public void HideLoadingScene()
+
+        public void SetValueSlider(float valueload)
         {
-            _loadingSCreen.gameObject.SetActive(false);
+            _barloadingScreen.value = valueload;
         }
-        public void ShowLoadingScene()
+
+        #region Fade
+
+        public void begin()
         {
-            _loadingSCreen.gameObject.SetActive(true);
+            StartCoroutine(LoadFade(2 ,false));
         }
-        public void TestLoadScene()
+        public void LoadEnd()
         {
-            _barloadingScreen.maxValue = 100;
-            _barloadingScreen.value = 0;
-            StartCoroutine(runLoadingScene());
+            StartCoroutine(LoadFade(2,true));
+        
         }
-        IEnumerator runLoadingScene()
+        private IEnumerator LoadFade(float duration , bool countdown)
         {
-            int i = 0;
-            while (i<=100)
+            SetActiveLoad();
+            float startValue = countdown ? 1 : 0;
+            float endValue = countdown ? 0 : 1;
+            float time = startValue;
+            while (time < duration && time >= 0)
             {
-                yield return new WaitForSeconds(0.04f);
-                _barloadingScreen.value = i;
-                i++;
+                var Start = countdown ? endValue : startValue;
+                var End = countdown ? startValue : endValue;
+                
+                var valuerProcess = Mathf.Lerp(Start, End, time / duration);
+                _canvasGroup.alpha =  valuerProcess;
+                time = countdown?  time - Time.deltaTime : time+ Time.deltaTime ;
+                yield return null;
             }
+            _canvasGroup.alpha =   endValue;
+            DeActiveLoad();
+         
         }
+
+       
+        #endregion
+        
+        
+
+  
+       
     }
 }
 

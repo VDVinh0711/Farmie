@@ -10,7 +10,7 @@ namespace InventorySystem
         public event Action<ItemSlot> StateActionChange; 
         [SerializeField] protected Item_SO _item;
         [SerializeField] private bool _isactive = false;
-        public string ID => _item.ID;
+        public string ID => _item==null? string.Empty : _item.ID;
         public bool HasItem()
         {
             return _item != null;
