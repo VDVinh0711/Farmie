@@ -209,14 +209,13 @@ namespace InventorySystem
 
         public int CountItem(string ID)
         {
-            var itemresult = _slots.FirstOrDefault(x => x.ID.Equals(ID));
-
+            
             var result = 0;
             foreach (var slot in _slots)
             {   
                 if(!slot.HasItem()) continue;
                 if(slot.ID != ID) continue;
-                switch (itemresult)
+                switch (slot)
                 {
                     case ItemSlotStack itemSlotStack:
                         result += itemSlotStack.NumberItem;

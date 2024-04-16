@@ -33,6 +33,8 @@ public class AgriculturalSo : EquidmentSo
             default:
                 break;
         }
+
+        //CurrentDura -= _reduceDura;
     }
 
     

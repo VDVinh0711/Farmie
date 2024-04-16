@@ -36,6 +36,15 @@ namespace InventorySystem
             _durability_UI.transform.gameObject.SetActive(false);
             if (!hasitem) return;
             _icon.sprite = slot.Item.UIinInven;
+            /*switch (slot.Item)
+            {
+                case AgriculturalSo itemdura:
+                    SetUiDuraable(itemdura);
+                    break;
+                case IStackAble itemstack:
+                    SetUpUiStack(itemstack );
+                    break;
+            }*/
             switch (slot)
             {
                 case ItemSlotStack:
@@ -47,6 +56,19 @@ namespace InventorySystem
             }
             
         }
+        /*private void SetUiDuraable(AgriculturalSo itemSlotDura)
+        {
+            if (itemSlotDura == null) return;
+            _durability_UI.transform.gameObject.SetActive(true);
+            _durability_UI.maxValue =itemSlotDura!.MaxDurability;
+            _durability_UI.value = itemSlotDura!.CurrentDura;
+        }
+        private void SetUpUiStack(IStackAble itemSlotStack)
+        {
+            if ( itemSlotStack == null) return;
+            _quantity.enabled = true;   
+            _quantity.SetText(itemSlotStack.CurrentStack.ToString());
+        }*/
         private void SetUiDuraable(ItemSlotDura itemSlotDura)
         {
             if (itemSlotDura == null) return;

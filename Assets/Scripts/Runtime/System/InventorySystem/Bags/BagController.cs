@@ -80,6 +80,10 @@ public class BagController : MonoBehaviour
          case ItemSlotStack itemSlotStack:
             result = new ItemSlotStack(itemSlotStack.GetItemSlotStack(quantity) );
             break;
+         default:
+            result = new ItemSlot(itemGet.Item);
+            itemGet.SetEmty();
+            break;
       }
       return result;
    }

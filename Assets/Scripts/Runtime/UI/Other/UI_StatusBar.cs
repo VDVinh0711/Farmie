@@ -43,40 +43,37 @@ public class UI_StatusBar : MonoBehaviour
         _durability_UI.transform.gameObject.SetActive(false);
         if (!hasitem) return;
         _thumail.sprite = itemSlot.Item.UIinInven;
-        switch (itemSlot)
+        switch (itemSlot.Item)
         {
-            case ItemSlotStack:
-                SetUpUiStack(itemSlot as ItemSlotStack);
+            case IStackAble itemStack:
+                SetUpUiStack(itemStack);
                 break;
-            case ItemSlotDura:
-                SetUiDuraable(itemSlot as ItemSlotDura);
+            case AgriculturalSo itemagri:
+                SetUiDuraable(itemagri);
                 break;
         }
 
     }
 
-    private void SetUiDuraable(ItemSlotDura itemSlotDura)
+    private void SetUiDuraable(AgriculturalSo itemSlotDura)
     {
         if (itemSlotDura == null) return;
         _durability_UI.transform.gameObject.SetActive(true);
-        _durability_UI.maxValue = (itemSlotDura.Item as AgriculturalSo).MaxDurability;
-        _durability_UI.value = itemSlotDura.CurDurability;
+        _durability_UI.maxValue = itemSlotDura.MaxDurability;
+        _durability_UI.value = itemSlotDura.CurrentDura;
     }
-
-    private void SetUpUiStack(ItemSlotStack itemSlotStack)
+    private void SetUpUiStack(IStackAble itemSlotStack)
     {
         if ( itemSlotStack == null) return;
         _quantity.enabled = true;   
-        _quantity.SetText(itemSlotStack.NumberItem.ToString());
+        _quantity.SetText(itemSlotStack.CurrentStack.ToString());
     }
-
     public void Display()
     {
         _bag.StateChangeHand+= UpdateHandStatusbar;
         UpdateHandStatusbar(_bag.HandItem);
         UpdateMoneyStatusBar();
     }
-    
     private void OnstateChangeMoney()
     {
         UpdateMoneyStatusBar();
@@ -87,7 +84,6 @@ public class UI_StatusBar : MonoBehaviour
         _money.SetText( PlayerManager.Instance.PlayerStats.Money.ToString());
         
     }
-
     private void OnDestroy()
     {
         playerManager.PlayerStats.StateChange -= OnstateChangeMoney;

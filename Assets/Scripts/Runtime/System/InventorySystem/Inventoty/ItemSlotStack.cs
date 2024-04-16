@@ -14,6 +14,7 @@ public class ItemSlotStack : ItemSlot
         set
         {
             _numberItem = value;
+            //if(_item is IStackAble) (_item as IStackAble).CurrentStack = value;
             OnStateChange();
         }
     }
@@ -56,6 +57,8 @@ public class ItemSlotStack : ItemSlot
 
     public ItemSlotStack GetItemSlotStack(int quantity)
     {
+        
+        Debug.Log(quantity);
         if (quantity > _numberItem) return null;
         ItemSlotStack temp = new ItemSlotStack(Item, quantity);
         PreviousItem(quantity);

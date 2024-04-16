@@ -9,7 +9,7 @@ using UnityEngine.EventSystems;
 
 namespace InventorySystem
 {
-    public class UI_BagSlots :UI_Slots,IPointerEnterHandler, IPointerClickHandler,IPointerExitHandler
+    public class UI_BagSlots :UI_Slots,IPointerEnterHandler , IPointerClickHandler,IPointerExitHandler
     {
        
          [SerializeField] private UI_Bags _uiBags;
@@ -47,6 +47,7 @@ namespace InventorySystem
          }
          private void HandlePointerClick(PointerEventData.InputButton button)
          {
+             if(button != PointerEventData.InputButton.Left) return;
              if (!_slot.HasItem()) return;
              if (button == PointerEventData.InputButton.Left)
              {

@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 
 
@@ -17,6 +18,27 @@ namespace Data
         }
 
         public int MaxStack { get=>10; }
+        public int CurrentStack { get; set; }
+        public void DecreseStacK(int quantity)
+        {
+            if (CurrentStack > quantity) return;
+            CurrentStack -= quantity;
+        }
+
+        public int AddStack(int quantity)
+        {
+            var numberloss = MaxStack - CurrentStack;
+            if (quantity > numberloss)
+            {
+                CurrentStack = MaxStack;
+                return quantity - numberloss;
+            }
+
+            CurrentStack += quantity;
+            return 0;
+        }
+
+      
     }
 
     public enum AnimalType

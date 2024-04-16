@@ -31,20 +31,18 @@ public class CrafSystem : MonoBehaviour,IInterac,ITimeTracker
     public Action ActionChangeUIDes;
     public Action ActionChangeQuantityCreate;
     public Action ActionChaneButtonGet_Craft;
-    
-
+    public Action<float> ActionChageTime;
+   
     #endregion
    
 
     private void Start()
     {
         TimeManager.Instance.RegisterTracker(this);
-        ChangeActive(0);
-        
+    
     }
 
     #region Craf
-
     public void Craf()
     {
         if(!ItemCrafCurrent.enoughItem) return;
@@ -56,14 +54,13 @@ public class CrafSystem : MonoBehaviour,IInterac,ITimeTracker
         timeCraft = (ItemCrafCurrent.ItemCraftSo.timeCraf) * _quantityCreat;
         isCraft = true;
         _itemCrafted =  ItemCrafCurrent.ItemCraftSo.itemCrafted;
-
+        OnStateChangeDes();
     }
     private void CrafrEnd()
     {
         isCraft = false;
         _canGet = true;
         OnStateChangeButton_Craft_Get();
-        TimeManager.Instance.UregisterTracker(this);
     }
     public void CheckItemCraft( int index)
     {
@@ -71,8 +68,6 @@ public class CrafSystem : MonoBehaviour,IInterac,ITimeTracker
         foreach (var meterial in itemCraf.ItemCraftSo.Materials)
         {
             string idmete = meterial.ItemSo.ID;
-            print("Count item of bag" + _bag.CountItem(idmete));
-            print("Item of Meterial " +   meterial.quantity);
             if (_bag.CountItem(idmete) < meterial.quantity)
             {
                 itemCraf.enoughItem = false;
@@ -92,29 +87,30 @@ public class CrafSystem : MonoBehaviour,IInterac,ITimeTracker
             CheckItemCraft(i);
         }
     }
-
     #endregion
     #region Controller
-
-    
     private void GetMaxquantityCreate()
     {
-        var ListRq = new List<int>();
+        var number = Int32.MaxValue;
         foreach (var item in ItemCrafCurrent.ItemCraftSo.Materials)
         {
             var iteminBag = _bag.CountItem(item.ItemSo.ID);
-            ListRq.Add((iteminBag/item.quantity));
+            if (iteminBag / item.quantity < number)
+            {
+                number = iteminBag / item.quantity;
+            }
         }
-        ListRq.Sort();
-        _maxQuantityCreate = ListRq[0];
+        _maxQuantityCreate = number;
     }
     public void GetItemCrafIntoBag()
     {
-        _player.Bag.AddItem(_itemCrafted, _maxQuantityCreate);
+        _player.Bag.AddItem(_itemCrafted, _quantityCreat);
         _canGet = false;
+        setupBegin();
     }
     public void ChangeActive(int index)
     {
+        if(isCraft) return;
         ItemCrafCurrent.IsActive = false;
         currentIndex = index;
         ItemCrafCurrent.IsActive = true;
@@ -126,12 +122,14 @@ public class CrafSystem : MonoBehaviour,IInterac,ITimeTracker
     }
     public void AddQuantityCreate()
     {
+        if(isCraft) return;
         var quantityadd = _quantityCreat + 1;
         _quantityCreat = _quantityCreat >= _maxQuantityCreate ? _maxQuantityCreate : quantityadd;
         OnStateChangeUIQuantity();
     }
     public void PreviousQuantityCreate()
     {
+        if(isCraft) return;
         var quantitypre = _quantityCreat  -1;
         _quantityCreat = _quantityCreat  <= 0 ? 0 : quantitypre;
         OnStateChangeUIQuantity();
@@ -148,25 +146,32 @@ public class CrafSystem : MonoBehaviour,IInterac,ITimeTracker
     {
         ActionChangeQuantityCreate?.Invoke();
     }
-
     private void OnStateChangeButton_Craft_Get()
     {
         ActionChaneButtonGet_Craft?.Invoke();
+    }
+    private void setupBegin()
+    {
+        ChangeActive(0);
+        CheckAllItem();
+       
     }
     #endregion
     public void InterRac(PlayerManager playerManager)
     {
         _player = playerManager;
-        CheckAllItem();
+        setupBegin();
         _uiCraft.ToggleUICraf();
     }
     public void CLockUpdate(GameTime gameTime)
     {
         if(!isCraft) return;
-        if (timeCraft < 0)
+        if (timeCraft <= 0)
         {
             CrafrEnd();
+            return;
         }
+        ActionChageTime?.Invoke(timeCraft);
         timeCraft -= 1;
         OnStateChangeUITIme();
     }

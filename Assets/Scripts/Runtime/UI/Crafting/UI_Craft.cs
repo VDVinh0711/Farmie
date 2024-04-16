@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem.HID;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 
@@ -10,7 +11,7 @@ public class UI_Craft : MonoBehaviour
 {
 
     [SerializeField] private List<UI_CraftSlot> _uiSlots  = new();
-    [SerializeField] private CrafSystem _crafSystemSystem;
+    [SerializeField] private CrafSystem _crafSystem;
     [SerializeField] private Transform _panel;
     [SerializeField] private UI_Craft_Product _productCraf;
 
@@ -35,34 +36,34 @@ public class UI_Craft : MonoBehaviour
     private void Awake()
     {
         RegisterEvent();
-        SetUpBegin();
-        UpdateUiCraft();
+        for (int i = 0; i < _crafSystem.ListItemCraf.Count; i++)
+        {
+            _uiSlots[i].AsignInDex(i);
+        }
+      
     }
     
     private void SetUpBegin()
     {
-        for (int i = 0; i < _crafSystemSystem.ListItemCraf.Count; i++)
-        {
-            _uiSlots[i].AsignInDex(i);
-        }
 
         SetTime(0);
+        UpdateUiCraft();
     }
     private void UpdateUiCraft()
     {
-        for (int i = 0; i < _crafSystemSystem.ListItemCraf.Count; i++)
+        for (int i = 0; i < _crafSystem.ListItemCraf.Count; i++)
         {
-            _uiSlots[i].DisPlay(_crafSystemSystem.ListItemCraf[i]);
+            _uiSlots[i].DisPlay(_crafSystem.ListItemCraf[i]);
         }
         SetDes();
     }
     private void UpDateUIItemCreafted()
     {
-        _productCraf.DisPlay(_crafSystemSystem.ItemCrafCurrent.ItemCraftSo.itemCrafted,1);
+        _productCraf.DisPlay(_crafSystem.ItemCrafCurrent.ItemCraftSo.itemCrafted,_crafSystem.QuantityCreate);
     }
     private void SetTime(int time)
     {
-        _timeUI.enabled = _crafSystemSystem.ItemCrafted;
+        _timeUI.enabled = _crafSystem.ItemCrafted;
         int minute = time / 60;
         int second = (time % 60);
         _timeUI.SetText(minute + " : " + second);
@@ -74,45 +75,45 @@ public class UI_Craft : MonoBehaviour
         _btnAdd.onClick.AddListener(ButtonAddclick);
         _btnPrev.onClick.AddListener(ButtonPreviousclick);
         _btn_Close.onClick.AddListener(HideCraf);
-        _crafSystemSystem.ActionChangeTImeUI += SetTime;
-        _crafSystemSystem.ActionChangeUIDes += SetDes;
-        _crafSystemSystem.ActionChangeUIDes += UpDateUIItemCreafted;
-        _crafSystemSystem.ActionChangeQuantityCreate += SetTextQuantity;
-        _crafSystemSystem.ActionChaneButtonGet_Craft += SetUpButton;
+        _crafSystem.ActionChangeTImeUI += SetTime;
+        _crafSystem.ActionChangeUIDes += SetDes;
+        _crafSystem.ActionChangeUIDes += UpDateUIItemCreafted;
+        _crafSystem.ActionChangeQuantityCreate += SetTextQuantity;
+        _crafSystem.ActionChaneButtonGet_Craft += SetUpButton;
     }
     private void ButtonGetClick()
     {
-       _crafSystemSystem.GetItemCrafIntoBag();
+       _crafSystem.GetItemCrafIntoBag();
        SetUpButton();
     }
     private void ButtonCrafClick()
     {
-        if(!_crafSystemSystem.ItemCrafCurrent.enoughItem) return;
-        _crafSystemSystem.Craf();
+        if(!_crafSystem.ItemCrafCurrent.enoughItem) return;
+        _crafSystem.Craf();
         SetUpButton();
     }
     private void ButtonAddclick()
     {
-        
-        _crafSystemSystem.AddQuantityCreate();
+        _crafSystem.AddQuantityCreate();
+        SetUpButton();
     }
     private void ButtonPreviousclick()
     {
-        _crafSystemSystem.PreviousQuantityCreate();
+        _crafSystem.PreviousQuantityCreate();
+        SetUpButton();
     }
     private void SetDes()
     {
-      
-      _uiCraftDesScription.ShowDesScriptTion(_crafSystemSystem.ItemCrafCurrent);
+      _uiCraftDesScription.ShowDesScriptTion(_crafSystem.ItemCrafCurrent);
     }
     private void SetTextQuantity()
     {
-        _quantityText.SetText(_crafSystemSystem.QuantityCreate+"");
+        _quantityText.SetText(_crafSystem.QuantityCreate+"");
     }
     private void SetUpButton()
     {
-        _overLayGet.enabled = !_crafSystemSystem.Canget;
-        _overLayCraft.enabled = !_crafSystemSystem.ItemCrafCurrent.enoughItem;
+        _overLayGet.enabled = !_crafSystem.Canget;
+        _overLayCraft.enabled = _crafSystem.QuantityCreate <= 0;
     }
     private void HideCraf()
     {
@@ -121,10 +122,9 @@ public class UI_Craft : MonoBehaviour
     private void OpenCraf()
     {
         _panel.gameObject.SetActive(true);
-        UpdateUiCraft();
-        
-    }
+        SetUpBegin();
 
+    }
     public void ToggleUICraf()
     {
         if (_panel.gameObject.activeSelf)
@@ -134,7 +134,7 @@ public class UI_Craft : MonoBehaviour
         }
         OpenCraf();
     }
-    
+  
 }
 
 

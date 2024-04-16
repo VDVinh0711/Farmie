@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -9,96 +10,87 @@ using UnityEngine.Serialization;
 
 namespace InventorySystem
 {
-    public class UI_Bags : AbsCheckOutSide,IPointerClickHandler
+    public class UI_Bags : MonoBehaviour
     {
         [SerializeField] private GameObject inventorySlotPrefab;
         [SerializeField] private UI_BagSlots handSlotUI;
         [SerializeField] private TextMeshProUGUI itemDescriptionText;
         [SerializeField] private TextMeshProUGUI itemNameText;
-        [SerializeField] private List<UI_BagSlots> inventorySlots;
+        [SerializeField] private List<UI_BagSlots> _bagSlotUI;
         [SerializeField] private Transform inventoryRoot;
         [SerializeField] private UI_ItemBagOption _uibagoption;
         [SerializeField] private Bag bag;
     public UI_ItemBagOption ItemBagOptions => _uibagoption;
 
     private void Start()
-    {
+    { 
         inventoryRoot = transform.GetChild(0).GetChild(2);
-        InitializeBag();
+       RenderBagContents();
+       RegisterEventShowDes();
+       RegisterIndex();
+       bag.StateChangeBags += RenderBagContents;
     }
-
-    public void InitializeBag()
+    public void RegisterIndex()
     {
-        if (inventorySlotPrefab == null) return;
-        for (int i = 0; i < bag.Size; i++)
+       
+        for (int i = 0; i < _bagSlotUI.Count; i++)
         {
-            var slotUI = Instantiate(inventorySlotPrefab, inventoryRoot);
-            var slotScript = slotUI.gameObject.GetComponent<UI_BagSlots>();
-            slotScript.AssighIndex(i);
-            slotScript.Display(bag.Slot[i]);
-            slotScript.ShowItemDescriptionEvent += ShowItemDescription;
-            inventorySlots.Add(slotScript);
+            _bagSlotUI[i].AssighIndex(i);
         }
-        handSlotUI.Display(bag.HandItem);
-        RenderBagContents();
-        bag.StateChangeBags += RenderBagContents;
+        
     }
-
     public void RenderBagContents()
     {
-        for (int i = 0; i < inventorySlots.Count; i++)
+        for (int i = 0; i < _bagSlotUI.Count; i++)
         {
-            inventorySlots[i].Display(bag.Slot[i]);
+            _bagSlotUI[i].Display(bag.Slot[i]);
         }
         handSlotUI.Display(bag.HandItem);
     }
-
     private void ShowItemDescription(string itemName, string itemDescription)
     {
         if (itemDescriptionText == null || itemNameText == null) return;
         itemDescriptionText.SetText(itemDescription);
         itemNameText.SetText(itemName);
     }
-
     public void ToggleBagVisibility()
     {
         var uiTransform = inventoryRoot.parent.transform;
         if (uiTransform.gameObject.activeSelf)
         {
-            CloseBag();
+           HideBag();
             return;
         }
         OpenBag();
     }
-
-    private void OpenBag()
-    { 
-        RenderBagContents();
-        UIManager.OpenUI(inventoryRoot.parent.transform);
-        regisclick();
-    }
-
-    private void CloseBag()
+    private void HideBag()
     {
         _uibagoption.HideOption();
         UIManager.HideUI(inventoryRoot.parent.transform);
-        RemoveClick();
     }
-
-
-    protected override void Click(InputAction.CallbackContext obj)
+    private void OpenBag()
     {
-         if (_isOutSide)
-        {
-            UIManager.HideUI((inventoryRoot.parent.transform));
-            _isOutSide = false;
-        }
+       RenderBagContents();
+       UIManager.OpenUI(inventoryRoot.parent.transform);
     }
-
-    public void OnPointerClick(PointerEventData eventData)
+    private void RegisterEventShowDes()
     {
-        _uibagoption.HideOption();
+       foreach (var slot in _bagSlotUI)
+       {
+           slot.ShowItemDescriptionEvent += ShowItemDescription;
+       }
     }
+    private void RemoveEventShowDes()
+    {
+       foreach (var slot in _bagSlotUI)
+       {
+           slot.ShowItemDescriptionEvent -= ShowItemDescription;
+       }
     }
+    private void OnDisable()
+    {
+       RemoveEventShowDes();
+    }
+}
 }
 
