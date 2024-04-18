@@ -43,30 +43,30 @@ public class UI_StatusBar : MonoBehaviour
         _durability_UI.transform.gameObject.SetActive(false);
         if (!hasitem) return;
         _thumail.sprite = itemSlot.Item.UIinInven;
-        switch (itemSlot.Item)
+        switch (itemSlot)
         {
-            case IStackAble itemStack:
+            case ItemSlotStack itemStack:
                 SetUpUiStack(itemStack);
                 break;
-            case AgriculturalSo itemagri:
+            case ItemSlotDura itemagri:
                 SetUiDuraable(itemagri);
                 break;
         }
 
     }
 
-    private void SetUiDuraable(AgriculturalSo itemSlotDura)
+    private void SetUiDuraable(ItemSlotDura itemSlotDura)
     {
-        if (itemSlotDura == null) return;
+        if (!itemSlotDura.HasItem()) return;
         _durability_UI.transform.gameObject.SetActive(true);
-        _durability_UI.maxValue = itemSlotDura.MaxDurability;
-        _durability_UI.value = itemSlotDura.CurrentDura;
+        _durability_UI.maxValue = (itemSlotDura.Item as AgriculturalSo).MaxDurability;
+        _durability_UI.value = itemSlotDura.CurDurability;
     }
-    private void SetUpUiStack(IStackAble itemSlotStack)
+    private void SetUpUiStack(ItemSlotStack itemSlotStack)
     {
         if ( itemSlotStack == null) return;
         _quantity.enabled = true;   
-        _quantity.SetText(itemSlotStack.CurrentStack.ToString());
+        _quantity.SetText(itemSlotStack.NumberItem.ToString());
     }
     public void Display()
     {

@@ -119,9 +119,8 @@ namespace InventorySystem
            public  void OnPointerClick(PointerEventData eventData)
            {
                if(!_slot.HasItem()) return;
-               if (eventData.button == PointerEventData.InputButton.Left) {
-                   _slot.IsActive = true;
-                   _uiInventory.UIOptionItem.ShowOption(this);
+               if (eventData.button == PointerEventData.InputButton.Left) { _slot.IsActive = true;
+               _uiInventory.UIOptionItemInven.Togggle(this);
                } 
                
            }

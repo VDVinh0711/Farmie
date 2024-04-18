@@ -14,7 +14,6 @@ public class ItemSlotStack : ItemSlot
         set
         {
             _numberItem = value;
-            //if(_item is IStackAble) (_item as IStackAble).CurrentStack = value;
             OnStateChange();
         }
     }
@@ -34,7 +33,6 @@ public class ItemSlotStack : ItemSlot
         NumberItem -= quantity;
         if(NumberItem == 0) SetEmty();
     }
-
     public  override void UseItem()
     {
         NumberItem -= 1;
@@ -49,12 +47,10 @@ public class ItemSlotStack : ItemSlot
     {
         return  _numberItem != SizeStack;
     }
-
     public bool CanAddItem(int quantity)
     {
         return quantity + _numberItem <= SizeStack;
     }
-
     public ItemSlotStack GetItemSlotStack(int quantity)
     {
         

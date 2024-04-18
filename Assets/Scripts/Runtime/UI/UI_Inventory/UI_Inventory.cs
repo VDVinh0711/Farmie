@@ -1,18 +1,27 @@
+
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using InventorySystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
-public class UI_Inventory : AbsCheckOutSide
+public class UI_Inventory : MonoBehaviour
 {
     [SerializeField] private GameObject _inventorySLotPrefabs;
     [SerializeField] private List<UI_Inventoryslot> _slots;
     [SerializeField] private Transform root;
-    [SerializeField] private UI_OptionItem _uiOptionItem;
+    [FormerlySerializedAs("_uiOptionItem")] [SerializeField] private UI_OptionItemInven uiOptionItemInven;
     [SerializeField] private Inventory _inventory;
-    public UI_OptionItem UIOptionItem => _uiOptionItem;
+    [SerializeField] private RectTransform _panel;
+    [SerializeField] private Button _btnClose;
+    public UI_OptionItemInven UIOptionItemInven => uiOptionItemInven;
+
+    private void Awake()
+    {
+        _btnClose.onClick.AddListener(HideInvetory);
+    }
     private void Start()
     {
         InstanstializeInventoryUI();
@@ -38,32 +47,27 @@ public class UI_Inventory : AbsCheckOutSide
             _slots[i].Display(_inventory.Slot[i]);
         }   
     }
-    public void ShowInventory()
+    public void ToggelInventory()
     {
-        var uishow = root.parent.transform;
-        if (uishow.gameObject.activeSelf)
+        if (_panel.gameObject.activeSelf)
         {
-            UIManager.HideUI((uishow));
-            RemoveClick();
+            HideInvetory();
+            return;
         }
-        else
-        {
-            RenderInventory();
-            _isOutSide = true;
-            UIManager.OpenUI(root.parent.transform);
-            regisclick();
-         
-        }
-       
+        OpenInvetory();
+    }
+    private void OpenInvetory()
+    {
+        RenderInventory();
+        UIManager.OpenUI(_panel);
+    }
+
+    private void HideInvetory()
+    {
+        UIManager.HideUI((_panel));
     }
     private void OnDestroy()
     {
         _inventory.Changeinventory -= RenderInventory;
-    }
-    protected override void Click(InputAction.CallbackContext obj)
-    {
-        if(!_isOutSide) return;
-        UIManager.HideUI((root.parent.transform));
-        RemoveClick();
     }
 }

@@ -47,7 +47,6 @@ public class ModelPlayerManager : MonoBehaviour
     }
     public void UpdateModelPlayer()
     {
-        print("run this " );
         foreach (var partsPlayer in _listPartPlayer)
         {
             if (partsPlayer.partPlayer == null) continue;

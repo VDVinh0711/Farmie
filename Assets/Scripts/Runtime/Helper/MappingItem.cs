@@ -5,22 +5,23 @@ public static class MappingItem
 {
 
 
-    public static ItemSlot ItemSOtoObj(Item_SO itemSo)
+    public static ItemSlot ItemSOtoObj(ItemSlot itemSlot)
     {
-        switch (itemSo)
-        
+        switch (itemSlot)
         {
-            case  IStackAble itemStack :
-                return new ItemSlotStack(itemSo, itemStack.CurrentStack);
+            case  ItemSlotStack itemStack :
+                return new ItemSlotStack(itemStack);
                 break;
-            case AgriculturalSo itemAgri :
-                return new ItemSlotDura(itemSo, itemAgri.CurrentDura);
+            case ItemSlotDura itemAgri :
+                return new ItemSlotDura(itemAgri);
                 break;
-            case ClothesItem_SO itemclothes:
+            case  ItemSlotClothes itemclothes:
                 return new ItemSlotClothes(itemclothes);
             break;
             default:
-                return new ItemSlot(itemSo);
+                return new ItemSlot(itemSlot);
         }
     }
+    
+    
 }

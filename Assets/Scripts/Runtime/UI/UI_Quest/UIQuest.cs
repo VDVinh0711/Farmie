@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,12 +7,18 @@ using UnityEngine.UI;
 
 namespace MissionSystem
 {
-    public class UIQuest : AbsCheckOutSide,IPointerClickHandler
+    public class UIQuest : MonoBehaviour,IPointerClickHandler
     {
         [SerializeField] private RectTransform _panelQuest;
         [SerializeField] private Transform _questPre;
         [SerializeField] private Transform _root;
         [SerializeField] private Dictionary<string, UI_QuestSlot> _questSlots ;
+        [SerializeField] private Button _btnClose;
+
+        private void Awake()
+        {
+            _btnClose.onClick.AddListener(HideMission);
+        }
 
         private void IntantiateMission()
         {
@@ -34,26 +41,17 @@ namespace MissionSystem
             }
             ShowMission();
         }
-
         private void ShowMission()
         {
             UIManager.OpenUI(_panelQuest);
             IntantiateMission();
-            regisclick();
+         
         }
-
         private void HideMission()
         {
             UIManager.HideUI(_panelQuest);
-            RemoveClick();
+           
         }
-
-        protected override void Click(InputAction.CallbackContext obj)
-        {
-            if(!_isOutSide) return;
-            HideMission();
-        }
-
         public void OnPointerClick(PointerEventData eventData)
         {
             MissionPanelTroggel();

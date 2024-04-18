@@ -8,7 +8,15 @@ namespace  InventorySystem
         private SpriteLibraryAsset _spriteLibraryAsset;
         private CLothesType _type;
         public CLothesType Type => _type;
-        public SpriteLibraryAsset SpriteLibraryAsset => _spriteLibraryAsset;
+        public SpriteLibraryAsset SpriteLibraryAsset
+        {
+            get { return _spriteLibraryAsset; }
+            set
+            {
+                _spriteLibraryAsset = value;
+            }
+        }
+
         public ItemSlotClothes(ClothesItem_SO itemClothes): base(itemClothes)
         {
             _spriteLibraryAsset = itemClothes.SpriteLibraryAsset;

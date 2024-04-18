@@ -26,8 +26,6 @@ public class AnimalBehavor : MonoBehaviour
     public AnimationAnimal AnimationAnimal => _animationAnimal;
     [SerializeField] private State animaleState;
     [SerializeField] private PhysiologicalState _physiological;
-
-
     [SerializeField] private int numberandom = 2;
     public PhysiologicalState PhysiologicalState => _physiological;
     public bool Isnormal
@@ -43,7 +41,6 @@ public class AnimalBehavor : MonoBehaviour
            
         }
     }
-
     public bool IsEat
     {
         get => _iseat;
@@ -108,7 +105,6 @@ public class AnimalBehavor : MonoBehaviour
         _moveAnimal = transform.GetComponent<MoveAnimal>();
         _animal = transform.GetComponent<Animal>();
     }
-    
     IEnumerator WaitChangeState()
     {
         while(true)
@@ -151,9 +147,6 @@ public class AnimalBehavor : MonoBehaviour
             
         }
     }
-
-   
-
     public void SetStateEat()
     {
         numberandom = 3;

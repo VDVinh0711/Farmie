@@ -1,11 +1,11 @@
 
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
-public class UI_Infor : AbsCheckOutSide,IPointerClickHandler
+public class UI_Infor : MonoBehaviour,IPointerClickHandler
 {
-
+   
+   
    [SerializeField] private RectTransform _panel;
    private void UI_inforTroggle()
    {
@@ -17,27 +17,18 @@ public class UI_Infor : AbsCheckOutSide,IPointerClickHandler
 
       ShowInfor();
    }
-
    private void HideInfor()
    {
       _panel.gameObject.SetActive(false);
-      RemoveClick();
    }
-
    private void ShowInfor()
    {
       _panel.gameObject.SetActive(true);
-      regisclick();
    }
-
    public void OnPointerClick(PointerEventData eventData)
    {
       UI_inforTroggle();
    }
 
-   protected override void Click(InputAction.CallbackContext obj)
-   {
-      if(!_isOutSide) return;
-      HideInfor();
-   }
+
 }

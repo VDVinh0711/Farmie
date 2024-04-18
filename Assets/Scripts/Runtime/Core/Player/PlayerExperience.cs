@@ -3,12 +3,11 @@ using System;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-
 namespace Player
 {
     public class PlayerExperience : MonoBehaviour
     {
-        [SerializeField] private int _currentLevel = 1;
+        [SerializeField] private int _currentLevel =0;
         [SerializeField] private int _currentExp = 0;
         private LevelPlayer _levelPlayer = new LevelPlayer();
         public event Action<PlayerExperience> StateChange;
@@ -23,7 +22,6 @@ namespace Player
                 OnStateChange();
             }
         }
-
         public int CurrrentExp
         {
             get => _currentExp;
@@ -40,7 +38,6 @@ namespace Player
             CurrentLevel += 1;
             CurrrentExp = 0;
         }
-
         private void OnStateChange()
         {
             StateChange?.Invoke(this);

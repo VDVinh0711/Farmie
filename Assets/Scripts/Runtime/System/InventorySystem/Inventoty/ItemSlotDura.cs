@@ -4,8 +4,7 @@ namespace InventorySystem
 {
     public class ItemSlotDura : ItemSlot
     {
-        
-       
+
         public int CurDurability
         {
             get =>  (_item as AgriculturalSo).CurrentDura;

@@ -25,7 +25,6 @@ namespace InventorySystem
                 OnStateChange();
             }
         }
-
         public bool IsActive
         {
             get => _isactive;
@@ -48,29 +47,21 @@ namespace InventorySystem
         public ItemSlot()
         {
         }
-       public virtual void SetEmty()
+        public virtual void SetEmty()
        {
            _item = null;
             OnStateChange();
        }
-       public virtual void UseItem()
+        public virtual void UseItem()
        {
-           switch (_item)
-           {
-               case IStackAble itemStack:
-                   if(itemStack.CurrentStack <=0) SetEmty();
-                   break;
-               case AgriculturalSo itemAgri:
-                   if(itemAgri.CurrentDura <=0) SetEmty();
-                   break;
-           }
            OnStateChange();
        }
-       protected void OnStateChange()
+        protected void OnStateChange()
        {
            StateActionChange?.Invoke(this);
        }
-
+        
+       
     }
 
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
+/*
 public abstract class AbsCheckOutSide : MonoBehaviour,IPointerExitHandler,IPointerEnterHandler
 {
     [SerializeField] protected bool _isOutSide = false;
@@ -44,3 +45,4 @@ public abstract class AbsCheckOutSide : MonoBehaviour,IPointerExitHandler,IPoint
         _farmInputAction.InteracPlayer.Click.performed -= Click;
     }
 }
+*/

@@ -12,7 +12,7 @@ namespace  InventorySystem
 
         public void InterRac(PlayerManager playerManager)
         {
-            _uiInventory.ShowInventory();
+            _uiInventory.ToggelInventory();
         }
     }
 

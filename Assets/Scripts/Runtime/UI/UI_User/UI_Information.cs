@@ -9,7 +9,7 @@ public class UI_Information : MonoBehaviour
 {
     [SerializeField] private Image _exp;
     [SerializeField] private TextMeshProUGUI _title;
-    [FormerlySerializedAs("_playerController")] [SerializeField] private PlayerManager playerManager;
+    [SerializeField] private PlayerManager playerManager;
     private void Start()
     {
         UpdateExperience(playerManager.PlayerExperience);

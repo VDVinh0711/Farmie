@@ -6,14 +6,9 @@ public class UI_InvenyotyInShop : MonoBehaviour
 {
     [SerializeField] private GameObject invenShopPrefabs;
     [SerializeField] private List<UI_InventoryInShopSlot> _slots = new List<UI_InventoryInShopSlot>();
-    [SerializeField] private Bag _bag;
     [SerializeField] private RectTransform _invenPanel;
     [SerializeField] private Shop _shop;
-
-    private void Start()
-    {
-        _bag = _shop.PlayerManager.Bag;
-    }
+     private Bag _bag =>_shop.PlayerManager.Bag;
 
     public void RenderInvenInShop()
     {

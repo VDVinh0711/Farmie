@@ -41,7 +41,7 @@ public class UI_InventoryInShopSlot : MonoBehaviour,IPointerClickHandler
 
     private void UpdateView(ItemSlot item)
     {
-        var itemMapping = MappingItem.ItemSOtoObj(item.Item);
+        //var itemMapping = MappingItem.ItemSOtoObj(item.Item);
         _uiShowimage.sprite = item.Item.UIinInven;
         if (item is ItemSlotStack)
         {

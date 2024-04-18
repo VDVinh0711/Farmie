@@ -1,13 +1,12 @@
 
 using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
+
 using UnityEngine.UI;
 
 namespace InventorySystem
 {
-    public class UI_OptionItem : AbsCheckOutSide
+    public class UI_OptionItemInven : MonoBehaviour
     {
         [SerializeField] private Button _btn_GetItem;
         [SerializeField] private UI_Inventoryslot _uiInventoryslot;
@@ -23,25 +22,28 @@ namespace InventorySystem
             gameObject.SetActive(false);
         }
         
-        public void ShowOption(UI_Inventoryslot uiInventoryslot)
+        public void Togggle(UI_Inventoryslot uiInventoryslot)
         {
             _uiInventoryslot = uiInventoryslot;
             if (gameObject.activeSelf)
             {
-                gameObject.SetActive(false);
-                RemoveClick();
+                HideOption();
                 return;
             }
-            gameObject.SetActive(true);
-            regisclick();
+            ShowOption();
+            
         }
 
-        protected override void Click(InputAction.CallbackContext obj)
+        public void ShowOption()
         {
-           if(!_isOutSide) return;
-           _uiInventoryslot.Slot.IsActive = false;
-           gameObject.SetActive(false);
+            gameObject.SetActive(true);
         }
+
+        public void HideOption()
+        {
+            gameObject.SetActive(false);
+        }
+      
     }
 
 }

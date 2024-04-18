@@ -32,9 +32,9 @@ public class ItemMouseHolderData : MonoBehaviour
     {
         gameObject.transform.position = Input.mousePosition;
     }
-    public void AssignItemAnhUpDateUI(Item_SO itemSo)
+    public void AssignItemAnhUpDateUI(ItemSlot itemSlot)
     {
-        _itemSlot.Item = itemSo;
+        _itemSlot = MappingItem.ItemSOtoObj(itemSlot);
         UpdateUI();
         gameObject.SetActive(true);
     }
@@ -43,7 +43,7 @@ public class ItemMouseHolderData : MonoBehaviour
         _image.enabled = _itemSlot.HasItem();
         if(!_itemSlot.HasItem()) return;
         _image.sprite = _itemSlot.Item.UIinInven;
-        var setquantity = _itemSlot.Item is IStackAble _slotStack && _slotStack.CurrentStack > 1 ? _slotStack.CurrentStack +"": "";
+        var setquantity = _itemSlot is ItemSlotStack _slotStack && _slotStack.NumberItem > 1 ? _slotStack.NumberItem +"": "";
         print((_itemSlot.Item is IStackAble));
         _quantityItem.SetText(setquantity);
     }

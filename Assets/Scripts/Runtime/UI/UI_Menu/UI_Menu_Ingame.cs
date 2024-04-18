@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class UI_Menu_Ingame : AbsCheckOutSide
+public class UI_Menu_Ingame :MonoBehaviour
 {
 
     [SerializeField] private Button _btn_ShowMenu;
@@ -36,7 +36,7 @@ public class UI_Menu_Ingame : AbsCheckOutSide
     {
         _btn_Resume.onClick.AddListener(Resume);
         _btn_Save.onClick.AddListener(ChoseMap);
-        _btn_ShowMenu.onClick.AddListener(TurnMenu);
+        _btn_ShowMenu.onClick.AddListener(TogleMenu);
         _btn_Exit.onClick.AddListener(Exit);
         _btn_Setting.onClick.AddListener(Setting);
         
@@ -45,12 +45,10 @@ public class UI_Menu_Ingame : AbsCheckOutSide
     {
         HideMenu();
     }
-
     private void ChoseMap()
     {
         SceneManager.LoadScene("ChoseMap");
     }
-
     private void Exit()
     {
         ChoseMap();
@@ -58,29 +56,24 @@ public class UI_Menu_Ingame : AbsCheckOutSide
         LoadSceneHelper loadSceneHelper = FindObjectOfType<LoadSceneHelper>();
         loadSceneHelper.StarLoadSceneCouroutine("Menu");
     }
-
     private void ShowMenu()
     {
         UIManager.OpenUI(_pannelMenu);
-       regisclick();
     }
     private void HideMenu()
     {
         UIManager.HideUI(_pannelMenu);
-      RemoveClick();
+    
         
     }
-
-    public void TurnMenu()
+    public void TogleMenu()
     {
         if (_pannelMenu.gameObject.activeSelf)
         {
             HideMenu();
+            return;
         }
-        else
-        {
-            ShowMenu();
-        }
+        ShowMenu();
     }
 
     private void Setting()
@@ -90,10 +83,4 @@ public class UI_Menu_Ingame : AbsCheckOutSide
         ui_setting.ShowPanelSetting();
     }
 
-   protected  override void Click(InputAction.CallbackContext obj)
-    {
-        if(!_isOutSide) return;
-        HideMenu();
-        _isOutSide = false;
-    }
 }

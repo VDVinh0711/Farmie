@@ -57,7 +57,6 @@ public class PhysiologicalState : MonoBehaviour,ITimeTracker
             NotifyChangeStateAnimal();
         }
     }
-
     public bool IsHurry
     {
         get => _ishurry;
@@ -195,8 +194,7 @@ public class PhysiologicalState : MonoBehaviour,ITimeTracker
         }
         
     }
-
-
+    
     public void SetData(float timeEat, float health)
     {
         this.timeEat = timeEat;
