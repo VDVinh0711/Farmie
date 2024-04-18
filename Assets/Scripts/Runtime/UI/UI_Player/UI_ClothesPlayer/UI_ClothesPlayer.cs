@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class UI_ClothesPlayer : MonoBehaviour
@@ -10,18 +11,22 @@ public class UI_ClothesPlayer : MonoBehaviour
     [SerializeField] private ModelPlayerManager _modelPlayerManager;
     [SerializeField] private ModelPreViewPlayer _modelPreViewPlayer;
     [SerializeField] private RectTransform _panel;
+    [SerializeField] private Button _btnClose;
+   
     private void Awake()
     {
         _modelPlayerManager.StateChangeUI -= DisPlayUiClothesPlayer;
         _modelPlayerManager.StateChangeUI += DisPlayUiClothesPlayer;
+        _btnClose.onClick.AddListener(HideUiClothes);
     }
+    
+
     private void SetUpBegin()
     {
         foreach (var uiCLothe in _listUiCLothes)
         {
             uiCLothe.SetText();
         }
-
         DisPlayItemClothesPlayer();
         SetUpPreViewPlayer();
     }

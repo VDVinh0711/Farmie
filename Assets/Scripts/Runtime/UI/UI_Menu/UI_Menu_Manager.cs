@@ -41,16 +41,9 @@ public class UI_Menu_Manager : MonoBehaviour
 
     public void HideUiMenugame(Transform ui)
     {
-        print(ui.gameObject.name);
-        print(_stackUIMenu.Peek() != ui);
-       // if(_stackUIMenu.Peek() != ui) return;
         _stackUIMenu.Peek().GetComponent<IAnimationUI>().AnimationOut();
         _stackUIMenu.Peek().gameObject.SetActive(false);
-        print(_stackUIMenu.Peek().transform.name);
-        print(_stackUIMenu.Count);
         _stackUIMenu.Pop();
-        print(_stackUIMenu.Count);
-        print(_stackUIMenu.Contains(ui));
         OpenUiMenuGame(_stackUIMenu.Peek());
         
     }

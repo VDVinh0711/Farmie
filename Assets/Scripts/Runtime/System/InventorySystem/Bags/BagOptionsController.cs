@@ -39,11 +39,14 @@ namespace InventorySystem
         }
         public void AddItemtoInventory(ItemSlot itemSlot)
         {
+            
+            
             int quantity = 1;
             if (itemSlot is ItemSlotStack)
             {
                 quantity = (itemSlot as ItemSlotStack).NumberItem;
             }
+            if (_inventory == null) _inventory = FindObjectOfType<Inventory>();
             if( !_inventory.AddItem(itemSlot.Item, quantity)) return;
             itemSlot.SetEmty();
             itemSlot.IsActive = false;

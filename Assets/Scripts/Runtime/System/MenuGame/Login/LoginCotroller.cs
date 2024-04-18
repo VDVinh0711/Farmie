@@ -10,8 +10,6 @@ public class LoginCotroller : MonoBehaviour
     [SerializeField] private LoadSceneHelper _loadScene;
     public Action ActionloginSuccess;
     public Action<string> AcionloginFail;
-    
-    
     public void Login(string emailUser , string passwork)
     {
         var request = new LoginWithEmailAddressRequest
@@ -24,17 +22,20 @@ public class LoginCotroller : MonoBehaviour
     private void OnSuccess(LoginResult result)
     {
         ActionloginSuccess?.Invoke();
-        _loadScene.StarLoadSceneCouroutine("ChoseMap");
+        if (PlayFabData.CheckData("PartPlayer"))
+        {
+            _loadScene.StarLoadSceneCouroutine("ChoseMap");
+        }
+        else
+        {  
+            _loadScene.StarLoadSceneCouroutine("CharacterCreator");
+        }
+        
     }
     private void OnError(PlayFabError result)
     {
-        AcionloginFail?.Invoke(result.ToString());
+        AcionloginFail?.Invoke("Đăng nhập thất bại");
     }
-    
-    
 
-
-
- 
-    
 }
+

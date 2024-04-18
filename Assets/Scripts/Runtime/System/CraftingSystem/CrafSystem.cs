@@ -39,7 +39,6 @@ public class CrafSystem : MonoBehaviour,IInterac,ITimeTracker
     private void Start()
     {
         TimeManager.Instance.RegisterTracker(this);
-    
     }
 
     #region Craf

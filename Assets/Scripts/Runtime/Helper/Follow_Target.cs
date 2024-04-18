@@ -16,8 +16,6 @@ namespace HelperSystem
                 targetPos = value;
             }
         }
-        
-
         private  void LateUpdate()
         {
             MoveTarget();

@@ -37,6 +37,20 @@ public static class PlayFabData
         Debug.Log("On getData Error");
     }
     
+    public static bool CheckData(string keyData)
+    {
+        bool resulttesst = false;
+        GetDataOnPlayFab((result =>
+                {
+                    if (result.Data.ContainsKey("PartPlayer"))
+                    {
+                        resulttesst = true;
+                    }
+                }
+                ));
+        return resulttesst;
+    }
+    
     
    
 }

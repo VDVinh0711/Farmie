@@ -11,17 +11,12 @@ namespace InventorySystem
     public class Bag : StorageManager , ISaveData
     {
         
-        
-
         [SerializeField] private BagController _bagController;
         public BagController BagController => _bagController;
         public event Action<ItemSlot> StateChangeHand; 
         public ItemSlot HandItem=> _bagController.HandItem;
         public event Action StateChangeBags;
         
-        
-         
-      
         public List<ItemSlot> GetListSLotItem()
         {
             return _slots.Where(slot => slot.Item is ItemInvenSo) .ToList();;
@@ -46,9 +41,6 @@ namespace InventorySystem
         {
             OnChangeBag();
         }
-
-        
-
         public object SaveData()
         {
             _bagController.IteminHandtoBag();
@@ -56,7 +48,6 @@ namespace InventorySystem
             foreach (var slot in _slots)
             {
                 if(!slot.HasItem()) continue;
-               
                 if (slot.Item is IStackAble)
                 {
                     Itemdata newItem = new Itemdata(slot.ID, (slot as ItemSlotStack).NumberItem,0);

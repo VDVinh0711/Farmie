@@ -23,14 +23,11 @@ public class UI_Setting : MonoBehaviour,IAnimationUI
         _startPos = _panelSetting.transform.position;
        
     }
-
     private void Start()
     {
         RegisterEvent(); 
     }
-
-  
-
+    
     private void RegisterEvent()
     {
         musicvolume.onValueChanged.AddListener(ChangeVolumeMusic);
@@ -53,7 +50,6 @@ public class UI_Setting : MonoBehaviour,IAnimationUI
     {
         musicvolume.value = 0;
     }
-
     private void BtnSfxClick()
     {
         sfxvomume.value = 0;
@@ -62,18 +58,15 @@ public class UI_Setting : MonoBehaviour,IAnimationUI
     {
         UIManager.OpenUI(_panelSetting);
     }
-
     private void HidePanelSetting()
     {
        _uiMenuManager.HideUiMenugame(this.transform);
     }
-
     public void AnimationIn()
     {
         _panelSetting.gameObject.SetActive(true);
         _panelSetting.gameObject.transform.DOLocalMove(_startPos,1);
     }
-
     public void AnimationOut()
     {
         _panelSetting.transform.DOLocalMove(new Vector3(_startPos.x - 200, _startPos.y, 0), 1);

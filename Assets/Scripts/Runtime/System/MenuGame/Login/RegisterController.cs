@@ -9,48 +9,56 @@ public class RegisterController : MonoBehaviour
     
     public Action ActionRegisSuccess;
     public Action<string> AcionRegisFail;
-    public void Register(string email, string password,string repassword)
+    public void Register(string usename, string email, string password,string repassword )
     {
-        if (!CheckInput(email, password, repassword))
+        /*if (!CheckInput(usename, email, password , repassword))
         {
-            OnrroFormat(email,password,repassword);
+            OnrroFormat(usename, email, password , repassword);
             return;
-        }
+        }*/
+
+        SendRequetPlayFab(email.Trim(), password.Trim(), usename.Trim());
+    }
+    public void SendRequetPlayFab(string email, string password,string username)
+    {
+        print(password);
         var request = new RegisterPlayFabUserRequest
         {
             Email = email,
             Password = password,
-            RequireBothUsernameAndEmail = false
+            Username =  username
+            
         };
-        PlayFabClientAPI.RegisterPlayFabUser(request, OnSuccess, Onerror);
+        PlayFabClientAPI.RegisterPlayFabUser(request,OnSuccess,Onerror);
     }
     private void Onerror(PlayFabError result)
     {
-            Debug.Log(result.ToString());
-           AcionRegisFail?.Invoke("Erro don't known");
-        
+           AcionRegisFail?.Invoke("Lỗi ! vui lòng thử lại");    
     }
-
-    private void OnrroFormat(string email, string password,string repassword)
+    private void OnrroFormat(string usename, string email, string password,string repassword)
     {
-        AcionRegisFail.Invoke(ShowMessErro(email,  password, repassword));   
+        AcionRegisFail.Invoke(ShowMessErro(usename,  email, password , repassword));   
     }
     private void OnSuccess(RegisterPlayFabUserResult obj)
     {
         ActionRegisSuccess?.Invoke();
     }
-    public bool CheckInput(string email, string password,string reppassword)
-    {
+    public bool CheckInput(string usename, string email, string password,string repassword)
+    {  
+        string regex = "^[a-zA-Z0-9]{6,10}$";
         string regexPattern = @"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$";
         if (!Regex.IsMatch(email, regexPattern)) return false;
-        if (!reppassword.Equals(password)) return false;
+        if (!Regex.IsMatch(usename, regex)) return false;
+        if (!repassword.Equals(password)) return false;
         return true;
     }
-    public string ShowMessErro(string email, string password,string reppassword)
+    public string ShowMessErro(string usename, string email, string password,string repassword)
     {
         string regexPattern = @"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$";
+        string regex = "^[a-zA-Z0-9]{6,10}$";
+        if (!Regex.IsMatch(usename, regex)) return "Tên user phải dài 6-12 ký tự và không có ký tự đặc biệt";
         if (!Regex.IsMatch(email, regexPattern)) return "Sai Dinh Dang Email";
-        if (!reppassword.Equals(password)) return "Hai Mat Khau Khong Giong Nhau";
+        if (!repassword.Equals(password)) return "Hai Mat Khau Khong Giong Nhau";
         return "";
     }
     

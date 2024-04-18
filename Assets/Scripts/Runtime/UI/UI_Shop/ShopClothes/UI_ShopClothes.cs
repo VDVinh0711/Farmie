@@ -1,6 +1,7 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_ShopClothes : MonoBehaviour
 {
@@ -9,6 +10,11 @@ public class UI_ShopClothes : MonoBehaviour
     [SerializeField] private Transform _pool;
     [SerializeField] private UIDescripeIteminShop _uiDescripeIteminShop;
     [SerializeField] private Transform _panel;
+    [SerializeField] private Button _btnClose;
+    private void Awake()
+    {
+        _btnClose.onClick.AddListener(Hide);
+    }
     public void DisPlayShop()
     {
         Refesh();

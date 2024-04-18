@@ -8,7 +8,7 @@ public class SpawnPlayerManager : MonoBehaviour
    [SerializeField] private Transform _playerSpawnPre;
    [SerializeField] private Vector3 _posSpawnPlayer;
    private PlayerManager _playerManager;
-   public Transform PlayerSpawm;
+    public Transform PlayerSpawm;
    public PlayerManager PlayerManager => _playerManager;
    
    

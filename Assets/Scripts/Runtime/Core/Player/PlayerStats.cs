@@ -9,13 +9,13 @@ namespace Player
     public class PlayerStats : MonoBehaviour 
     {
          private  float money  = 10000;
-
         public float Money
         {
             get => money;
             set
             {
                 money = value > 0 ? value : 0;
+                OnstateChange();
             }
         }
         public event Action StateChange;

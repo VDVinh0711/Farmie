@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 using System.Linq;
 
@@ -22,7 +23,6 @@ namespace InventorySystem
         private void OnValidate()
         {
             AdjustInven();
-          
         }
         public bool ISFull()
         {
@@ -35,11 +35,14 @@ namespace InventorySystem
         }
         private int FindIndexSlotEmTy()
         {
-            for (int i = 0; i < _size; i++)
+            var slot = _slots.FirstOrDefault(slot => !slot.HasItem());
+            var slotIndex = slot == null ? -1 : Array.IndexOf(_slots, slot);
+            /*for (int i = 0; i < _size; i++)
             {
                 if (!_slots[i].HasItem()) return i;
             }
-            return -1;
+            return -1;*/
+            return slotIndex;
         }
         public bool CanAcceptItem(Item_SO item , int numberitem)
         {
@@ -55,36 +58,26 @@ namespace InventorySystem
             if (item is IStackAble itemStack)
             {
                 var relevantSlot = FindSlotStackToAdd(item) as ItemSlotStack;
-
                 if (ISFull())
                 {
-                    if (relevantSlot != null && relevantSlot.CanAddItem(numberitem))
-                    {
-                        return true;
-                    }
+                    if (relevantSlot != null && relevantSlot.CanAddItem(numberitem)) return true;
+                    
                 }
                 else
                 {
                     // Calculate required slots for additional items
                     int numberAdded = relevantSlot?.NumberItem ?? 0;
                     float requiredSlots = (numberitem - numberAdded) / itemStack.MaxStack;
-
-                    if (requiredSlots < availableEmptySlots)
-                    {
-                        return true;
-                    }
+                    if (requiredSlots < availableEmptySlots) return true;
                 }
             }
             else
             {
-                if (!ISFull() && numberitem <= availableEmptySlots)
-                {
-                    return true;
-                }
+                if (!ISFull() && numberitem <= availableEmptySlots)  return true;
             }
             return false;
         }
-        public  bool AddItem(Item_SO item, int numberitem)
+        public  bool AddItem(Item_SO item, int numberitem = 1)
         {
             if (!CanAcceptItem(item, numberitem))
             {
@@ -154,7 +147,6 @@ namespace InventorySystem
                 default:
                     return false;
             }
-
             AcitoneChangeSomething();
             return true;
         }
@@ -189,27 +181,18 @@ namespace InventorySystem
         {
             foreach (var slot in _slots)
             {
-                if (slot == itemSlot)
-                {
-                    if (slot is ItemSlotStack)
-                    {
-                        (slot as ItemSlotStack).PreviousItem(quantity);
-                    }
-                    else
-                    {
-                        slot.SetEmty();
-                    }
-                }
+                if (slot != itemSlot) continue;
+                if (slot is ItemSlotStack) (slot as ItemSlotStack).PreviousItem(quantity);
+                else slot.SetEmty();
+               
             }
         }                                          
         protected virtual void AcitoneChangeSomething()
         {
             
         }
-
         public int CountItem(string ID)
         {
-            
             var result = 0;
             foreach (var slot in _slots)
             {   

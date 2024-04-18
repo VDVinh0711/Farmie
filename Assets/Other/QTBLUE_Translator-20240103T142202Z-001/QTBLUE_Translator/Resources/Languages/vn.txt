@@ -10,7 +10,7 @@ MUSIC=NHẠC
 SOUNDS=ÂM THANH
 GRAPHICS=ĐỒ HỌA
 INVE=NHà Kho
-START=Game Mới
+START=Bắt Đầu
 RESUME=Tiếp Tục
 SETTING=Cài Đặt
 EXIT=Thoát
@@ -40,4 +40,5 @@ IMEDICINE=Thuốc trị bệnh cho gia súc
 CANCEL=Hủy
 SELLALL=Bán Hết
 OK=OK
+CHOSEMAP = Chọn map
 

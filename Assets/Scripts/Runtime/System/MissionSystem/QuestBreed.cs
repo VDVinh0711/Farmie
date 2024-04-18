@@ -37,7 +37,6 @@ namespace MissionSystem
             if(animal == null) return;
             if( !animal.id.Equals((missionSO as MissionSOBreed).AnimalObject.id)) return;
             CurrentCount++;
-            Debug.Log(_currentcount);
             if(_currentcount < missionSO.CountRequest) return;
             _isDone = true;
             FinishMission();

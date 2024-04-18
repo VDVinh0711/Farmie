@@ -47,7 +47,6 @@ namespace InventorySystem
          }
          private void HandlePointerClick(PointerEventData.InputButton button)
          {
-             if(button != PointerEventData.InputButton.Left) return;
              if (!_slot.HasItem()) return;
              if (button == PointerEventData.InputButton.Left)
              {

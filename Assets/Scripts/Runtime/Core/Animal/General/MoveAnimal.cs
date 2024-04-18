@@ -1,4 +1,5 @@
 
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
@@ -12,7 +13,7 @@ public class MoveAnimal : MonoBehaviour
     private Rigidbody2D animalRb;
     public UnityAction Move;
     public bool isMove = false;
-    [SerializeField]   private Transform _postoeat;
+    [SerializeField] [CanBeNull] private Transform _postoeat;
     [SerializeField] Vector2 direction; 
     public Vector2 Direction => direction;
     public Transform Postoeat => _postoeat;

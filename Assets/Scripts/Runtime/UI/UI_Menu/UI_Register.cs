@@ -17,7 +17,7 @@ public class UI_Register : MonoBehaviour,IAnimationUI
     [SerializeField] private TMP_InputField _inputUser;
     [SerializeField] private TMP_InputField _inputPasswork;
     [SerializeField] private TMP_InputField _inputRePasswork;
-    
+    [SerializeField] private TMP_InputField _inputEmail;
 
     [Header("Notifycation")]
     [SerializeField]private RectTransform _panleNotify;
@@ -34,8 +34,6 @@ public class UI_Register : MonoBehaviour,IAnimationUI
 
     #endregion
     
-    
-
 
     private void Awake()
     {
@@ -52,10 +50,8 @@ public class UI_Register : MonoBehaviour,IAnimationUI
     }
     private void DeActiveNotify()
     {
-        if (_panleNotify.gameObject.activeSelf)
-        {
-            _panleNotify.gameObject.SetActive(false);
-        }
+        if (!_panleNotify.gameObject.activeSelf) return;
+          _panleNotify.gameObject.SetActive(false);
     }
     private void OnNotifycationFail(string text)
     {
@@ -93,6 +89,7 @@ public class UI_Register : MonoBehaviour,IAnimationUI
         _inputUser.text = "";
         _inputPasswork.text = "";
         _inputRePasswork.text = "";
+        _inputEmail.text = "";
     }
     #region Button & Event
     private void RegisterEnvent()
@@ -107,10 +104,11 @@ public class UI_Register : MonoBehaviour,IAnimationUI
     }
     public void OnButtonRegis()
     {
-        string email = _inputUser.text;
+        string username = _inputUser.text;
         string password = _inputUser.text;
         string repassword = _inputUser.text;
-        _registerController.Register(email,password.Trim(),repassword.Trim());
+        string email = _inputEmail.text;
+        _registerController.Register(username.Trim() , password.Trim() , repassword.Trim() , email.Trim());
     }
     public void OnButtonBack()
     {
@@ -141,6 +139,9 @@ public class UI_Register : MonoBehaviour,IAnimationUI
          
         _inputPasswork.gameObject.SetActive(true);
         _inputPasswork.gameObject.transform.DOMove(listRootPosOBj[_inputPasswork.name], 1);
+        
+        _inputEmail.gameObject.SetActive(true);
+        _inputEmail.gameObject.transform.DOMove(listRootPosOBj[_inputEmail.name], 1);
          
         _inputRePasswork.gameObject.SetActive(true);
         _inputRePasswork.gameObject.transform.DOMove(listRootPosOBj[_inputRePasswork.name], 1);
