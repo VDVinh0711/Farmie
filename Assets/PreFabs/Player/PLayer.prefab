@@ -437,9 +437,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7244dd248905e7942942320d37f3bd60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slot:
-    _item: {fileID: 0}
-    _isactive: 0
   _indexOfSlot: 0
   _uiItem: {fileID: 1233649963894004522}
 --- !u!1 &327315616843015281
@@ -2907,7 +2904,8 @@ Transform:
   m_LocalPosition: {x: 3.9046054, y: 1.8554473, z: -1.060056}
   m_LocalScale: {x: 1.4285715, y: 1.4285715, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1095545946221636589}
   m_Father: {fileID: 1933686042970392826}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2930,13 +2928,7 @@ MonoBehaviour:
     partPlayer: {fileID: 0}
   _listClothesPlayer:
   - type: 1
-    itemClothes:
-      _item: {fileID: 0}
-      _isactive: 0
   - type: 0
-    itemClothes:
-      _item: {fileID: 0}
-      _isactive: 0
   _modelPlayer: {fileID: 8077332620500156371}
   _bag: {fileID: 2387720619717740727}
 --- !u!1 &2123088165047675690
@@ -4079,6 +4071,7 @@ RectTransform:
   - {fileID: 854164732603272927}
   - {fileID: 646287126867288734}
   - {fileID: 7038764079153476468}
+  - {fileID: 9145577540989079357}
   m_Father: {fileID: 1633948585217816674}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4913,7 +4906,7 @@ MonoBehaviour:
   _modelPlayerManager: {fileID: 9024950756628592590}
   _modelPreViewPlayer: {fileID: 3798409618983308203}
   _panel: {fileID: 6101300886533988902}
-  _btnClose: {fileID: 0}
+  _btnClose: {fileID: 540250466378619874}
 --- !u!1 &4173747505946639594
 GameObject:
   m_ObjectHideFlags: 0
@@ -8881,7 +8874,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8a4f0092e081bb4f8819853bb51005a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventorySlotPrefab: {fileID: 8434695617765263055, guid: 1f03dd678b87baa498de3cf54bd497a9, type: 3}
   handSlotUI: {fileID: 64372300220114132}
   itemDescriptionText: {fileID: 3226751868873129394}
   itemNameText: {fileID: 8592983644143231610}
@@ -8919,6 +8911,8 @@ MonoBehaviour:
   inventoryRoot: {fileID: 854164732603272927}
   _uibagoption: {fileID: 1550751392351766278}
   bag: {fileID: 2387720619717740727}
+  _btnCLose: {fileID: 2736385428083196663}
+  _bagOptionsController: {fileID: 2037184167265022446}
 --- !u!1 &6362616033318170390
 GameObject:
   m_ObjectHideFlags: 0
@@ -9311,10 +9305,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bag: {fileID: 2387720619717740727}
   _inventory: {fileID: 0}
-  _curentslotAccive:
-    _item: {fileID: 0}
-    _isactive: 0
   _uiBags: {fileID: 2355171498308653999}
+  _modelPlayer: {fileID: 9024950756628592590}
 --- !u!1 &6480425090449888215
 GameObject:
   m_ObjectHideFlags: 0
@@ -10160,6 +10152,127 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &6805423134414733828
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9145577540989079357}
+  - component: {fileID: 645009415560157907}
+  - component: {fileID: 1240502678708117102}
+  - component: {fileID: 2736385428083196663}
+  m_Layer: 5
+  m_Name: Btn_Close
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &9145577540989079357
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6805423134414733828}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2083411593140744967}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -22.5, y: -37.6}
+  m_SizeDelta: {x: 27.2475, y: 24.9157}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &645009415560157907
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6805423134414733828}
+  m_CullTransparentMesh: 1
+--- !u!114 &1240502678708117102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6805423134414733828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.9433962, g: 0.33374867, b: 0.33374867, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 21e66d5091ca53b4daa58d5e60a59de5, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2736385428083196663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6805423134414733828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1240502678708117102}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6854481234626115985
 GameObject:
   m_ObjectHideFlags: 0
@@ -10251,9 +10364,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7244dd248905e7942942320d37f3bd60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slot:
-    _item: {fileID: 0}
-    _isactive: 0
   _indexOfSlot: 0
   _uiItem: {fileID: 7054924668290993758}
 --- !u!1 &6871892137797985617
@@ -11073,9 +11183,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bag: {fileID: 2387720619717740727}
-  handItem:
-    _item: {fileID: 0}
-    _isactive: 0
 --- !u!1 &7250939543159652604
 GameObject:
   m_ObjectHideFlags: 0
@@ -11377,9 +11484,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc7e3ace1d6b94645ab2cfe82e36c434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slot:
-    _item: {fileID: 0}
-    _isactive: 0
   _indexOfSlot: 0
   _uiItem: {fileID: 4318407101447775001}
   _uiBags: {fileID: 0}
@@ -11841,6 +11945,52 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &7605885770865310971
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1095545946221636589}
+  - component: {fileID: 8841104480469316741}
+  m_Layer: 0
+  m_Name: ModelController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1095545946221636589
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7605885770865310971}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4866011527168674966}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8841104480469316741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7605885770865310971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88c8b774309c9214cbd1b4a0b37bf1a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _modelPlayerManager: {fileID: 9024950756628592590}
+  _bag: {fileID: 2387720619717740727}
 --- !u!1 &7605918917207248354
 GameObject:
   m_ObjectHideFlags: 0
@@ -13525,67 +13675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4349df36971b6c94a8bf0377887cc2a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slots:
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
-  - _item: {fileID: 0}
-    _isactive: 0
+  _slots: []
   _size: 30
   _bagController: {fileID: 5630863516354021414}
 --- !u!1 &8569464174289821527
@@ -14140,7 +14230,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7038764079153476468
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14217,9 +14307,6 @@ MonoBehaviour:
   _btn_Use: {fileID: 2850199694723432037}
   _btn_AddInven: {fileID: 3750940759263243035}
   _btn_Dispose: {fileID: 8546122218072346226}
-  _slotActive:
-    _item: {fileID: 0}
-    _isactive: 0
   _bagOptionsController: {fileID: 2037184167265022446}
   _curIndexSlot: 0
 --- !u!1 &9080600120036915466

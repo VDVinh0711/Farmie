@@ -9,31 +9,21 @@ public class ModelPlayerManager : MonoBehaviour
     [Header("Part")]
     [SerializeField] private PartsPlayer[] _listPartPlayer;
     [Header("Clothes")]
-    [SerializeField] private ItemClothes[] _listClothesPlayer;
+    [SerializeField] private ItemSlotClothes[] _listClothesPlayer;
     [SerializeField] private ModelPlayer _modelPlayer;
     [SerializeField] private Bag _bag;
     public Action StateChangeUI;
     public PartsPlayer[] ListPartPlayers => _listPartPlayer;
-    public ItemClothes[] ListClothesPlayer => _listClothesPlayer;
+    public ItemSlotClothes[] ListClothesPlayer => _listClothesPlayer;
     
-    public void SetClothesPlayer(ItemSlotClothes itemSlotClothes)
+    public void SetClothesPlayer(ItemSlot itemClothesSet)
     {
+        if(!(itemClothesSet.Item is ItemClothes clothes))  return;
         foreach (var itemclothes in _listClothesPlayer)
         {
-            if(itemSlotClothes.Type != itemclothes.type) continue;
-            SwapClothesandBag(itemclothes.itemClothes,itemSlotClothes);
+            if(clothes.Type != itemclothes.type) continue;
+            ItemHelper.SwapWithItemSlot(itemclothes.itemClothes, itemClothesSet);
         }
-        UpdateModelPlayer();
-    }
-    private void SwapClothesandBag( ItemSlotClothes itemslotClothes ,ItemSlotClothes  itemSlotClothesBag)
-    {
-        _bag.BagController.SwapWithItemInBag(itemSlotClothesBag,itemslotClothes);
-        UpdateModelPlayer();
-    }
-    public void BackClothesInBag(ItemSlotClothes itemSlotClothes)
-    {
-        if(! _bag.AddItem(itemSlotClothes.Item, 1)) return;
-        itemSlotClothes.SetEmty();
         UpdateModelPlayer();
     }
     public void SetPartPlayer(PartPlayerModel_SO partPlayerModelSo)
@@ -54,7 +44,8 @@ public class ModelPlayerManager : MonoBehaviour
         }
         foreach (var clothesPlayer in _listClothesPlayer)
         {
-            _modelPlayer.SetClothesPlayer(clothesPlayer.type,(clothesPlayer.itemClothes.Item as ClothesItem_SO));
+            var clothesset = !clothesPlayer.itemClothes.HasItem() ? null: (clothesPlayer.itemClothes.Item.ItemInfor as ClothesItem_SO);
+            _modelPlayer.SetClothesPlayer(clothesPlayer.type,clothesset);
         }
         OnStateChangeUI();
     }
@@ -67,10 +58,10 @@ public class ModelPlayerManager : MonoBehaviour
 }
 
 [Serializable]
-public class ItemClothes
+public class ItemSlotClothes
 {
     public CLothesType type;
-    public ItemSlotClothes itemClothes;
+    public ItemSlot itemClothes;
 }
 [Serializable]
 public class PartsPlayer

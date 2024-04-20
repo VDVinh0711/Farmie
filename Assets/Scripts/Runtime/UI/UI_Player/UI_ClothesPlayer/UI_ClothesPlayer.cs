@@ -39,11 +39,10 @@ public class UI_ClothesPlayer : MonoBehaviour
     {
         foreach (var clothesPlayer in _modelPlayerManager.ListClothesPlayer)
         {
-          
             foreach (var uiclothes in _listUiCLothes)
             {
                 if(clothesPlayer.type != uiclothes.type) continue;
-                uiclothes.UIClothesItemSlot.Display(clothesPlayer.itemClothes);
+               uiclothes.UIClothesItemSlot.Display(clothesPlayer.itemClothes);
             }
         }
     }
@@ -51,7 +50,8 @@ public class UI_ClothesPlayer : MonoBehaviour
     {
         foreach (var clothesPLayer in _modelPlayerManager.ListClothesPlayer)
         {
-            _modelPreViewPlayer.SetClothesPlayer( clothesPLayer.type,(clothesPLayer.itemClothes.Item as ClothesItem_SO));
+            var clothesset = !clothesPLayer.itemClothes.HasItem() ? null: (clothesPLayer.itemClothes.Item.ItemInfor as ClothesItem_SO);
+            _modelPreViewPlayer.SetClothesPlayer( clothesPLayer.type,clothesset);
         }
     }
     private void ShowUIClothes()

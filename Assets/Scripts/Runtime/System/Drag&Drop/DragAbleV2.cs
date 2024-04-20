@@ -14,7 +14,7 @@ public class DragAbleV2 : MonoBehaviour,IPointerClickHandler
     private void Start()
     {
         _uiSlots = gameObject.GetComponent<UI_Slots>();
-        OnRegisterEvent();
+       // OnRegisterEvent();
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -23,19 +23,20 @@ public class DragAbleV2 : MonoBehaviour,IPointerClickHandler
         if(_uiSlots.Slot.IsActive) return;
         switch (eventData.button)
        {
-           /*case PointerEventData.InputButton.Left :
+           case PointerEventData.InputButton.Left :
                ActionLeftClick?.Invoke();
-               break;*/
+               break;
            case PointerEventData.InputButton.Right :
                ActionRightClick?.Invoke();
                break;
        }
     }
-
+    
+    /*
     private void OnRegisterEvent()
     {
         ActionRightClick +=  ()=>_dragController.OnRightClickHandlerAction(_uiSlots);
         ActionLeftClick += () => _dragController.OnLeftClickHandlerUiItemSlot(_uiSlots);
 
-    }
+    }*/
 }

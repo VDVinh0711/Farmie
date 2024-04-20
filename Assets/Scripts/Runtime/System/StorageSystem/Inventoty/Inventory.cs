@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
+using Player;
 using UnityEngine;
 
 namespace InventorySystem
@@ -10,12 +11,13 @@ namespace InventorySystem
     {
         public event Action Changeinventory;
 
+        private PlayerManager _playerManager;
+        public PlayerManager PlayerManager => _playerManager;
 
-        private void Awake()
+        public void AssignPlayer(PlayerManager playerManager)
         {
-            print(this.gameObject.name);
+            _playerManager = playerManager;
         }
-
         protected override void AcitoneChangeSomething()
         {
             NotifyChangeInventory();
@@ -26,21 +28,27 @@ namespace InventorySystem
         }
         public object SaveData()
         {
+          
             List<Itemdata> listItemSave = new List<Itemdata>();
             foreach (var slot in _slots)
             {
-                if (slot == null) continue;
                 if(!slot.HasItem()) continue;
-                if (slot.Item is IStackAble)
+                Itemdata data = new Itemdata();
+                switch (slot.Item)
                 {
-                    Itemdata newItem = new Itemdata(slot.ID, (slot as ItemSlotStack).NumberItem,0);
-                    listItemSave.Add(newItem);
+                    case ItemStack stack:
+                        data = new Itemdata(stack.ID, stack.NumberItem, 0);
+                        break;
+                    case ItemDura dura:
+                        data = new Itemdata(dura.ID, 0, dura.CurDurability);
+                        break;
+                    default:
+                        data = new Itemdata(slot.Item.ID, 0, 0);
+                        break;
+                    
+                    //After that, there are more types of items to add later
                 }
-                else
-                {
-                    Itemdata newItem = new Itemdata(slot.ID, 0,(slot as ItemSlotDura).CurDurability);
-                    listItemSave.Add(newItem);
-                }
+                listItemSave.Add(data);
             }
             return listItemSave;
         }
@@ -49,16 +57,8 @@ namespace InventorySystem
             var listItemsave = JsonConvert.DeserializeObject<List<Itemdata>>(state.ToString());
             for (int i = 0; i < listItemsave.Count; i++)
             {
-
-                var item = Item_SO.getItemByID(listItemsave[i].ID);
-                if (item is IStackAble)
-                {
-                    _slots[i] = new ItemSlotStack(item, listItemsave[i].Quantity);
-                }
-                else
-                {
-                    _slots[i] = new ItemSlotDura(item,listItemsave[i].Durability);
-                }
+                var item =  Item_SO.getItemByID(listItemsave[i].ID);
+                _slots[i].AsignItem(item, listItemsave[i].Quantity, out var nu);
             }
         }
 

@@ -1,9 +1,6 @@
-
-using System;
 using System.Collections.Generic;
 using UI.UI_Shop;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIShop : MonoBehaviour
@@ -14,15 +11,14 @@ public class UIShop : MonoBehaviour
     [SerializeField] private UI_ActiveComfirmBuy activeComfirmBuy;
     [SerializeField] private UI_ButtonChoseOption _choseOption;
     [SerializeField] private RectTransform panle;
-    [SerializeField] private UI_ActiveComfirmSell quantityComfirm;
     [SerializeField] public Transform ShopPanel;
-    [SerializeField]  public Transform InvenPanel;
+    [SerializeField] public Transform InvenPanel;
     [SerializeField] private Button _btnClose;
     public UI_ShopPanel Shop => _shopPanel;
     public UI_InvenyotyInShop InventoryShop => _invenpanel;
     public UI_ActiveComfirmBuy ActiveComfirmBuy => activeComfirmBuy;
-    public UI_ActiveComfirmSell ComfirmQuantity => quantityComfirm;
-    private void Start()
+   
+    private void Awake()
     {
         _btnClose.onClick.AddListener(HideShop);
     }
@@ -31,7 +27,6 @@ public class UIShop : MonoBehaviour
     {
         UIManager.OpenUI(panle); 
         _shopPanel.InstantiateShop(itemShopObjects);
-        _invenpanel.RenderInvenInShop();
     }
     private void HideShop()
     {

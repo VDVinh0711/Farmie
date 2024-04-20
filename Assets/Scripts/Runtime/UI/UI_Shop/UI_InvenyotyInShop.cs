@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using InventorySystem;
 using UnityEngine;
@@ -10,14 +11,18 @@ public class UI_InvenyotyInShop : MonoBehaviour
     [SerializeField] private Shop _shop;
      private Bag _bag =>_shop.PlayerManager.Bag;
 
-    public void RenderInvenInShop()
+    
+
+     public void RenderInvenInShop()
     {
         RefeshPanel();
+        
+        
         foreach (var slotinven in _bag.GetListSLotItem())
         {
             var slot = Instantiate(invenShopPrefabs, _invenPanel);
             var UISlot = slot.transform.gameObject.GetComponent<UI_InventoryInShopSlot>();
-            UISlot.RenderItem(slotinven);
+            UISlot.UpdateViewItem(slotinven);
             _slots.Add(UISlot);
         }
     }

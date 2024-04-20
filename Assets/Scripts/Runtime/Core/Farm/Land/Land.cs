@@ -101,7 +101,8 @@ public class Land : MonoBehaviour,ITimeTracker, IInterac
     public void InterRac(PlayerManager playerManager)
     {
         _bag  = playerManager.Bag;
-        EquidmentSo eqidItem = _bag.HandItem.Item as EquidmentSo;
+        if(!_bag.HandItem.HasItem()) return;
+        EquidmentSo eqidItem = _bag.HandItem.Item.ItemInfor as EquidmentSo;
         if(eqidItem == null) return;
         eqidItem.Used(this);
     }

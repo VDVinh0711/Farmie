@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 namespace InventorySystem
 {
@@ -8,33 +9,31 @@ namespace InventorySystem
         [SerializeField] private Button _btn_Use;
         [SerializeField] private Button _btn_AddInven;
         [SerializeField] private Button _btn_Dispose;
-        [SerializeField] private ItemSlot _slotActive;
+        [SerializeField] private ItemSlot active;
         [SerializeField] private BagOptionsController _bagOptionsController;
         [SerializeField] private int _curIndexSlot;
         public  void Start()
         {
-            /*_btn_Use = transform.GetChild(0).GetComponent<Button>();
-            _btn_AddInven = transform.GetChild(1).GetComponent<Button>();
-            _btn_Dispose = transform.GetChild(2).GetComponent<Button>();*/
+           
             _btn_Use.onClick.AddListener(UseItemClick);
             _btn_AddInven.onClick.AddListener(AddInvenClick);
             _btn_Dispose.onClick.AddListener(DisposeClick);
         }
-        public void ShowOption(ItemSlot itemSlot, int indexslot)
+        public void ShowOption(ItemSlot item, int indexslot)
         {
-            _slotActive = itemSlot;
+            active = item;
             _curIndexSlot = indexslot;
             gameObject.SetActive(true);
         }
         public void UseItemClick()
         {
-            _slotActive.IsActive = false;
+            active.IsActive = false;
             _bagOptionsController.UseItem(_curIndexSlot);
             gameObject.SetActive(false);
         }
         private void AddInvenClick()
         {
-           _bagOptionsController.AddItemtoInventory(_slotActive);
+           _bagOptionsController.AddItemtoInventory(active);
            HideOption();
         }
         private void DisposeClick()
@@ -43,14 +42,14 @@ namespace InventorySystem
         }
         public void ActionAccept()
         {
-           _bagOptionsController.DisposeItem(_slotActive);
-           _slotActive.IsActive = false;
+           _bagOptionsController.DisposeItem(active);
+           active.IsActive = false;
             HideOption();
         }
         public void HideOption()
         {
             gameObject.SetActive(false);
-            _slotActive.IsActive = false;
+            active.IsActive = false;
         }
     }
 }

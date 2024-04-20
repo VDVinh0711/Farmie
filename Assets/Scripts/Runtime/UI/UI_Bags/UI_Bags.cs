@@ -3,16 +3,14 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 
 namespace InventorySystem
 {
     public class UI_Bags : MonoBehaviour
     {
-        [SerializeField] private GameObject inventorySlotPrefab;
+       
         [SerializeField] private UI_BagSlots handSlotUI;
         [SerializeField] private TextMeshProUGUI itemDescriptionText;
         [SerializeField] private TextMeshProUGUI itemNameText;
@@ -20,8 +18,15 @@ namespace InventorySystem
         [SerializeField] private Transform inventoryRoot;
         [SerializeField] private UI_ItemBagOption _uibagoption;
         [SerializeField] private Bag bag;
+        [SerializeField] private Button _btnCLose;
+        [SerializeField] private BagOptionsController _bagOptionsController;
     public UI_ItemBagOption ItemBagOptions => _uibagoption;
 
+
+    private void Awake()
+    {
+        _btnCLose.onClick.AddListener(HideBag);
+    }
     private void Start()
     { 
         inventoryRoot = transform.GetChild(0).GetChild(2);
@@ -70,6 +75,7 @@ namespace InventorySystem
     }
     private void OpenBag()
     {
+        _bagOptionsController.AcctiveItemInBag(_bagSlotUI[0]);
        RenderBagContents();
        UIManager.OpenUI(inventoryRoot.parent.transform);
     }

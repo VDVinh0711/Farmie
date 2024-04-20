@@ -18,7 +18,7 @@ namespace InventorySystem
         }
         public void GetItemClick()
         {
-            _inventoryController.ItemInventoryToBag(_uiInventoryslot);
+            _inventoryController.ItemInventoryToBag();
             gameObject.SetActive(false);
         }
         
@@ -30,11 +30,11 @@ namespace InventorySystem
                 HideOption();
                 return;
             }
-            ShowOption();
+            ShowOption(uiInventoryslot);
             
         }
 
-        public void ShowOption()
+        public void ShowOption(UI_Inventoryslot uiInventoryslot)
         {
             gameObject.SetActive(true);
         }

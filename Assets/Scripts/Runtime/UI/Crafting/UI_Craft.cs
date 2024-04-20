@@ -63,7 +63,7 @@ public class UI_Craft : MonoBehaviour
     }
     private void SetTime(int time)
     {
-        _timeUI.enabled = _crafSystem.ItemCrafted;
+        _timeUI.enabled = _crafSystem.IsCraf;
         int minute = time / 60;
         int second = (time % 60);
         _timeUI.SetText(minute + " : " + second);

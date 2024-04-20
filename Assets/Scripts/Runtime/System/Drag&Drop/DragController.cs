@@ -6,7 +6,7 @@ using UnityEngine.XR;
 
 public class DragController : MonoBehaviour
 {
-    [SerializeField] private ItemMouseHolderData _mouseHolder;
+    /*[SerializeField] private ItemMouseHolderData _mouseHolder;
 
 
 
@@ -22,18 +22,18 @@ public class DragController : MonoBehaviour
     public void MoveItemtoSlot(UI_Slots uiSlots)
     {
         if(!_mouseHolder.ItemHolde.HasItem()) return;
-        uiSlots.Slot.Item = _mouseHolder.ItemHolde.Item;
+        uiSlots.Slot.ItemInfor = _mouseHolder.ItemHolde.ItemInfor;
         _mouseHolder.ItemHolde.SetEmty();
         _mouseHolder.ClearUI();
     }
 
     public void OnLeftClickHandlerUiItemSlot(UI_Slots uiSlots)
     {
-        var itemHolder = _mouseHolder.ItemHolde.HasItem() ? _mouseHolder.ItemHolde.Item : null;
-        var itemSlot = uiSlots.Slot.HasItem() ? uiSlots.Slot.Item : null;
+        var itemHolder = _mouseHolder.ItemHolde.HasItem() ? _mouseHolder.ItemHolde.ItemInfor : null;
+        var itemSlot = uiSlots.Slot.HasItem() ? uiSlots.Slot.ItemInfor : null;
         if (itemHolder == null && itemSlot != null)
         {
-            if (uiSlots.Slot.Item is IStackAble)
+            if (uiSlots.Slot.ItemInfor is IStackAble)
             {
                 GetOneItemStackForMouse(uiSlots);
                 return;
@@ -73,8 +73,8 @@ public class DragController : MonoBehaviour
     public void OnRightClickHandlerAction(UI_Slots uiSlots)
     {
 
-        var itemholder = _mouseHolder.ItemHolde.HasItem() ? _mouseHolder.ItemHolde.Item : null;
-        var itemslot = uiSlots.Slot.HasItem() ? uiSlots.Slot.Item : null;
+        var itemholder = _mouseHolder.ItemHolde.HasItem() ? _mouseHolder.ItemHolde.ItemInfor : null;
+        var itemslot = uiSlots.Slot.HasItem() ? uiSlots.Slot.ItemInfor : null;
         
         if (itemholder == null && itemslot != null)
         {
@@ -113,10 +113,10 @@ public class DragController : MonoBehaviour
     private void GetOneItemStackForMouse(UI_Slots uiSlots)
     {
         if(!uiSlots.Slot.HasItem()) return;
-        var uiSlotStack = (uiSlots.Slot.Item as IStackAble);
+        var uiSlotStack = (uiSlots.Slot.ItemInfor as IStackAble);
         if(uiSlotStack == null) return ;
       //  uiSlotStack.DecreseStacK(1);
-        var cloneItem = uiSlots.Slot.Item;
+        var cloneItem = uiSlots.Slot.ItemInfor;
         //(cloneItem as IStackAble).CurrentStack = 1;
        // _mouseHolder.AssignItemAnhUpDateUI(cloneItem);
         uiSlots.UpDateUi();
@@ -136,10 +136,10 @@ public class DragController : MonoBehaviour
     private void SwapItemMouseAndSlot(UI_Slots uiSlots)
     {
         if(!uiSlots.Slot.HasItem() || !_mouseHolder.ItemHolde.HasItem()) return;
-        var temp = _mouseHolder.ItemHolde.Item;
+        var temp = _mouseHolder.ItemHolde.ItemInfor;
        // _mouseHolder.AssignItemAnhUpDateUI(uiSlots.Slot.Item);
        // uiSlots.AssignAndUpDateUI(temp);
-        uiSlots.Slot.Item = temp;
-    }
+        uiSlots.Slot.ItemInfor = temp;
+    }*/
     
 }

@@ -28,9 +28,6 @@ namespace MissionSystem
                 if(_quests.ContainsKey(mission.Id)) continue;
                 _quests.Add( mission.Id,LoadQuest(mission));
             }
-         
-
-            
         }
         private Quest LoadQuest(MissionSO missionSO)
         {

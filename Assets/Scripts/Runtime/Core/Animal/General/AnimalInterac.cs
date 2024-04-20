@@ -27,7 +27,7 @@ public class AnimalInterac : MonoBehaviour,IInterac,IActionAccept
             EventManger<string>.RaiseEvent("ShowNotifycation","Vật nuôi của bạn không bị bệnh");
             return;
         }
-        EquidmentSo eqidItem = _bag.HandItem.Item as EquidmentSo;
+        EquidmentSo eqidItem = _bag.HandItem.Item.ItemInfor as EquidmentSo;
         if (eqidItem == null)
         {
             EventManger<string>.RaiseEvent("ShowNotifycation","Bạn phải có thuốc để chữa bệnh");
@@ -38,7 +38,7 @@ public class AnimalInterac : MonoBehaviour,IInterac,IActionAccept
     }
     public void HarvestProductAnimal()
     {
-        if (_bag.AddItem(_animal.AnimalObject.Itemharvest, 1))
+        if (_bag.AddItem(ItemHelper.MappingItem(_animal.AnimalObject.Itemharvest)))
         {
             _animal.PhysiologicalState.IsHarvest = false;
             _animal.GrowAnimal.SetTimeDefautHarvest();

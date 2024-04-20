@@ -10,7 +10,7 @@ public class UI_StatusBar : MonoBehaviour
 {
 
     [SerializeField] private Bag _bag;
-    [FormerlySerializedAs("_playerController")] [SerializeField] private PlayerManager playerManager;
+    [SerializeField] private PlayerManager playerManager;
     [Header("Hand")]
     [SerializeField] private Image _thumail;
     [SerializeField] private TextMeshProUGUI _quantity;
@@ -33,40 +33,40 @@ public class UI_StatusBar : MonoBehaviour
         Display();
     }
 
-    private void UpdateHandStatusbar(ItemSlot itemSlot)
+    private void UpdateHandStatusbar(ItemSlot item)
     {
-        _bag.HandItem.StateActionChange -= OnStateActionChange;
-        _bag.HandItem.StateActionChange += OnStateActionChange;
-        var hasitem = itemSlot.HasItem();
+        _bag.HandItem.ActionChangeItem -= OnStateActionChange;
+        _bag.HandItem.ActionChangeItem += OnStateActionChange;
+        var hasitem = item.HasItem();
         _thumail.enabled = hasitem;
         _quantity.enabled = false;
         _durability_UI.transform.gameObject.SetActive(false);
         if (!hasitem) return;
-        _thumail.sprite = itemSlot.Item.UIinInven;
-        switch (itemSlot)
+        _thumail.sprite = item.Item.ItemInfor.UIinInven;
+        switch (item.Item)
         {
-            case ItemSlotStack itemStack:
+            case ItemStack itemStack:
                 SetUpUiStack(itemStack);
                 break;
-            case ItemSlotDura itemagri:
+            case ItemDura itemagri:
                 SetUiDuraable(itemagri);
                 break;
         }
 
     }
 
-    private void SetUiDuraable(ItemSlotDura itemSlotDura)
+    private void SetUiDuraable(ItemDura itemDura)
     {
-        if (!itemSlotDura.HasItem()) return;
+        if (!itemDura.HasItem()) return;
         _durability_UI.transform.gameObject.SetActive(true);
-        _durability_UI.maxValue = (itemSlotDura.Item as AgriculturalSo).MaxDurability;
-        _durability_UI.value = itemSlotDura.CurDurability;
+        _durability_UI.maxValue = (itemDura.ItemInfor as AgriculturalSo).MaxDurability;
+        _durability_UI.value = itemDura.CurDurability;
     }
-    private void SetUpUiStack(ItemSlotStack itemSlotStack)
+    private void SetUpUiStack(ItemStack itemStack)
     {
-        if ( itemSlotStack == null) return;
+        if ( itemStack == null) return;
         _quantity.enabled = true;   
-        _quantity.SetText(itemSlotStack.NumberItem.ToString());
+        _quantity.SetText(itemStack.NumberItem.ToString());
     }
     public void Display()
     {

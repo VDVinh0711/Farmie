@@ -25,7 +25,7 @@ namespace InventorySystem
             if(_uiItem == null) _uiItem = transform.GetComponentInChildren<UI_DisplayItem>();
             _uiItem.UpdateView(item);
         }
-        private void OnStateChange(ItemSlot arg)
+        private void OnStateChange(Item arg)
         {
             Display(_slot);
         }

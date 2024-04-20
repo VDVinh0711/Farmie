@@ -10,7 +10,7 @@ public class CrafSystem : MonoBehaviour,IInterac,ITimeTracker
 
     #region Variable
     [SerializeField] private List<ItemCraf> _listItemCrafs = new ();
-    [SerializeField] private Item_SO _itemCrafted;
+    [SerializeField] private Item _itemCrafted;
     [SerializeField] private int currentIndex;
     [SerializeField] private PlayerManager _player;
     [SerializeField] private bool _canGet = false;
@@ -21,7 +21,7 @@ public class CrafSystem : MonoBehaviour,IInterac,ITimeTracker
     [SerializeField] private UI_Craft _uiCraft;
     public PlayerManager PlayerManager => _player;
     public List<ItemCraf> ListItemCraf => _listItemCrafs;
-    public Item_SO ItemCrafted => _itemCrafted;
+    public Item ItemCrafted => _itemCrafted;
     public int QuantityCreate => _quantityCreat;
     public ItemCraf ItemCrafCurrent => _listItemCrafs[currentIndex];
     public bool IsCraf => isCraft;
@@ -45,14 +45,14 @@ public class CrafSystem : MonoBehaviour,IInterac,ITimeTracker
     public void Craf()
     {
         if(!ItemCrafCurrent.enoughItem) return;
-       
+        if(isCraft) return;
         foreach (var item in ItemCrafCurrent.ItemCraftSo.Materials)
         {
             _bag.BagController.GetItemInBagById(item.ItemSo.ID, item.quantity * _quantityCreat);
         }
         timeCraft = (ItemCrafCurrent.ItemCraftSo.timeCraf) * _quantityCreat;
         isCraft = true;
-        _itemCrafted =  ItemCrafCurrent.ItemCraftSo.itemCrafted;
+        _itemCrafted =  ItemHelper.MappingItem( ItemCrafCurrent.ItemCraftSo.itemCrafted, _quantityCreat);
         OnStateChangeDes();
     }
     private void CrafrEnd()

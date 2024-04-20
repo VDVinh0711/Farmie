@@ -3,15 +3,16 @@ using System;
 using InventorySystem;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ItemMouseHolderData : MonoBehaviour
 {
-    [SerializeField] private ItemSlot _itemSlot;
+    [FormerlySerializedAs("_itemSlot")] [SerializeField] private Item item;
     [SerializeField] private Image _image;
     [SerializeField] private TextMeshProUGUI _quantityItem;
 
-    public ItemSlot ItemHolde => _itemSlot;
+    public Item ItemHolde => item;
 
 
     private void Start()
@@ -21,8 +22,8 @@ public class ItemMouseHolderData : MonoBehaviour
 
     private void SetUp()
     {
-        _itemSlot = new ItemSlot();
-        gameObject.SetActive(false);
+        /*item = new Item();
+        gameObject.SetActive(false);*/
     }
     private void Update()
     {
@@ -32,19 +33,19 @@ public class ItemMouseHolderData : MonoBehaviour
     {
         gameObject.transform.position = Input.mousePosition;
     }
-    public void AssignItemAnhUpDateUI(ItemSlot itemSlot)
+    public void AssignItemAnhUpDateUI(Item item)
     {
-        _itemSlot = MappingItem.ItemSOtoObj(itemSlot);
+        /*this.item = MappingItem.ItemSOtoObj(item);
         UpdateUI();
-        gameObject.SetActive(true);
+        gameObject.SetActive(true);*/
     }
     public void UpdateUI()
     {
-        _image.enabled = _itemSlot.HasItem();
-        if(!_itemSlot.HasItem()) return;
-        _image.sprite = _itemSlot.Item.UIinInven;
-        var setquantity = _itemSlot is ItemSlotStack _slotStack && _slotStack.NumberItem > 1 ? _slotStack.NumberItem +"": "";
-        print((_itemSlot.Item is IStackAble));
+        _image.enabled = item.HasItem();
+        if(!item.HasItem()) return;
+        _image.sprite = item.ItemInfor.UIinInven;
+        var setquantity = item is ItemStack _slotStack && _slotStack.NumberItem > 1 ? _slotStack.NumberItem +"": "";
+        print((item.ItemInfor is IStackAble));
         _quantityItem.SetText(setquantity);
     }
 

@@ -41,7 +41,7 @@ public class UIDescripeIteminShop : MonoBehaviour
       if(modelManager == null) return;
       foreach (var clothes in modelManager.ListClothesPlayer)
       {
-         _modelPreViewPlayer.SetClothesPlayer(clothes.type, clothes.itemClothes.Item as ClothesItem_SO);
+         _modelPreViewPlayer.SetClothesPlayer(clothes.type, clothes.itemClothes.Item.ItemInfor as ClothesItem_SO);
       }
       foreach (var part in modelManager.ListPartPlayers)
       {

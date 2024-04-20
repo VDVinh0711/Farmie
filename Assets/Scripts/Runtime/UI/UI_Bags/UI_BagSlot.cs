@@ -37,8 +37,8 @@ namespace InventorySystem
          private void DisplayItemDescription()
          {
              if (!_slot.HasItem()) return;
-             string name = _slot.Item.name;
-             string description = GameMultiLang.GetTraduction(_slot.Item.KeyDes);
+             string name = _slot.Item.ItemInfor.name;
+             string description = GameMultiLang.GetTraduction(_slot.Item.ItemInfor.KeyDes);
              ShowItemDescriptionEvent?.Invoke(name, description);
          }
          private void ClearItemDescription()

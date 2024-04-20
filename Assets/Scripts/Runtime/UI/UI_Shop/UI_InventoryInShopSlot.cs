@@ -4,52 +4,41 @@ using InventorySystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UI_InventoryInShopSlot : MonoBehaviour,IPointerClickHandler
 {
-    [SerializeField]
-    private Image _uiShowimage;
-    [SerializeField]
-    private TextMeshProUGUI _uiShowQUantity;
-    [SerializeField]
-    private ItemSlot _itemSlot;
-    [SerializeField] private UIShop _uiShop;
-
-
-    private void Start()
-    {
-        if (_uiShop == null) _uiShop = GameObject.FindAnyObjectByType<UIShop>();
-    }
-
+    [SerializeField] private Image _imageItem;
+    [SerializeField] private TextMeshProUGUI _textQuantity;
+    [SerializeField] private ItemSlot item;
+    [SerializeField] private Image _itemActive;
     public ItemSlot Itemslot
     {
-        get => _itemSlot;
+        get => item;
         set
         {
-            _itemSlot = value;
+            item = value;
         }
     }
 
-    public void RenderItem(ItemSlot itemSlot)
+    public void UpdateViewItem(ItemSlot  itemslot)
     {
-        _itemSlot = itemSlot;
-        var hasItem = itemSlot.Item != null;
-        _uiShowimage.transform.parent.gameObject.SetActive(hasItem);
-        UpdateView(itemSlot);
+        item = itemslot;
+        _imageItem.enabled = item.HasItem();
+        if(!item.HasItem()) return;
+        _itemActive.enabled = item.IsActive;
+        _textQuantity.enabled = item.Item is ItemStack;
+        _imageItem.sprite = item.Item.ItemInfor.UIinInven;
+        var settext = item.Item is ItemStack stack ? stack.NumberItem + "" : "";
+        _textQuantity.SetText(settext);
     }
-
-    private void UpdateView(ItemSlot item)
-    {
-        //var itemMapping = MappingItem.ItemSOtoObj(item.Item);
-        _uiShowimage.sprite = item.Item.UIinInven;
-        if (item is ItemSlotStack)
-        {
-        _uiShowQUantity.SetText((item as ItemSlotStack).NumberItem.ToString());
-        }
-    }
+    
     public void OnPointerClick(PointerEventData eventData)
     {
-        _uiShop.ComfirmQuantity.Show(_itemSlot);
+        
+        var shellItemController = FindObjectOfType<ShellItemController>();
+        if(shellItemController == null) return;
+        shellItemController.AsignItemBuy(this);
     }
 }

@@ -19,15 +19,11 @@ namespace InventorySystem
         
         public List<ItemSlot> GetListSLotItem()
         {
-            return _slots.Where(slot => slot.Item is ItemInvenSo) .ToList();;
+            return _slots.Where(slot => slot.HasItem() && slot.Item.ItemInfor is ItemInvenSo) .ToList();;
         }
         public List<ItemSlot> GetItemClothesInBag()
         {
-            return _slots.Where(slot => slot.Item is ClothesItem_SO) .ToList();
-        }
-        public ItemSlot GetItemByItemOBJ(Item_SO itemSlot)
-        {
-            return _slots.FirstOrDefault(x => x.Item == itemSlot);
+            return _slots.Where(slot => slot.Item is ItemClothes) .ToList();
         }
         public void OnChangeBag()
         {
@@ -35,7 +31,7 @@ namespace InventorySystem
         }
         public void OnChangeHand()
         {
-             StateChangeHand?.Invoke(HandItem);
+             //StateChangeHand?.Invoke(HandItem);
         }
         protected override void AcitoneChangeSomething()
         {
@@ -48,16 +44,22 @@ namespace InventorySystem
             foreach (var slot in _slots)
             {
                 if(!slot.HasItem()) continue;
-                if (slot.Item is IStackAble)
+                Itemdata data = new Itemdata();
+                switch (slot.Item)
                 {
-                    Itemdata newItem = new Itemdata(slot.ID, (slot as ItemSlotStack).NumberItem,0);
-                    listItemSave.Add(newItem);
+                    case ItemStack stack:
+                        data = new Itemdata(stack.ID, stack.NumberItem, 0);
+                        break;
+                    case ItemDura dura:
+                        data = new Itemdata(dura.ID, 0, dura.CurDurability);
+                        break;
+                    default:
+                        data = new Itemdata(slot.Item.ID, 0, 0);
+                        break;
+                    
+                    //After that, there are more types of items to add later
                 }
-                else
-                {
-                    Itemdata newItem = new Itemdata(slot.ID, 0,(slot as ItemSlotDura).CurDurability);
-                    listItemSave.Add(newItem);
-                }
+                listItemSave.Add(data);
             }
             return listItemSave;
         }
@@ -67,14 +69,7 @@ namespace InventorySystem
             for (int i = 0; i < listItemsave.Count; i++)
             {
                 var item =  Item_SO.getItemByID(listItemsave[i].ID);
-                if (item is IStackAble)
-                {
-                    _slots[i] = new ItemSlotStack(item,listItemsave[i].Quantity);
-                }
-                else
-                {
-                    _slots[i] = new ItemSlotDura(item, listItemsave[i].Durability);
-                }
+                _slots[i].AsignItem(item, listItemsave[i].Quantity, out var nu);
             }
         }
         

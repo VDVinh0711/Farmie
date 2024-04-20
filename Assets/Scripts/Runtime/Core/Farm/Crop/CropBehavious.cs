@@ -43,7 +43,7 @@ public class CropBehavious : MonoBehaviour
             EventManger<string>.RaiseEvent("ShowNotifycation","Cây bạn chưa đủ lớn để thu hoạch");
             return false;
         }
-        if (!bag.AddItem(_seedData.ItemHarvest, 1)) return false;
+        if (!bag.AddItem( ItemHelper.MappingItem(_seedData.ItemHarvest,1), 1)) return false;
         EventManger<Object>.RaiseEvent("CheckMission",_seedData.ItemHarvest);
         Destroy(gameObject);
         bag.HandItem.UseItem();

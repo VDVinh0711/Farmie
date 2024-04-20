@@ -16,12 +16,10 @@ public class Test : MonoBehaviour, IPointerClickHandler
 
     public void AddItemBagTEST()
     {
-        _player.Bag.AddItem(_itemAdd, 3);
+        _player.Bag.AddItem(ItemHelper.MappingItem(_itemAdd,1), 1);
     }
 
-    public void TestThamChieu()
-    {
-    }
+    
     public void OnPointerClick(PointerEventData eventData)
     {
         var obj = eventData.pointerCurrentRaycast.gameObject;

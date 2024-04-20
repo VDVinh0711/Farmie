@@ -9,11 +9,9 @@ public class ModelPlayer : MonoBehaviour
     [SerializeField] private List<DictionPartsPlayer> _parsPlayer = new ();
     [Header("ClothesPlayer")]
     [SerializeField] private List<DictionClothesPlayer> _clothesPlayers = new();
-    
     [Header("SpriteAssetNone")] 
     [SerializeField] private SpriteLibraryAsset _partNone;
     [SerializeField] private SpriteLibraryAsset _clothesNone;
-    
     public virtual void SetPartPlayer(BodyPartType type, PartPlayerModel_SO partPlayerModelSo)
     {
         foreach (var modelplayer in _parsPlayer)
@@ -32,7 +30,6 @@ public class ModelPlayer : MonoBehaviour
             clothesPlayer.SpriteLib.spriteLibraryAsset = spriteAdd;
         }
     }
-
 }
 
 [Serializable]

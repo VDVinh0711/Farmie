@@ -5,9 +5,10 @@ public class UI_ClothesItemSlot : UI_Slots,IPointerClickHandler
 {
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(_slot.Item == null) return;
-        var modelController = FindObjectOfType<ModelPlayerManager>();
+        
+        if(!_slot.HasItem()) return;
+        var modelController = FindObjectOfType<ModelPlayerController>();
         if (modelController == null) return;
-        modelController.BackClothesInBag(_slot as ItemSlotClothes);
+        modelController.BackClothesInBag(_slot);
     }
 }

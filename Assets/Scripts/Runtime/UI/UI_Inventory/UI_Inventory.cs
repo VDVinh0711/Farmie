@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using InventorySystem;
+using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -12,12 +13,13 @@ public class UI_Inventory : MonoBehaviour
     [SerializeField] private GameObject _inventorySLotPrefabs;
     [SerializeField] private List<UI_Inventoryslot> _slots;
     [SerializeField] private Transform root;
-    [FormerlySerializedAs("_uiOptionItem")] [SerializeField] private UI_OptionItemInven uiOptionItemInven;
+    [SerializeField] private UI_OptionItemInven uiOptionItemInven;
     [SerializeField] private Inventory _inventory;
     [SerializeField] private RectTransform _panel;
     [SerializeField] private Button _btnClose;
+    [SerializeField] private InventoryController _inventoryController;
     public UI_OptionItemInven UIOptionItemInven => uiOptionItemInven;
-
+    
     private void Awake()
     {
         _btnClose.onClick.AddListener(HideInvetory);
@@ -25,6 +27,7 @@ public class UI_Inventory : MonoBehaviour
     private void Start()
     {
         InstanstializeInventoryUI();
+      
     }
     public void InstanstializeInventoryUI()
     {
@@ -49,6 +52,7 @@ public class UI_Inventory : MonoBehaviour
     }
     public void ToggelInventory()
     {
+        
         if (_panel.gameObject.activeSelf)
         {
             HideInvetory();
@@ -58,7 +62,9 @@ public class UI_Inventory : MonoBehaviour
     }
     private void OpenInvetory()
     {
+        _inventoryController.ActiveItemInVen(_slots[0]);
         RenderInventory();
+       
         UIManager.OpenUI(_panel);
     }
 

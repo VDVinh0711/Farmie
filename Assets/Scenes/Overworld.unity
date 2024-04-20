@@ -2532,6 +2532,7 @@ MonoBehaviour:
   listFollowPlayer:
   - {fileID: 662564062}
   _spawnPlayer: {fileID: 1290357837}
+  Color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &1200726156
 Transform:
   m_ObjectHideFlags: 0

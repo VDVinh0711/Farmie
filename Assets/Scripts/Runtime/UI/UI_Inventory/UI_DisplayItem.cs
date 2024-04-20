@@ -14,75 +14,45 @@ namespace InventorySystem
         [SerializeField] private Image _active;
         private void Start()
         {
-            Getcomponent();
-        }
-        private void Getcomponent()
-        {
-            _active =transform.GetChild(0).GetComponent<Image>();
-            _icon = transform.GetChild(1).GetComponent<Image>();
-            _quantity = transform.GetComponentInChildren<TextMeshProUGUI>();
-            _durability_UI.transform.GetComponent<Slider>();
             _durability_UI.interactable = false;
         }
         public void UpdateView(ItemSlot  slot)
         {
-            
-           slot.StateActionChange -= OnStateActionChange;
-            slot.StateActionChange += OnStateActionChange;
+            slot.ActionChangeItem -= OnStateActionChange;
+            slot.ActionChangeItem += OnStateActionChange;
             var hasitem = slot.HasItem();
             var isactive = slot.IsActive;
-            if(_icon == null) print(this.gameObject.name);
             _icon.enabled = hasitem;
             _quantity.enabled = false;
             _active.enabled = isactive;
             _durability_UI.transform.gameObject.SetActive(false);
-            if (!hasitem) return;
-            _icon.sprite = slot.Item.UIinInven;
-            /*switch (slot.Item)
+            if (!slot.HasItem()) return;
+            if(slot.Item.ItemInfor == null) return;
+            print(slot.Item.ItemInfor == null);
+            _icon.sprite = slot.Item.ItemInfor.UIinInven;
+            switch (slot.Item)
             {
-                case AgriculturalSo itemdura:
-                    SetUiDuraable(itemdura);
+                case ItemStack:
+                    SetUpUiStack(slot.Item as ItemStack);
                     break;
-                case IStackAble itemstack:
-                    SetUpUiStack(itemstack );
-                    break;
-            }*/
-            switch (slot)
-            {
-                case ItemSlotStack:
-                    SetUpUiStack(slot as ItemSlotStack);
-                    break;
-                case ItemSlotDura:
-                    SetUiDuraable(slot as ItemSlotDura);
+                case ItemDura:
+                    SetUiDuraable(slot.Item as ItemDura);
                     break;
             }
             
         }
-        /*private void SetUiDuraable(AgriculturalSo itemSlotDura)
+        private void SetUiDuraable(ItemDura itemDura)
         {
-            if (itemSlotDura == null) return;
+            if (itemDura == null) return;
             _durability_UI.transform.gameObject.SetActive(true);
-            _durability_UI.maxValue =itemSlotDura!.MaxDurability;
-            _durability_UI.value = itemSlotDura!.CurrentDura;
+            _durability_UI.maxValue = (itemDura.ItemInfor as AgriculturalSo).MaxDurability;
+            _durability_UI.value = itemDura.CurDurability;
         }
-        private void SetUpUiStack(IStackAble itemSlotStack)
+        private void SetUpUiStack(ItemStack itemStack)
         {
-            if ( itemSlotStack == null) return;
+            if ( itemStack == null) return;
             _quantity.enabled = true;   
-            _quantity.SetText(itemSlotStack.CurrentStack.ToString());
-        }*/
-        private void SetUiDuraable(ItemSlotDura itemSlotDura)
-        {
-            if (itemSlotDura == null) return;
-            _durability_UI.transform.gameObject.SetActive(true);
-            _durability_UI.maxValue = (itemSlotDura.Item as AgriculturalSo)!.MaxDurability;
-            _durability_UI.value = (itemSlotDura.Item as AgriculturalSo)!.CurrentDura;
-        }
-        private void SetUpUiStack(ItemSlotStack itemSlotStack)
-        {
-            if ( itemSlotStack == null) return;
-            _quantity.enabled = true;   
-            _quantity.SetText(itemSlotStack.NumberItem.ToString());
+            _quantity.SetText(itemStack.NumberItem.ToString());
         }
         private void OnStateActionChange(ItemSlot arg)
         {
