@@ -19,6 +19,10 @@ public class PhysiologicalState : MonoBehaviour,ITimeTracker
     [SerializeField] private float health ;
     public Animal Animal;
 
+
+   [SerializeField]  private Stable _stable;
+    public Stable Stable => _stable;
+
     public event Action<PhysiologicalState> ChangeStateAnimal;
     public float TimeEat
     {
@@ -132,6 +136,7 @@ public class PhysiologicalState : MonoBehaviour,ITimeTracker
 
     private void Awake()
     {
+        _stable = transform.GetComponentInParent<Stable>();
         Animal = transform.GetComponent<Animal>();
         _animalNormalState = new AnimalNormalState(this);
         _animalHurryState = new AnimalHurryState(this,timeEat);
@@ -245,9 +250,14 @@ public class PhysiologicalState : MonoBehaviour,ITimeTracker
         _animalHarvestState.OnEnter();
     }*/
 
-
     private void NotifyChangeStateAnimal()
     {
         ChangeStateAnimal?.Invoke(this);
+    }
+
+
+    private void OnDestroy()
+    {
+        TimeManager.Instance.UregisterTracker(this);
     }
 }

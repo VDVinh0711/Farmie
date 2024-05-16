@@ -16,11 +16,7 @@ public class GrowAnimal : MonoBehaviour,ITimeTracker
             _timeGrow = value >= 0 ? value : 0;
         }
     }
-
- 
-
-  
- 
+    
     public event Action<float> StateChangeTime;
 
     private void Start()
@@ -36,7 +32,8 @@ public class GrowAnimal : MonoBehaviour,ITimeTracker
     }
     private void SetTime()
     {
-        _timeGrow = GameTime.MinutetoSecond(GameTime.HourInMinute(GameTime.DaytoHour(_animal.AnimalObject.DaytoGrow)));
+        //_timeGrow = GameTime.MinutetoSecond(GameTime.HourInMinute(GameTime.DaytoHour(_animal.AnimalObject.DaytoGrow)));
+        _timeGrow = 10;
         _animal.UiAnimal.RegisterInfor(_timeGrow);
         _timeHarvest = _animal.AnimalObject.TimeHarvest ;
     }

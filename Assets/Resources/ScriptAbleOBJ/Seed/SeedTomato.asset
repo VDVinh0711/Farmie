@@ -17,7 +17,7 @@ MonoBehaviour:
   _uiinInven: {fileID: 267381381, guid: 461874fb4e167224889a6ee63b31aa73, type: 3}
   _keyDes: ISPOTATO
   Type: 2
-  _daytoGrow: 4
+  _daytoGrow: 2
   _spriteGrow:
   - {fileID: 116286567, guid: dc6e398651cbcaf41bd4831540179de3, type: 3}
   - {fileID: -14121182, guid: dc6e398651cbcaf41bd4831540179de3, type: 3}

@@ -11,7 +11,7 @@ public static class PlayFabData
 
 
     public static List<string> keys = new List<string>();
-    public static void PushDataIntoPlayFab(string  namepath , string datas )
+    public  static void PushDataIntoPlayFab(string  namepath , string datas )
     {
         var request = new UpdateUserDataRequest
         {
@@ -31,7 +31,7 @@ public static class PlayFabData
         Debug.Log("Push Error" + result);
     }
     //GetData
-    public static void GetDataOnPlayFab(Action<GetUserDataResult> getdataRecive)
+    public async  static void GetDataOnPlayFab(Action<GetUserDataResult> getdataRecive)
     {
         PlayFabClientAPI.GetUserData(new GetUserDataRequest(), getdataRecive , OnErrorFailGetData);
     }
@@ -57,7 +57,6 @@ public static class PlayFabData
         keys = new List<string>();
         foreach (var o in data.Data)
         {
-            Debug.Log(o.Key);
             keys.Add(o.Key);
         }
     }

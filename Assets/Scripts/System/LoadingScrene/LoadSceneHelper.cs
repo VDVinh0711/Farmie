@@ -18,8 +18,6 @@ public class LoadSceneHelper : MonoBehaviour
         if (sceneLoad == "CharacterCreator")
         {
             sceneLoad = PlayFabData.CheckIsKey("PartPlayer") ? "ChoseMap" : "CharacterCreator";
-            print(PlayFabData.CheckIsKey("PartPlayer"));
-            print(sceneLoad);
         }
         StartCoroutine(LoadScene(sceneLoad));
     }

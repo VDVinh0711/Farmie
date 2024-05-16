@@ -1,11 +1,10 @@
-using System;
-using System.Collections;
+
 using System.Collections.Generic;
 using TMPro;
 using  UnityEngine.UI;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.Serialization;
+
 
 
 public class UI_Login : MonoBehaviour ,IAnimationUI
@@ -20,7 +19,6 @@ public class UI_Login : MonoBehaviour ,IAnimationUI
     [Header("Button")] 
     [SerializeField] private Button _btnLogin;
     [SerializeField] private Button _btnRegister;
-    [SerializeField] private Button _btnForgorPas;
     [SerializeField] private Button _btnBack;
 
     [Header("Notifycation")] 
@@ -46,7 +44,6 @@ public class UI_Login : MonoBehaviour ,IAnimationUI
     
     private void LoginFail(string text)
     {
-        print("call this");
         _panelNotify.gameObject.SetActive(true);
         _notifycation.SetText(text);
         _inputPassword.text = "";
@@ -81,15 +78,11 @@ public class UI_Login : MonoBehaviour ,IAnimationUI
     {
         _uiMenuManager.OpenUiMenuGame(_uiMenuManager.UI_Mainmenu.transform);
     }
-    private void OnButtonGetPasswork()
-    {
-       
-    }
+
     private void RegisterEnvent()
     {
         _btnLogin.onClick.AddListener(OnButtonLoginClick);
         _btnRegister.onClick.AddListener(OnButtonRegster);
-        _btnForgorPas.onClick.AddListener(OnButtonGetPasswork);
         _btnBack.onClick.AddListener(OnButtonBack);
         _inputPassword.onSelect.AddListener((arg0 =>{_inputPassword.text = ""; DeActiveNotify(); } ));
         _inputUser.onSelect.AddListener((arg0 =>{ DeActiveNotify();} ));

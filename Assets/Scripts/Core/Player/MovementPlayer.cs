@@ -26,7 +26,7 @@ namespace Player
         }
         void Move()
         {
-            Vector2 direction =  _farmInputAction.Player.Movement.ReadValue<Vector2>();
+            Vector2 direction =  _farmInputAction.Player.Movement.ReadValue<Vector2>().normalized;
             isMove = (direction.x != 0 || direction.y != 0) ? true : false;
             Vector2 velocity = moveSpeed * Time.deltaTime * direction;
            transform.parent.Translate(velocity);

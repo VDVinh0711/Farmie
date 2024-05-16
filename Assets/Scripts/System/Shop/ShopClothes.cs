@@ -51,6 +51,12 @@ public class ShopClothes : MonoBehaviour,IInterac
         this.playerManager = playerManager;
         _uiShopClothes.Toggle();
     }
+
+    private void OnMouseDown()
+    {
+        playerManager = FindObjectOfType<PlayerManager>();
+        _uiShopClothes.Toggle();
+    }
 }
 
 [Serializable]

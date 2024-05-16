@@ -1,0 +1,79 @@
+SCENE1=Scene1
+SCENE2=Scene2
+HELLO=HELLO
+HELP=HELP
+TEXT1=This is an amazing tutorial, subscribe for more good tuts.
+BACK=Back
+GOTO=Go to scene2
+MUSIC=Music
+SOUNDS=Sounds
+GRAPHICS=GRAPHICS
+Nhà Kho = Store
+INVE=Inventory
+START=Play Game
+RESUME=Resume
+SETTING=Setting
+EXIT=Exit
+LANG=Language
+ENG=English
+VIET=Vietnamese
+SHOP=SHOP
+INV=Inventory
+SAVE=SAVE
+NOTIFY=NOTIFYCATION
+BAG=BAG
+OTPUSE=USE
+OTPADD=ADD INVEN
+OPTDISPOSE=DISPOSE
+OTPGET=GET
+ICARROT=Carrots are an easy-to-grow, easy-to-harvest crop that provides high economic value.
+ISCARROT=Carrot seeds will grow into carrot plants
+IPOTATO=Potatoes can be sold at the store
+ISPOTATO=Potato seeds will grow into potatoes
+IMILK=You can bring milk to sell at the store or use it to make cakes
+IPADDY=You can sell rice at the store or take it to make cakes
+ISPADDY=The seed will germinate and grow into a rice plant
+IPICKAGE=Tools used to harvest crops
+IWATERCAN=Tools used to water plants
+IFOODANIMAL=Food for livestock
+IMEDICINE=Medicine for livestock
+CANCEL=Cancle
+SELLALL=Sell ALL
+OK=OK
+CHOSEMAP=CHOSE MAP
+QUANTITY=Quantity
+
+
+
+
+
+
+
+
+DesQuestSellAnimal=Selling a mature cow
+DesQuestHarvestCarrot=Harvesting Carrots
+DesQuestHarvestTomato=Harvesting Tomatos
+DesQuestProcessFarmer2=Reached Farmer Level 2
+DesQuestProcessFarmer3=Reached Farmer Level 3
+DesQuestProcessFarmer4=Reached Farmer Level 4
+DesQuestProcessFarmer5=Reached Farmer Level 5
+
+
+DesCrafBread=Bread
+DesCraftCakeMilk=Steamed milk cake
+DesCrafTomato=Mashed potatoes
+DesCrafWheatFlour=Wheat flour
+
+
+
+
+
+Itembread=Bread made with the finest flour and bursting with flavor. Perfect for selling at your store. 
+ItemCakeMilk=A perfect harmony of milk and bread. You can sell it at your store.
+ItemFlour=Flour is made by grinding wheat grains. You can sell it at your store.
+ItemMashTomato=Mashed potatoes are soft and creamy. You can sell them at your store.
+
+
+
+LOGIN=Login
+REGISTER=Register

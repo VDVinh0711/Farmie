@@ -7,7 +7,7 @@ namespace Player
 {
     public class PlayerExperience : MonoBehaviour
     {
-        [SerializeField] private int _currentLevel =0;
+         private int _currentLevel =1;
         [SerializeField] private int _currentExp = 0;
         private LevelPlayer _levelPlayer = new LevelPlayer();
         public event Action<PlayerExperience> StateChange;
@@ -17,7 +17,7 @@ namespace Player
             get => _currentLevel;
             set
             {
-                _currentLevel = value > 0 ? value : 0;
+                _currentLevel = value > 1 ? value : 1;
                 EventManger<Object>.RaiseEvent("CheckMission",this);
                 OnStateChange();
             }

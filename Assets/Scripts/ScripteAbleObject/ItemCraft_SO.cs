@@ -2,14 +2,15 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-[CreateAssetMenu(menuName = "CreatNewScraft/ItemScraf")]
+[CreateAssetMenu(menuName = "CreatNewItemCraft/ItemCraf")]
 public class ItemCraft_SO : ScriptableObject
 {
     public string ID;
     public Item_SO itemCrafted;
-    public List<MaterialItem> Materials;
-    public string Description;
+    public List<IngredientItem> Ingredients;
+    public string keyDes;
     public int timeCraf;
     public Sprite Sprite => itemCrafted.UIinGame;
     private void OnValidate()
@@ -21,7 +22,7 @@ public class ItemCraft_SO : ScriptableObject
 
 
 [Serializable]
-public class MaterialItem
+public class IngredientItem
 {
     public Item_SO ItemSo;
     public int quantity;

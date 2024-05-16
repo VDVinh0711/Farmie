@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class ModelCreatPlayer : ModelPlayer
 {
-    
+    //Implement Logic in the future
 }

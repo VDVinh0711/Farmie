@@ -1,6 +1,4 @@
 
-using UnityEditor.Timeline.Actions;
-using UnityEngine;
 
 public class AnimalEatState :IState
 {

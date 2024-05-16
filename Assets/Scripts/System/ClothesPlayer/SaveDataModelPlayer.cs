@@ -71,7 +71,7 @@ public class SaveDataModelPlayer : MonoBehaviour
    }
    private void OnDisable()
    {
-      PlayFabData.PushDataIntoPlayFab(pathSavePart,PushDataPartPlayer());
+       PlayFabData.PushDataIntoPlayFab(pathSavePart,PushDataPartPlayer());
       PlayFabData.PushDataIntoPlayFab(pathSaveClothes,PushDataClothesPlayer());
    }
   

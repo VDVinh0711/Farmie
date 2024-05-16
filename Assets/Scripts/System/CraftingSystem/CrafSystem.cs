@@ -46,7 +46,7 @@ public class CrafSystem : MonoBehaviour,IInterac,ITimeTracker
     {
         if(!ItemCrafCurrent.enoughItem) return;
         if(isCraft) return;
-        foreach (var item in ItemCrafCurrent.ItemCraftSo.Materials)
+        foreach (var item in ItemCrafCurrent.ItemCraftSo.Ingredients)
         {
             _bag.BagController.GetItemInBagById(item.ItemSo.ID, item.quantity * _quantityCreat);
         }
@@ -64,7 +64,7 @@ public class CrafSystem : MonoBehaviour,IInterac,ITimeTracker
     public void CheckItemCraft( int index)
     {
         ItemCraf itemCraf = _listItemCrafs[index];
-        foreach (var meterial in itemCraf.ItemCraftSo.Materials)
+        foreach (var meterial in itemCraf.ItemCraftSo.Ingredients)
         {
             string idmete = meterial.ItemSo.ID;
             if (_bag.CountItem(idmete) < meterial.quantity)
@@ -91,7 +91,7 @@ public class CrafSystem : MonoBehaviour,IInterac,ITimeTracker
     private void GetMaxquantityCreate()
     {
         var number = Int32.MaxValue;
-        foreach (var item in ItemCrafCurrent.ItemCraftSo.Materials)
+        foreach (var item in ItemCrafCurrent.ItemCraftSo.Ingredients)
         {
             var iteminBag = _bag.CountItem(item.ItemSo.ID);
             if (iteminBag / item.quantity < number)

@@ -1,5 +1,6 @@
-using System;
+
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 namespace MissionSystem
@@ -7,14 +8,14 @@ namespace MissionSystem
    
     public class MissionSO : ScriptableObject
     {
-        [SerializeField] public string Id;
-        [SerializeField] public string Name;
-        [SerializeField] public string description;
-        [SerializeField] public int ExpReward;
-        [SerializeField] public int GoldReward;
-        [SerializeField] public int DimondReward;
-        [SerializeField] public int CountRequest;
-        [SerializeField] public TypeMission TypeMission;
+         public string Id;
+         public string Name;
+         public string keyDes;
+         public int ExpReward;
+         public int GoldReward;
+         public int DimondReward;
+         public int CountRequest;
+         public TypeMission TypeMission;
 
         protected virtual void OnValidate()
         {
@@ -23,11 +24,11 @@ namespace MissionSystem
 
         public static MissionSO GetMissionSObyID(string ID)
         {
-            var itemlist = Resources.LoadAll<MissionSO>( "Quest");
+            var itemlist = Resources.LoadAll<MissionSO>("ScriptAbleOBJ/Quest");
             foreach (var item in itemlist)
             {
-                if (item.Id.Equals(ID))
-                    return item;
+                if (!item.Id.Equals(ID))  continue;
+                return item;
             }
             return null;
         }

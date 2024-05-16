@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class Trough : MonoBehaviour,IInterac
 {
-    protected bool _hasFood = false;
+    [SerializeField]  protected bool _hasFood = false;
     public bool HasFood
     {
         get => _hasFood;
@@ -30,5 +30,6 @@ public class Trough : MonoBehaviour,IInterac
         if(eqidItem == null) return;
         eqidItem.Used(this);
         _bag.HandItem.UseItem();
+        _hasFood = true;
     }
 }

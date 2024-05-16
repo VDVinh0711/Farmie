@@ -1,9 +1,0 @@
-﻿HELLO=こんにちは
-HELP=助けて
-THANKS=ありがとう
-EXIT=出口
-BACK=バック
-MUSIC=Music
-SOUNDS=音
-GRAPHICS=グラフィック
-SETTINGS=設定

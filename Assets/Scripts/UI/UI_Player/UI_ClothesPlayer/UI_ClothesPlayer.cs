@@ -48,6 +48,11 @@ public class UI_ClothesPlayer : MonoBehaviour
     }
     private void SetUpPreViewPlayer()
     {
+        foreach (var partPlayer in _modelPlayerManager.ListPartPlayers)
+        {
+            _modelPreViewPlayer.SetPartPlayer(partPlayer.type,partPlayer.partPlayer);
+        }
+        
         foreach (var clothesPLayer in _modelPlayerManager.ListClothesPlayer)
         {
             var clothesset = !clothesPLayer.itemClothes.HasItem() ? null: (clothesPLayer.itemClothes.Item.ItemInfor as ClothesItem_SO);

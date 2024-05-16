@@ -1,9 +1,0 @@
-﻿HELLO=안녕하세요
-HELP=도움
-THANKS=감사
-EXIT=출구
-BACK=뒤
-MUSIC=Music
-SOUNDS=소리
-GRAPHICS=그래픽
-SETTINGS=설정

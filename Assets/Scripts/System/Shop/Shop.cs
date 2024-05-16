@@ -33,6 +33,7 @@ public class Shop : MonoBehaviour,IInterac
 
     public void InterRac(PlayerManager playerManager)
     {
+        print("Interact");
         _playerManager = playerManager;
         if (_uishop == null) _uishop = FindObjectOfType<UIShop>();
         _uishop.OpenUiShop(itemShop);

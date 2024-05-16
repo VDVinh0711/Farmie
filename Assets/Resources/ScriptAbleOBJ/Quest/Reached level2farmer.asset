@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: Reached level2farmer
   Name: reached level 2 farmer
-  description: reached level 2 farmer
+  keyDes: DesQuestProcessFarmer2
   ExpReward: 0
   GoldReward: 2000
   DimondReward: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: HarvestAnimal
   Name: Harvest Animal
-  description: Harvest 3 Animal
+  keyDes: DesQuestSellAnimal
   ExpReward: 34
   GoldReward: 34
   DimondReward: 34

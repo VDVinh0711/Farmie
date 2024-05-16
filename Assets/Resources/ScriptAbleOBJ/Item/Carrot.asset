@@ -16,4 +16,4 @@ MonoBehaviour:
   _uiinGame: {fileID: -1705499576, guid: 461874fb4e167224889a6ee63b31aa73, type: 3}
   _uiinInven: {fileID: -1705499576, guid: 461874fb4e167224889a6ee63b31aa73, type: 3}
   _keyDes: ICARROT
-  _price: 10000
+  _price: 25

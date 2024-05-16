@@ -11,13 +11,13 @@ public class UI_Craft_DesScription : MonoBehaviour
     public void ShowDesScriptTion(ItemCraf itemCraf)
     {
         SpawnReviewIngridient(itemCraf);
-        _textDes.SetText(itemCraf.ItemCraftSo.Description);
+        _textDes.SetText(GameMultiLang.GetTraduction(itemCraf.ItemCraftSo.keyDes));
     }
     
     private void SpawnReviewIngridient(ItemCraf itemCraf)
     {
         RefeshOBJ();
-        foreach (var materialItem in itemCraf.ItemCraftSo.Materials)
+        foreach (var materialItem in itemCraf.ItemCraftSo.Ingredients)
         {
             var materialSpawn = Instantiate(_ingredientPre, _holder);
             var ui_meteria = materialSpawn.gameObject.GetComponent<UI_IngridientCraf>();

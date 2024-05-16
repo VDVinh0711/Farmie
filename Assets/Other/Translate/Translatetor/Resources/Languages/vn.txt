@@ -1,0 +1,72 @@
+﻿SCENE1=Escena1
+SCENE2=Escena2
+HELLO=XIN CHÀO
+HELP=TRỢ GIÚP
+ABOUT=THÔNG TIN
+TEXT1=este es un tutorial increible, subscribirse para mas bueno tuts.
+BACK=Trở lại
+GOTO=Volver a la escena2
+MUSIC=NHẠC
+SOUNDS=ÂM THANH
+GRAPHICS=ĐỒ HỌA
+INVE=NHà Kho
+START=Bắt Đầu
+RESUME=Tiếp Tục
+SETTING=Cài Đặt
+EXIT=Thoát
+LANG=Ngôn Ngữ
+ENG=Tiếng Anh
+VIET=Tiếng Việt
+SHOP=Cửa Hàng
+INV=Kho Đồ
+SAVE=Lưu Game
+NOTIFY=Thông Báo
+BAG=Túi Đồ
+OTPUSE=Sử Dụng
+OTPADD=Cất
+OPTDISPOSE=Vứt
+OTPGET=Lấy Ra
+ICARROT=Củ cà rốt là một loại nông sản dễ trồng, dễ thu hoạch, và mang lại giá trị kinh tế cao.
+ISCARROT=Hạt giống cà rốt sẽ phát triển thành cây cà rốt 
+IPOTATO=Củ khoai tây bạn cos thể mang bán ở cửa hàng
+ISPOTATO=Hạt giống khoai tây  sẽ phát triển thành củ khoai tây
+IMILK=Bạn có thể mang sữa bán ở cửa hàng hoặc dùng để làm bánh
+IPADDY=Bạn có thể mang bán lúa ở cửa hàng hoặc mang đi làm bánh
+ISPADDY=Hạt giống sẽ này mầm và phát triển thành cây lúa
+IPICKAGE=Công cụ dùng để thu hoạch cây trồng
+IWATERCAN=Công cụ dùng để tưới nước cây trồng
+IFOODANIMAL=Thức ăn dành cho gia súc
+IMEDICINE=Thuốc trị bệnh cho gia súc
+CANCEL=Hủy
+SELLALL=Bán Hết
+OK=OK
+CHOSEMAP=Chọn map
+QUANTITY=Số lượng
+
+
+DesQuestSellAnimal=Bán một con bò đã trưởng thành
+DesQuestHarvestCarrot=Thu Hoạch Cà Rốt
+DesQuestHarvestTomato=Thu Hoạch Khoai Tây
+DesQuestProcessFarmer2=Đạt nhà nông cấp 2
+DesQuestProcessFarmer3=Đạt nhà nông cấp 3
+DesQuestProcessFarmer4=Đạt nhà nông cấp 4
+DesQuestProcessFarmer5=Đạt nhà nông cấp 5
+
+DesCrafBread=Bánh Mỳ
+DesCraftCakeMilk=Bánh Sữa Béo Ngậy
+DesCrafTomato=Bánh Khoai Tây Ngiền
+DesCrafWheatFlour=Bột mỳ
+
+
+
+
+Itembread=Bánh mỳ được làm từ bột mỳ tươi ngon , Bạn có thể mang bán nó ở cửa hàng 
+ItemCakeMilk=Sự kết hợp hoàn hảo từ sữa và múa mỳ , Bạn có thể mang bán nó ở cửa hàng
+ItemFlour=Bột mỳ được nghiền từ những cây lúa mỳ , Bạn có thể mang bán nó ở cửa hàng
+ItemMashTomato=Khoai tây được nghiền trở nên mềm mại , Bạn có thể mang bán nó ở cửa hàng
+
+
+
+LOGIN=Đăng Nhập
+REGISTER=Đăng Kí
+

@@ -16,4 +16,4 @@ MonoBehaviour:
   _uiinGame: {fileID: 267381381, guid: 461874fb4e167224889a6ee63b31aa73, type: 3}
   _uiinInven: {fileID: 267381381, guid: 461874fb4e167224889a6ee63b31aa73, type: 3}
   _keyDes: IPOTATO
-  _price: 10000
+  _price: 30

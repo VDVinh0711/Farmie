@@ -17,7 +17,17 @@ namespace Player
             if (!Input.GetMouseButtonDown(0)) return;
             Vector2 mousePosition = Input.mousePosition;
 
-            Vector2 worldPosCame = _playerManager.CameraPlayer.ScreenToWorldPoint(mousePosition);
+          //  Vector2 worldPosCame = _playerManager.CameraPlayer.ScreenToWorldPoint(mousePosition);
+            Vector2 worldPosCame = Camera.main.ScreenToWorldPoint(mousePosition);
+            
+            
+           
+            
+            print(worldPosCame);
+            
+            Debug.DrawRay(worldPosCame,Vector2.zero);
+            
+            
             
             //Vector2 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
             RaycastHit2D hitclick;
@@ -25,6 +35,7 @@ namespace Player
             if (hitclick.collider == null) return;
             if (Vector3.Distance(transform.parent.position, hitclick.transform.position) > 5.0f) return;
             IInterac interac = hitclick.transform.gameObject.GetComponent<IInterac>();
+            print(hitclick.transform.gameObject.name);
             if (interac == null)
             {
                 print("Null inter ");
@@ -33,6 +44,12 @@ namespace Player
             interac.InterRac(transform.parent.GetComponent<PlayerManager>());
         }
         
+        void OnDrawGizmos()
+        {
+            Vector2 mousePosition = Input.mousePosition;
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            Gizmos.DrawSphere(worldPosition, 0.1f);
+        }
    
     }
 }

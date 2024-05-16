@@ -21,8 +21,6 @@ public class RegisterController : MonoBehaviour
     }
     public void SendRequetPlayFab(string email, string password,string username)
     {
-        print(email);
-        print(password);
         var request = new RegisterPlayFabUserRequest
         {
             Email = email,

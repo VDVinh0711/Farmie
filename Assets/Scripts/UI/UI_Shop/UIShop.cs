@@ -25,11 +25,11 @@ public class UIShop : MonoBehaviour
 
     public void OpenUiShop(List<ItemShopObject> itemShopObjects)
     {
-        UIManager.OpenUI(panle); 
+       panle.gameObject.SetActive(true);
         _shopPanel.InstantiateShop(itemShopObjects);
     }
     private void HideShop()
     {
-        UIManager.HideUI(panle);
+        panle.gameObject.SetActive(false);
     }
 }

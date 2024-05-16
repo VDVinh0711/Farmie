@@ -66,7 +66,6 @@ public class SelectorPlayer : MonoBehaviour
     
 }
 
-
 [Serializable]
 public class SelectorItemDiction
 {

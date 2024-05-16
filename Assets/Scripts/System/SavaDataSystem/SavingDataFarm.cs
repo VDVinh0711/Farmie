@@ -11,10 +11,6 @@ namespace  SavingSystem
 public class SavingDataFarm : MonoBehaviour
 {
     private const string nameKeyData = "DataFarm";
-    private void Start()
-    {
-       LoadData();
-    }
 
     public void LoadSaveData()
     {

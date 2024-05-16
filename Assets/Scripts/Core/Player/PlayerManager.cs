@@ -17,7 +17,7 @@ namespace Player
         [SerializeField] private Bag _bag;
         [SerializeField] private ModelPlayerManager _modelPlayerManager;
         [SerializeField] private ModelPlayer _modelPlayer;
-        [SerializeField] private Camera _cameraPlayer;
+      //  [SerializeField] private Camera _cameraPlayer;
         public MovementPlayer MovementPlayer => _movementPlayer;
         public PlayerInterac PlayerInterac => _playerInterac;
         public PlayerStats PlayerStats => _playerStats;
@@ -26,7 +26,7 @@ namespace Player
         public ModelPlayerManager ModelPlayerManager => _modelPlayerManager;
         public ModelPlayer ModelPlayer => _modelPlayer;
 
-        public Camera CameraPlayer => _cameraPlayer;
+       // public Camera CameraPlayer => _cameraPlayer;
         
         public object SaveData()
         {

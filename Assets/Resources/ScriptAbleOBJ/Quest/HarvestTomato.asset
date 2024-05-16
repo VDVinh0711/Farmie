@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: HarvestTomato
   Name: HarvestTomato
-  description: Harvest 3 Tomatos
+  keyDes: DesQuestHarvestTomato
   ExpReward: 100
   GoldReward: 100
   DimondReward: 100
   CountRequest: 3
   TypeMission: 1
-  ItemObject: {fileID: 11400000, guid: e7721b7061f35de4fa9971d27993f634, type: 2}
+  itemSo: {fileID: 11400000, guid: e7721b7061f35de4fa9971d27993f634, type: 2}

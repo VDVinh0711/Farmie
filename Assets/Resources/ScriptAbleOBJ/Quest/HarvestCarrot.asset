@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: HarvestCarrot
   Name: HarvestCarrot
-  description: Harvest 3 carrot
+  keyDes: DesQuestHarvestCarrot
   ExpReward: 30
   GoldReward: 30
   DimondReward: 30
   CountRequest: 3
   TypeMission: 1
-  ItemObject: {fileID: 11400000, guid: 4ab85bfba72e59d41bd410e7392ab48e, type: 2}
+  itemSo: {fileID: 11400000, guid: 4ab85bfba72e59d41bd410e7392ab48e, type: 2}

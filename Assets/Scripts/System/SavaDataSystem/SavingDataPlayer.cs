@@ -35,6 +35,7 @@ namespace  SavingSystem
         }
         private void OnLoadDataRecive(GetUserDataResult result)
         {
+           
             if (!(result.Data != null && result.Data.ContainsKey(nameKeyData))) return;
             var dataFarm = JsonConvert.DeserializeObject<Dictionary<string, object>>(result.Data[nameKeyData].Value);
                 foreach (var saveable in GetComponentsInChildren<ISaveData>())

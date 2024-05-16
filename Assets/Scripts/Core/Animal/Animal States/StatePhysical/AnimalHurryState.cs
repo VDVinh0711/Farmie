@@ -1,5 +1,7 @@
 
 
+using UnityEngine;
+
 public class AnimalHurryState : IState
 {
     private PhysiologicalState _physiologicalState;
@@ -12,7 +14,8 @@ public class AnimalHurryState : IState
     }
     public void OnUpdate()
     {
-        if(_physiologicalState.IsSick) return;
+        Debug.Log(_physiologicalState.IsSick || _physiologicalState.Stable.Trough.HasFood);
+        if(_physiologicalState.IsSick || _physiologicalState.Stable.Trough.HasFood) return;
         _physiologicalState.Health -= 1;
         if(_physiologicalState.Health >0) return;
         _physiologicalState.IsSick = true;

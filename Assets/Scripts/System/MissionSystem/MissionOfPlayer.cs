@@ -69,10 +69,7 @@ namespace MissionSystem
             }
         }
 
-        private void OnDestroy()
-        {
-            EventManger<Object>.Removeevent("CheckMission",Check);
-        }
+      
 
         public void GetMissonNotDOne()
         {
@@ -110,12 +107,20 @@ namespace MissionSystem
         }
         public void LoadData(object state)
         {
-            var questDatas = JsonConvert.DeserializeObject<Dictionary<string, QuestData>>(state.ToString());
             _quests = new();
+            var questDatas = JsonConvert.DeserializeObject<Dictionary<string, QuestData>>(state.ToString());
             foreach (var questData in questDatas.Values)
             {
-                _quests.Add(questData.IdMission,LoadQuest(MissionSO.GetMissionSObyID(questData.IdMission),questData.CurrentCount,questData.IsDone));
+                var missionGet = MissionSO.GetMissionSObyID(questData.IdMission);
+                _quests[questData.IdMission] = LoadQuest(missionGet, questData.CurrentCount, questData.IsDone);
+               // _quests.Add(questData.IdMission,LoadQuest(missionGet,questData.CurrentCount,questData.IsDone));
             }
+        }
+        
+        
+        private void OnDestroy()
+        {
+            EventManger<Object>.Removeevent("CheckMission",Check);
         }
     }
 }

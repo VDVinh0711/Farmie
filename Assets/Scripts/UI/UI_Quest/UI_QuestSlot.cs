@@ -20,7 +20,6 @@ namespace MissionSystem
 
         public void UpdateQuest(Quest quest)
         {
-            print("call this function");
             _txtProcess.SetText(quest.CurrentCount+"/"+quest.MissionSo.CountRequest);
         }
 
@@ -32,7 +31,7 @@ namespace MissionSystem
             var hasExp = quest.MissionSo.ExpReward != 0;
             _quest.changeUI += UpdateQuest;
             _txtTitle.SetText(quest.MissionSo.Name);
-            _txtDes.SetText(quest.MissionSo.description);
+            _txtDes.SetText(GameMultiLang.GetTraduction(quest.MissionSo.keyDes));
             _txtProcess.SetText(quest.CurrentCount+"/"+quest.MissionSo.CountRequest);
             _txtGold.enabled = hasGold;
             _iconGold.enabled = hasGold;
