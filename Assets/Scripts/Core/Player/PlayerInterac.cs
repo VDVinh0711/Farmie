@@ -19,16 +19,7 @@ namespace Player
 
           //  Vector2 worldPosCame = _playerManager.CameraPlayer.ScreenToWorldPoint(mousePosition);
             Vector2 worldPosCame = Camera.main.ScreenToWorldPoint(mousePosition);
-            
-            
-           
-            
-            print(worldPosCame);
-            
-            Debug.DrawRay(worldPosCame,Vector2.zero);
-            
-            
-            
+    
             //Vector2 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
             RaycastHit2D hitclick;
             hitclick = Physics2D.Raycast(worldPosCame, Vector2.zero, Mathf.Infinity);

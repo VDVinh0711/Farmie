@@ -29,7 +29,7 @@ public class ShopClothes : MonoBehaviour,IInterac
         var price = ItemCrentActive.itemShopObject.Price;
         var bag = playerManager.Bag;
         if (bag == null) return;
-        if(bag.AddItem( ItemHelper.MappingItem(itemSHopClothes.itemdata))) playerManager.PlayerStats.Spend(price);
+        if(bag.AddItem(  FactoryItem.CreateItem(itemSHopClothes.itemdata))) playerManager.PlayerStats.Spend(price);
     }
     public void ActiveItem(int  indexActive)
     {

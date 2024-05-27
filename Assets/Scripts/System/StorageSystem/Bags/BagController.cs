@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using InventorySystem;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 public class BagController : MonoBehaviour
@@ -37,7 +38,7 @@ public class BagController : MonoBehaviour
   
    public Item GetItemInBagById(string id , int quantity = 1)
    {
-      var itemGet = _bag.Slot.FirstOrDefault(x => x.Item.ID.Equals(id));
+      var itemGet = _bag.Slot.FirstOrDefault(x => x.HasItem() && x.Item.ID.Equals(id));
       if (itemGet == null) return null;
       return itemGet.GetItemInventory( quantity);
    }

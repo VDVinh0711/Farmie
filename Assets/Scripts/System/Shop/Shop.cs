@@ -24,7 +24,7 @@ public class Shop : MonoBehaviour,IInterac
                 break;
             case Itemshop itemdata:
                 var bag = _playerManager.Bag;
-                var itemadd = ItemHelper.MappingItem(itemdata.itemdata, 0);
+                var itemadd =  FactoryItem.CreateItem(itemdata.itemdata, 0);
                 if ( !bag.AddItem(itemadd, quantity)) return;
                 _playerManager.PlayerStats.Spend(toltalcoast);
                 break;

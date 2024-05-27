@@ -41,6 +41,8 @@ public class CrafSystem : MonoBehaviour,IInterac,ITimeTracker
         TimeManager.Instance.RegisterTracker(this);
     }
 
+    
+    //Craf
     #region Craf
     public void Craf()
     {
@@ -52,7 +54,7 @@ public class CrafSystem : MonoBehaviour,IInterac,ITimeTracker
         }
         timeCraft = (ItemCrafCurrent.ItemCraftSo.timeCraf) * _quantityCreat;
         isCraft = true;
-        _itemCrafted =  ItemHelper.MappingItem( ItemCrafCurrent.ItemCraftSo.itemCrafted, _quantityCreat);
+        _itemCrafted =  FactoryItem.CreateItem( ItemCrafCurrent.ItemCraftSo.itemCrafted, _quantityCreat);
         OnStateChangeDes();
     }
     private void CrafrEnd()
@@ -87,6 +89,8 @@ public class CrafSystem : MonoBehaviour,IInterac,ITimeTracker
         }
     }
     #endregion
+    
+    //Controller In Craf
     #region Controller
     private void GetMaxquantityCreate()
     {
@@ -159,8 +163,8 @@ public class CrafSystem : MonoBehaviour,IInterac,ITimeTracker
     public void InterRac(PlayerManager playerManager)
     {
         _player = playerManager;
-        setupBegin();
         _uiCraft.ToggleUICraf();
+        setupBegin();
     }
     public void CLockUpdate(GameTime gameTime)
     {

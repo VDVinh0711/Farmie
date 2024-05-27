@@ -127,6 +127,7 @@ public class UI_Craft : MonoBehaviour
     }
     public void ToggleUICraf()
     {
+        print("toggel");
         if (_panel.gameObject.activeSelf)
         {
             HideCraf();

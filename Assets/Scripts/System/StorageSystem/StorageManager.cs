@@ -34,7 +34,7 @@ namespace InventorySystem
             return  _slots.Count(slot => slot.HasItem()) >= _size;
         }
         
-        //Find Slot can add Stacl
+        //Find Slot can add StacK
         private ItemSlot FindSlotStackToAdd(Item item)
         {
             var itemAdd = _slots.FirstOrDefault(x => x.HasItem() && x.Item.ID == item.ID && x.Item is ItemStack itemSlot && itemSlot.CanStackAble());
@@ -126,7 +126,6 @@ namespace InventorySystem
                 if (relavant != null )
                 {
                     if(!(relavant.Item is ItemStack itemStack)) return;
-                    print(numberAdd);
                     itemStack.AddStack(numberAdd,  out int renumber);
                     numberAdd -= renumber;
                
@@ -149,7 +148,7 @@ namespace InventorySystem
         }                                          
         protected virtual void AcitoneChangeSomething()
         {
-            
+            //implement logic when StorageChange
         }
         public int CountItem(string ID)
         {

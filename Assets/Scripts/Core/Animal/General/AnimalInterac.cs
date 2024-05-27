@@ -42,7 +42,7 @@ public class AnimalInterac : MonoBehaviour,IInterac,IActionAccept
     }
     public void HarvestProductAnimal()
     {
-        if (_playerManager.Bag.AddItem(ItemHelper.MappingItem(_animal.AnimalObject.Itemharvest)))
+        if (_playerManager.Bag.AddItem( FactoryItem.CreateItem(_animal.AnimalObject.Itemharvest)))
         {
             _animal.PhysiologicalState.IsHarvest = false;
             _animal.GrowAnimal.SetTimeDefautHarvest();

@@ -26,7 +26,7 @@ public class ItemSlot
     {
       
         if(item == null) return;
-        switch ( item)
+        /*switch ( item)
         {
             case ItemStack itemStack :
                 _item = new ItemStack(itemStack.ItemInfor, itemStack.NumberItem);
@@ -41,68 +41,47 @@ public class ItemSlot
                 _item = new ItemDefaut(item.ItemInfor);
                break;
                 
-        }
+        }*/
+        _item = FactoryItem.CreateItem(item);
         OnChangeActionItem();
     }
     public void AsignItem(Item_SO item , int quanity , out int  requantity)
     {
         requantity = 0;
         if(item == null) return;
-        switch ( item)
-        {
-            case IStackAble stack :
-                if (quanity > stack.MaxStack)
-                {
-                    _item = new ItemStack(item, stack.MaxStack);
-                    requantity = quanity - stack.MaxStack;
-                }
-                else
-                {
-                    _item = new ItemStack(item,quanity);
-                }
-                break;
-            case AgriculturalSo agriculturalSo:
-                _item = new ItemDura(agriculturalSo);
-                requantity = quanity - 1;
-                break;
-            case ClothesItem_SO clothesItemSo :
-                _item = new ItemClothes(clothesItemSo);
-                requantity = quanity - 1;
-                break;
-            
-            default:
-                _item = new ItemDefaut(item);
-                requantity = quanity - 1;
-                break;
-        }
+        // switch ( item)
+        // {
+        //     case IStackAble stack :
+        //         if (quanity > stack.MaxStack)
+        //         {
+        //             _item = new ItemStack(item, stack.MaxStack);
+        //             requantity = quanity - stack.MaxStack;
+        //         }
+        //         else
+        //         {
+        //             _item = new ItemStack(item,quanity);
+        //         }
+        //         break;
+        //     case AgriculturalSo agriculturalSo:
+        //         _item = new ItemDura(agriculturalSo);
+        //         requantity = quanity - 1;
+        //         break;
+        //     case ClothesItem_SO clothesItemSo :
+        //         _item = new ItemClothes(clothesItemSo);
+        //         requantity = quanity - 1;
+        //         break;
+        //     
+        //     default:
+        //         _item = new ItemDefaut(item);
+        //         requantity = quanity - 1;
+        //         break;
+        // }
+        _item = FactoryItem.CreateItem(item, quanity, out requantity);
         OnChangeActionItem();
     }
     public Item GetItemInventory( int quantity = 1 )
     {
-        
-        switch (_item)
-        {
-            case ItemStack itemSlotStack:
-                var result = (itemSlotStack.GetItemSlotStack(quantity));
-                if(!itemSlotStack.HasItem()) SetEmty();
-                return result;
-                break;
-            case ItemDura itemdura:
-                var result1 = itemdura.GetItemSlotDure();
-                if(!itemdura.HasItem()) SetEmty();
-                return result1;
-                break;
-            case ItemClothes itemclothes:
-                var result2 = itemclothes.ItemClone();
-                _item.SetEmty();
-                return result2;
-            default:
-                var result3 =  _item.ItemClone();
-                _item.SetEmty();
-                return result3;
-                break;
-        }
-
+      return FactoryItem.GetItem(_item, SetEmty, OnChangeActionItem,quantity);
     }
 
     public void UseItem()
