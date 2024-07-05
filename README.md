@@ -36,3 +36,5 @@ https://youtu.be/5iKepzhIcvw
     -Lưu trữ Dữ liệu Game trên Playfab:
       Sử dụng dịch vụ Playfab để lưu trữ và quản lý dữ liệu trò chơi trực tuyến.
       Dữ liệu bao gồm thông tin tài khoản, tiến trình chơi, kho vật phẩm, và các thành tích.
+    -Làm nhiệm vụ :
+      Làm các nhiệm vụ được yêu cầu trong game để nhận lấy phần thưởng 
